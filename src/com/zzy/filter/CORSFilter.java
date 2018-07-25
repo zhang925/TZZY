@@ -1,9 +1,6 @@
 package com.zzy.filter;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sht.restcontroller.util.MySessionContext;
-import org.jeecgframework.web.system.pojo.base.TSUser;
-import org.jeecgframework.web.system.service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -40,13 +37,7 @@ public class CORSFilter implements Filter {
 
     private SystemService systemService;
     @Autowired
-    public SystemService getSystemService() {
-        return systemService;
-    }
 
-    public void setSystemService(SystemService systemService) {
-        this.systemService = systemService;
-    }
 
     public void destroy() {
 
