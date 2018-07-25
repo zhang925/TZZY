@@ -1,15 +1,7 @@
 package com.zzy.filter;
 
 import org.apache.log4j.Logger;
-import org.jeecgframework.core.annotation.JAuth;
-import org.jeecgframework.core.common.model.json.AjaxJson;
-import org.jeecgframework.core.constant.Globals;
-import org.jeecgframework.core.enums.Permission;
-import org.jeecgframework.core.extend.hqlsearch.SysContextSqlConvert;
-import org.jeecgframework.core.util.*;
-import org.jeecgframework.web.system.manager.ClientManager;
-import org.jeecgframework.web.system.pojo.base.*;
-import org.jeecgframework.web.system.service.SystemService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.method.HandlerMethod;
@@ -31,14 +23,14 @@ import java.util.*;
  * @author  张代浩
  * 
  */
-public class AuthInterceptor implements HandlerInterceptor {
+public class AuthInterceptor  { //implements HandlerInterceptor
 	 
-	private static final Logger logger = Logger.getLogger(AuthInterceptor.class);
+	/*private static final Logger logger = Logger.getLogger(AuthInterceptor.class);
 	private SystemService systemService;
 	private List<String> excludeUrls;
-	/**
+	*//**
 	 * 包含匹配（请求链接包含该配置链接，就进行过滤处理）
-	 */
+	 *//*
 	private List<String> excludeContainUrls;
 
 	public List<String> getExcludeUrls() {
@@ -66,9 +58,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 		this.systemService = systemService;
 	}
 
-	/**
+	*//**
 	 * 在controller后拦截
-	 */
+	 *//*
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object object, Exception exception) throws Exception {
 	}
 
@@ -76,11 +68,11 @@ public class AuthInterceptor implements HandlerInterceptor {
 
 	}
 
-	/**
+	*//**
 	 * 在前端的时候有时候不需要登陆就要拿到一些数据
 	 *  true 表示不需要拦截，false 需要拦截
 	 * @return
-	 */
+	 *//*
 	public boolean isHandle(HttpServletRequest request){
 		String requestUrl = request.getRequestURI();//获取当前请求的url
 
@@ -95,9 +87,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 		}
 		return flag;//不需要拦截
 	}
-	/**
+	*//**
 	 * 在controller前拦截
-	 */
+	 *//*
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) throws Exception {
 		if(isHandle( request)){//在这里可以自定一些 拦截的URL 如果 符合 不需要拦截的，return true，否则 return false;
 			//符合自定义的
@@ -155,7 +147,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 				if(requestPath.endsWith("?olstylecode=")) {
 					requestPath = requestPath.replace("?olstylecode=", "");
 				}
-				
+
 				//步骤三：  根据重组请求URL,进行权限授权判断
 				if((!hasMenuAuth(requestPath,clickFunctionId,currLoginUser)) && !currLoginUser.getUserName().equals("admin")){
 
@@ -166,9 +158,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 					}
 
 					return false;
-				} 
+				}
 
-				
+
 				//解决rest风格下 权限失效问题
 				String functionId="";
 				String uri= request.getRequestURI().substring(request.getContextPath().length() + 1);
@@ -212,36 +204,36 @@ public class AuthInterceptor implements HandlerInterceptor {
 						}
 					}
 
-					
+
 					//Set<String> operationCodes = systemService.getOperationCodesByUserIdAndFunctionId(currLoginUser.getId(), functionId);
 					//request.setAttribute(Globals.OPERATIONCODES, operationCodes);
 				//}
 				//if(!oConvertUtils.isEmpty(functionId)){
-					
+
 //					List<TSOperation> allOperation=this.systemService.findByProperty(TSOperation.class, "TSFunction.id", functionId);
 //					List<TSOperation> newall = new ArrayList<TSOperation>();
 //					if(allOperation.size()>0){
-//						for(TSOperation s:allOperation){ 
+//						for(TSOperation s:allOperation){
 //						    //s=s.replaceAll(" ", "");
-//							newall.add(s); 
+//							newall.add(s);
 //						}
 
 //						String hasOperSql="SELECT operation FROM t_s_role_function fun, t_s_role_user role WHERE  " +
 //							"fun.functionid='"+functionId+"' AND fun.operation is not null  AND fun.roleid=role.roleid AND role.userid='"+currLoginUser.getId()+"' ";
-//						List<String> hasOperList = this.systemService.findListbySql(hasOperSql); 
+//						List<String> hasOperList = this.systemService.findListbySql(hasOperSql);
 //					    for(String operationIds:hasOperList){
 //							    for(String operationId:operationIds.split(",")){
 //							    	operationId=operationId.replaceAll(" ", "");
 //							        TSOperation operation =  new TSOperation();
 //							        operation.setId(operationId);
 //							    	newall.remove(operation);
-//							    } 
-//						} 
+//							    }
+//						}
 //					}
-					/*List<TSOperation> newall = new ArrayList<TSOperation>();
+					*//*List<TSOperation> newall = new ArrayList<TSOperation>();
 					String hasOperSql="SELECT operation FROM t_s_role_function fun, t_s_role_user role WHERE  " +
 										"fun.functionid='"+functionId+"' AND fun.operation is not null  AND fun.roleid=role.roleid AND role.userid='"+currLoginUser.getId()+"' ";
-					List<String> hasOperList = this.systemService.findListbySql(hasOperSql); 
+					List<String> hasOperList = this.systemService.findListbySql(hasOperSql);
 				    for(String operationIds:hasOperList){
 						    for(String operationId:operationIds.split(",")){
 						    	operationId=operationId.replaceAll(" ", "");
@@ -250,16 +242,16 @@ public class AuthInterceptor implements HandlerInterceptor {
 						        		(operation.getOperationcode().startsWith("#")|| operation.getOperationcode().startsWith("."))){
 						        	newall.add(operation);
 						        }
-						    } 
-					} 
-					request.setAttribute(Globals.NOAUTO_OPERATIONCODES, newall);*/
+						    }
+					}
+					request.setAttribute(Globals.NOAUTO_OPERATIONCODES, newall);*//*
 
-					
+
 					 //Step.2  第二部分处理列表数据级权限 (菜单数据规则集合)
 					 List<TSDataRule> MENU_DATA_AUTHOR_RULES = new ArrayList<TSDataRule>();
 					 String MENU_DATA_AUTHOR_RULE_SQL="";
 
-					
+
 				 	//数据权限规则的查询
 				 	//查询所有的当前这个用户所对应的角色和菜单的datarule的数据规则id
 
@@ -288,13 +280,13 @@ public class AuthInterceptor implements HandlerInterceptor {
 		}
 	}
 
-	/**
+	*//**
 	 * 判断用户是否有菜单访问权限
 	 * @param requestPath
 	 * @param clickFunctionId
 	 * @param currLoginUser
 	 * @return
-	 */
+	 *//*
 	private boolean hasMenuAuth(String requestPath, String clickFunctionId, TSUser currLoginUser){
         String userid = currLoginUser.getId();
 
@@ -306,7 +298,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         if(hasMenuCount<=0){
         	return true;
         }
-        
+
         //step.2 判断菜单是否有角色权限
         Long authSize = Long.valueOf(0);
 		String sql = "SELECT count(*) FROM t_s_function f,t_s_role_function  rf,t_s_role_user ru " +
@@ -328,14 +320,14 @@ public class AuthInterceptor implements HandlerInterceptor {
 
 	}
 
-	
-	/**
+
+	*//**
 	 * 转发
-	 * 
+	 *
 	 * @param
 	 * @param
 	 * @return
-	 */
+	 *//*
 	@RequestMapping(params = "forword")
 	public ModelAndView forword(HttpServletRequest request) {
 		return new ModelAndView(new RedirectView("loginController.do?login"));
@@ -369,13 +361,13 @@ public class AuthInterceptor implements HandlerInterceptor {
 		//request.getRequestDispatcher("loginController.do?login").forward(request, response);
 
 	}
-	
-	/**
+
+	*//**
 	 * 模糊匹配字符串
 	 * @param list
 	 * @param key
 	 * @return
-	 */
+	 *//*
 	private boolean moHuContain(List<String> list, String key){
 		for(String str : list){
 			if(key.contains(str)){
@@ -385,9 +377,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 		return false;
 	}
 
-	/**
+	*//**
 	 * 判断当前请求是否为异步请求.
-	 */
+	 *//*
 	@SuppressWarnings("unused")
 	private boolean isAjax(HttpServletRequest request, HttpServletResponse response){
 		return oConvertUtils.isNotEmpty(request.getHeader("X-Requested-With"));
@@ -407,6 +399,6 @@ public class AuthInterceptor implements HandlerInterceptor {
 		}finally{
 			pw.close();
 		}
-	}
+	}*/
 
 }

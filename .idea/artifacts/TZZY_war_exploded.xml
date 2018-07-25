@@ -12,7 +12,6 @@
         </element>
       </element>
       <element id="javaee-facet-resources" facet="TZZY/web/Web" />
-      <element id="javaee-facet-resources" facet="TZZY/javaeeApplication/javaEEApplication" />
     </root>
   </artifact>
 </component>
