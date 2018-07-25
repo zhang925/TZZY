@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE poem [
+    <!ELEMENT poem (author,title,content) >
+    <!ELEMENT author (#PCDATA)>
+    <!ELEMENT title (#PCDATA)>
+    <!ELEMENT content (#PCDATA)>
+]>
+<workers>
+	<worker>
+	    <name id="abc01">张三</name>
+	    <sex>24</sex>
+	    <address>北京</address>
+	    <status>状态不好</status>
+	    <money>8000</money>
+	    <tagName>三生石</tagName>
+    </worker>
+    
+    <worker>
+	    <name id="abc02">李四</name>
+	    <sex>25</sex>
+	    <address>上海</address>
+	    <status>状态页不好</status>
+	    <money>8000</money>
+	    <tagName>ssss</tagName>
+    </worker>
+</workers>

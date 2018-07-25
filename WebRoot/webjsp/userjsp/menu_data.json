@@ -1,0 +1,35 @@
+[{    
+    "id":1,    
+    "text":"个人中心",
+    "state":"closed",
+    "iconCls":"icon-zhutou",
+    "url":"user_self.jsp",   
+    "children":[{    
+       "text":"个人信息",
+       "url":"webjsp/userjsp/user_self.jsp"
+    },{    
+        "text":"经典语录",
+        "url":"webjsp/classicjsp/classic_list.jsp"
+    },{    
+        "text":"位置",
+        "url":"webjsp/userjsp/baiduMap.html"
+    }]    
+},{    
+    "text":"其他",    
+    "state":"closed",    
+    "children":[{
+    		"text":"fff",
+    		"iconCls":"icon-add",
+            "children":[{    
+	        "text":"(1.1)" 
+		    },{    
+		        "text":"Books" 
+		    }]   
+    },{    
+        "text":"C#"   
+    }]    
+}
+
+
+
+]  

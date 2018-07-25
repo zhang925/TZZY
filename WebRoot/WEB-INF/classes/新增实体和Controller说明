@@ -1,0 +1,11 @@
+1.新增实体
+1.1 在实体的的包下增加好get set 方法
+1.2 applicationContext.xml 的 sessionFactory 的list 中配置实体
+
+
+2 新增controller  
+在  applicationContext-service.xml 中添加 类似 第一个首字母小写 第二个大写
+
+<bean id="1***" class="com.zzy.service.impl.2***Impl">
+		<property name="basedao" ref="basedao"></property>
+</bean>

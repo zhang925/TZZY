@@ -1,0 +1,161 @@
+
+<!DOCTYPE>
+
+<html>
+
+<head>
+
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+
+<title>百度地图</title>
+
+<script typet="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+
+ <style type="text/css">
+
+        html{height:100%}
+
+        body{height:100%;margin:0px;padding:0px}
+
+        #container{height:100%}
+
+    </style>
+
+    <script src="http://api.map.baidu.com/api?v=1.4" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/javascript">
+        $.getScript('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js', function(_result) {
+            if (remote_ip_info.ret == '1') {
+               
+		/*alert('国家：' + remote_ip_info.country + '<BR>省：' + remote_ip_info.province + '<BR>市：' + remote_ip_info.city + '<BR>区：' + remote_ip_info.district + '<BR>ISP：' + remote_ip_info.isp + '<BR>类型：' + remote_ip_info.type + '<BR>其他：' + remote_ip_info.desc);*/
+				
+				//alert(remote_ip_info.province+remote_ip_info.city+remote_ip_info.district+remote_ip_info.isp+remote_ip_info.type+remote_ip_info.desc);
+
+				document.getElementById("cityName").value=remote_ip_info.province+remote_ip_info.city+remote_ip_info.district+remote_ip_info.isp+remote_ip_info.type+remote_ip_info.desc;
+				setCity();
+			} else {
+				document.getElementById("cityName").value='北京';
+				setCity();
+                alert('没有找到匹配的IP地址信息！');
+            }
+        });
+</script>
+
+
+
+
+   
+
+</head>
+
+<body>
+
+ 
+
+ 
+
+<input type="text" id="cityName" value=""/>
+
+<input type="button" onclick="setCity()" value="查找" />
+
+<div id="container" style="width:500px;height:500px;"></div>
+
+ 
+
+ 
+
+
+<script type="text/javascript">
+
+    var map = new BMap.Map("container");        //在container容器中创建一个地图,参数container为div的id属性;
+
+ 
+
+    var point = new BMap.Point(120.2,30.25);    //创建点坐标
+
+    map.centerAndZoom(point, 14);                //初始化地图，设置中心点坐标和地图级别
+
+    map.enableScrollWheelZoom();                //激活滚轮调整大小功能
+
+    map.addControl(new BMap.NavigationControl());    //添加控件：缩放地图的控件，默认在左上角；
+
+    map.addControl(new BMap.MapTypeControl());        //添加控件：地图类型控件，默认在右上方；
+
+    map.addControl(new BMap.ScaleControl());        //添加控件：地图显示比例的控件，默认在左下方；
+
+    map.addControl(new BMap.OverviewMapControl());  //添加控件：地图的缩略图的控件，默认在右下方； TrafficControl    
+
+ 
+
+    var search = new BMap.LocalSearch("中国", {
+
+      onSearchComplete: function(result){
+
+        if (search.getStatus() == BMAP_STATUS_SUCCESS){
+
+          var res = result.getPoi(0);
+
+          var point = res.point;
+
+          map.centerAndZoom(point, 11);
+
+        }
+
+      },renderOptions: {  //结果呈现设置，
+
+        map: map,  
+
+        autoViewport: true,  
+
+        selectFirstResult: true 
+
+      } ,onInfoHtmlSet:function(poi,html){//标注气泡内容创建后的回调函数，有了这个，可以简单的改一下返回的html内容了。
+
+        // alert(html.innerHTML)
+
+      }//这一段可以不要，只不过是为学习更深层次应用而加入的。
+
+    });
+
+ 
+
+    function setCity(){
+
+      search.search(document.getElementById("cityName").value);
+
+    }
+
+ 
+
+    search.search(document.getElementById("cityName").value);
+
+ 
+
+ 
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

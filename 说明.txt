@@ -1,0 +1,55 @@
+<1> 本项目打算用 SpringMVC Hibernate Mysql 做MVC (2016年5月26日16:06:20)
+<2> 框架搭建 成功(2016年5月27日17:07:34)
+<3> 基本功能在2016年6月已经实现
+<4> 开发版本和发布版本最好不一样 不能带注释 安全性考虑
+
+
+
+
+//jsp	获取	 http://localhost:8099/TZZY/
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<base href="<%=basePath%>">
+ 
+// 桌面	C:\Users\zzy\Desktop
+File desktopDir = FileSystemView.getFileSystemView().getHomeDirectory();
+String desktopPath = desktopDir.getAbsolutePath();
+
+//CLASS 文件的	D:/worksoft/tocatexe/webapps/TZZY/WEB-INF/classes/
+String basePath03  = Thread.currentThread().getContextClassLoader().getResource("/").getPath();
+
+//JSP 文件的路径	D:\worksoft\tocatexe\webapps\TZZY\
+String realPath = request.getSession().getServletContext().getRealPath("/");
+	
+
+
+${fn:substring(wl.content,0,10)}${fn:length(wl.content)>10?'...':''}
+
+	//获取配置文件   
+	  Properties p=new Properties();    
+	 InputStream is;
+	 //String basePath = request.getSession().getServletContext().getRealPath("/"); +/WEB-INF/classes/
+	 String basePath = Thread.currentThread().getContextClassLoader().getResource("/").getPath();
+		try {
+			//获取陪着文件
+			is = new FileInputStream(basePath+"/downloadpath.properties");
+			p.load(is);  
+			is.close(); 
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		 String downpath =  p.getProperty("path");
+		 
+-----------------修改的内存的方法[在JAVA_OPTS下面的下滑线下面添加一下配置]
+set JAVA_OPTS=%JAVA_OPTS% -server -XX:PermSize=512m -XX:MaxPermSize=512m -Xms512m -Xmx1024m -XX:MaxNewSize=512m
+
+	 
+new String(downname.getBytes("GBK"), "ISO-8859-1");
+		 
+查看端口占用		 netstat -aon|findstr "8888"
+
+		 

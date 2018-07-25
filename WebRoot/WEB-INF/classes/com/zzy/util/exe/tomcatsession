@@ -1,0 +1,96 @@
+防止user冲突
+session.setAttribute(用户唯一id+user, user);//这样就不会冲突
+
+
+
+
+问题描述： 
+session常常用来存储一些公共信息供不同页面访问，比如用户登录信息。访问同一个tomcat下的不同项目所创建的session是不一样的。自然地面临了如何共享session的问题。
+
+解决思路： 
+解决数据共享问题的思路无非两种 
+1、找个公共的地方存放共享的数据 
+2、不同数据源之间做数据同步
+
+解决方案： 
+1、修改tomcat的server.xml文件 
+每一个web应用程序都有唯一一个ServletContext实例对象，被该web应用下面的每一个servlet共享。通过修改tomcat的server.xml，使不同web应用的ServletContext可以互相访问。然后，用ServletContext的setAttribute()方法把session存入ServletContext中，在另一个web程序就可以用getAttribute()方法取得传递过来的session。
+
+server.xml文件修改如下：
+
+ <Host name="localhost"  appBase="webapps"unpackWARs="true" autoDeploy="true">
+    <Context path="/WebappA"  debug="9" reloadable="true" crossContext="true"/> //WebappA为项目名，crossContext="true"是关键
+    <Context path="/WebappB"  debug="9" reloadable="true" crossContext="true"/>
+</Host>
+1
+2
+3
+4
+1
+2
+3
+4
+crossContext属性的意思是：如果设置为true，你可以通过ServletContext.getContext() 调用另外一个WEB应用程序，获得ServletContext 然后再调用其getAttribute() 得到你要的对象。
+
+Java代码如下：
+
+WebappA:
+
+HttpSession session = request.getSession();
+session.setAttribute("userId", "test");
+ServletContext ContextA =session .getServletContext();
+ContextA.setAttribute("session", session );
+1
+2
+3
+4
+1
+2
+3
+4
+WebappB:
+
+HttpSession sessionB = request.getSession();  
+ServletContext ContextB = sessionB.getServletContext();  
+ServletContext ContextA= ContextB.getContext("/WebappA");// 这里面传递的是 WebappA的虚拟路径
+HttpSession sessionA =(HttpSession)ContextA.getAttribute("session");
+System.out.println("userId: "+sessionA.getAttribute("userId"));
+1
+2
+3
+4
+5
+1
+2
+3
+4
+5
+2、用数据库存放session数据 
+将session数据存入数据库，不同web程序读取数据库数据即可。这样做的好处是实现简单，缺点是每次请求都要读写一次数据库，加大了系统开销。
+
+3、用cookie代替session 
+cookie是存放在本地硬盘上的文件，适合用于存放小量数据，且可以通过cookie.setPath(“/”)方法设置cookie为同一tomcat下的所有webapp共享。cookie.setPath(“/”)方法的参数”/”表示tomcat的webapps文件夹下的所有应用共享该cookie。
+
+java代码 
+写cookie：
+
+SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+Cookie cookie = new Cookie("loginTime",df.format(new Date()));
+cookie.setPath("/"); //Tomcat的webapps目录下共享
+context.getHttpResponse().addCookie(cookie);
+1
+2
+3
+4
+1
+2
+3
+4
+读cookie:
+
+Cookie[] cookies = context.getHttpRequest().getCookies();
+        for(Cookie c :cookies ){
+            if(c.getName().equals("loginTime")){
+                System.out.println("loginTime: " + c.getValue());
+            }
+        }

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  <servlet>
+    <description></description>
+    <display-name>uploadServlet</display-name>
+    <servlet-name>uploadServlet</servlet-name>
+    <servlet-class>com.zzy.web.uploadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>uploadServlet</servlet-name>
+    <url-pattern>/uploadServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+
+  
+  
+  
+	<!-- 加载spring容器 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext*.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+  
+  <!-- springmvc前端控制器 -->
+	<servlet>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- contextConfigLocation配置springmvc加载的配置文件（配置处理器映射器、适配器等等） 如果不配置contextConfigLocation，默认加载的是/WEB-INF/servlet名称-serlvet.xml（springmvc-servlet.xml） -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:springmvc.xml</param-value>
+		</init-param>
+	</servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>FileNameFilter</servlet-name>
+    <servlet-class>com.zzy.filter.FileNameFilter</servlet-class>
+  </servlet>
+
+
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<!-- 第一种：*.action，访问以.action结尾 由DispatcherServlet进行解析 第二种：/，所以访问的地址都由DispatcherServlet进行解析，对于静态文件的解析需要配置不让DispatcherServlet进行解析 
+			使用此种方式可以实现 RESTful风格的url 第三种：/*，这样配置不对，使用这种配置，最终要转发到一个jsp页面时， 仍然会由DispatcherServlet解析jsp地址，不能根据jsp页面找到handler，会报错。 -->
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FileNameFilter</servlet-name>
+    <url-pattern>/FileNameFilter</url-pattern>
+  </servlet-mapping>
+  	
+	
+	
+	<!-- 乱码处理 -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>com.zzy.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	
+<!-- 	在线聊天用 	 -->
+	<servlet>
+		<servlet-name>Messages</servlet-name>
+		<servlet-class>com.zzy.web.Messages</servlet-class>
+	</servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>uploadFileAjax</servlet-name>
+    <servlet-class>com.zzy.web.uploadFileAjax</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>MyServlet</servlet-name>
+    <servlet-class>com.zzy.web.MyServlet</servlet-class>
+  </servlet>
+
+
+	<servlet-mapping>
+		<servlet-name>Messages</servlet-name>
+		<url-pattern>/Messages</url-pattern>
+	</servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>uploadFileAjax</servlet-name>
+    <url-pattern>/uploadFileAjax</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MyServlet</servlet-name>
+    <url-pattern>/MyServlet</url-pattern>
+  </servlet-mapping>
+	
+	
+	
+	
+    <!-- 非正常进入的判断 该过滤 会过滤掉引用页面 所以不建议开启过滤 -->
+  <filter>  
+    <filter-name>jspFilter</filter-name>  
+    <filter-class>com.zzy.filter.jspFilter</filter-class>  
+</filter>  
+<filter-mapping>  
+    <filter-name>jspFilter</filter-name>  
+    <url-pattern>/*</url-pattern>  
+</filter-mapping>  
+
+ 
+ <!--
+ 
+ 
+  <filter>
+  	<filter-name>XssHttpServletRequestWraper</filter-name>
+  	<filter-class>com.zzy.filter.XssHttpServletRequestWraper</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>XssHttpServletRequestWraper</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+ 
+  
+  -->
+  
+	<!-- 404 错误页面跳转 -->
+	<error-page> 
+		<error-code>404</error-code> 
+		<location>/error.jsp</location> 
+	</error-page> 
+	<!-- 500 错误页面跳转 -->
+	<error-page> 
+		<error-code>500</error-code> 
+		<location>/error.jsp</location>
+	</error-page>
+	<!-- 空异常 面跳转 -->
+	<error-page> 
+		<exception-type>java.lang.NullException</exception-type> 
+		<location>/error.jsp</location> 
+	</error-page>
+  
+  <welcome-file-list>
+   <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

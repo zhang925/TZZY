@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+	http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd"
+	default-lazy-init="false">
+<!-- default-autowire="byName"  加上对定时器的配置有影响 -->
+
+<!-- 这里总结了三种方式，四种方法，可选择使用。 -->
+
+<!-- 方法一：继承QuartzJobBean方式	配置xml之后,去写一个集成QuartzJobBean的方法即可 -->
+<!-- <bean name="job1" class="org.springframework.scheduling.quartz.JobDetailBean">  
+	定时器要执行的java类
+	<property name="jobClass" value="com.zzy.controller.task.Job1" />  
+	<property name="jobDataAsMap">  
+		<map>  
+			<entry key="timeout" value="0" />  
+		</map>  
+	</property>  
+</bean>
+<bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean" autowire="no" >  
+	指向name=job1的bean  
+	<property name="jobDetail" ref="job1" />  
+	调度工厂实例化后，经过0秒开始执行调度  
+	<property name="startDelay" value="0" /> 
+	每2秒调度一次
+	<property name="repeatInterval" value="4000" />
+</bean> 
+<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean"  autowire="no" >  
+指向name=job1的bean 
+<property name="jobDetail" ref="job1" />  
+每天12:00运行一次 
+<property name="cronExpression" value="0 52 16 * * ?" />  
+</bean>
+
+<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean" autowire="no" >  
+	<property name="triggers">  
+		<list>
+			把定时器 的bean 的 定时器加入任务  
+			<ref bean="cronTrigger" /> 
+			<ref bean="simpleTrigger" />
+		</list>  
+	</property>  
+</bean>  -->
+	
+
+	
+	
+<!--方法二：不 继承QuartzJobBean方式 ,这个方法比较灵活，可以根据不同的要求,配置不同的xml，设置不同的方法, 配置好xml后，直接写一个普通的类就行 -->
+
+<!-- <bean id="job2"  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean" autowire="no">  
+	<property name="targetObject">  
+		<bean class="com.zzy.controller.task.Job2" />  
+	</property>  
+	对应类的方法
+	<property name="targetMethod" value="doJob2" />  
+	作业不并发调度 
+	<property name="concurrent" value="false" /> 
+</bean> 
+
+<bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean" autowire="no" >  
+<property name="jobDetail" ref="job2" /> 
+调度工厂实例化后，经过0秒开始执行调度 
+<property name="startDelay" value="0" /> 
+<property name="repeatInterval" value="3000" />每3秒调度一次  
+</bean> 
+
+<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean" autowire="no">  
+<property name="jobDetail" ref="job2" />  
+每天某个时间运行一次 
+<property name="cronExpression" value="0 10 17 * * ?" />  
+</bean>
+<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean" autowire="no">  
+	<property name="triggers">  
+		<list>  
+			<ref bean="cronTrigger" />
+			<ref bean="simpleTrigger" /> 
+		</list>  
+	</property>  
+</bean>  -->
+	
+	
+	
+<!-- 方法三：Spring task  -->	
+<!-- 方法三.方式1 注意: 因为是指定扫描包 所以 该 包下面的 @Service("taskJob") 类 与 ref 照应 不能有重复的 -->
+<!-- <task:scheduled-tasks>   
+        <task:scheduled ref="taskJob" method="job1" cron="0 34 10 * * ?"/>   
+</task:scheduled-tasks>  
+<context:component-scan base-package="com.zzy.controller.task" />  -->
+	
+	
+<!-- 方法三.方式2 执行该扫描包下的注解有 @Component的java文件-->
+<context:annotation-config />
+<!-- spring扫描注解的配置 -->
+<context:component-scan base-package="com.zzy.controller.task" /> 
+<!--  开启这个配置，spring才能识别@Scheduled注解  -->
+<task:annotation-driven scheduler="qbScheduler" mode="proxy"/>  
+<task:scheduler id="qbScheduler" pool-size="10"/>  	
+
+
+ 
+	 
+</beans>
