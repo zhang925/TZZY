@@ -1,4 +1,4 @@
-﻿package com.zzy.model;
+package com.zzy.model;
 
 import java.util.Vector;
 
@@ -10,11 +10,11 @@ public class UserInfo {
 
 	private static UserInfo user = new UserInfo();
 
-	@SuppressWarnings("rawtypes")
+
 	private Vector vector = null;
 
 	// 利用private调用构造函数，防止被外界产生新的instance对象
-	@SuppressWarnings("rawtypes")
+
 	private UserInfo() {
 		this.vector = new Vector();
 	}
@@ -25,7 +25,7 @@ public class UserInfo {
 	}
 
 	// 增加用户
-	@SuppressWarnings("unchecked")
+
 	public boolean addUser(String user) {
 		if (user != null) {
 			this.vector.add(user);
@@ -36,7 +36,7 @@ public class UserInfo {
 	}
 
 	// 获取用户列表
-	@SuppressWarnings("rawtypes")
+
 	public Vector getList() {
 		return vector;
 	}

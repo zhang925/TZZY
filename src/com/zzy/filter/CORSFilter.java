@@ -8,6 +8,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
+import javax.servlet.ServletResponse;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
@@ -31,19 +32,19 @@ import java.util.Map;
  * @Time 2018年6月
  * @Author zzy
  */
-@Controller
-public class CORSFilter implements Filter {
+//@Controller
+public class CORSFilter  { //implements Filter
 
+    //@Autowired
+    //private SystemService systemService;
 
-    private SystemService systemService;
-    @Autowired
 
 
     public void destroy() {
 
     }
 
-    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
+    /*public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
 
         HttpServletResponse response = (HttpServletResponse) resp;
         response.setHeader("Access-Control-Allow-Origin","*");
@@ -71,7 +72,7 @@ public class CORSFilter implements Filter {
 
     public void init(FilterConfig config) throws ServletException {
 
-    }
+    }*/
 
 
     /**
@@ -79,7 +80,7 @@ public class CORSFilter implements Filter {
      *  true 表示不需要拦截，false 需要拦截
      * @return
      */
-    public boolean isHandle(HttpServletRequest request){
+  /*  public boolean isHandle(HttpServletRequest request){
         String requestUrl = request.getRequestURI();//获取当前请求的url
         requestUrl = requestUrl.replace("/","");
         boolean flag = false;
@@ -109,28 +110,12 @@ public class CORSFilter implements Filter {
                 }
             }
         }
-        //系统免过滤的白名单，在单点登录的sso.properties的white.list配置
-      /* String whiteList = UtilSht.getPripertyPath("sso.properties",null,"white.list");
 
-        if(whiteList!=null && !"".equals(whiteList)){
-            whiteList = whiteList.trim();
-            String str [] = whiteList.split(";");
-            if(str!=null && str.length>0){
-                for(String temp:str){
-                    if( requestUrl.indexOf(temp)!=-1){//找到该地址
-                        flag = true;
-                        break;
-                    }
-                }
-            }
-
-        }
-        */
         return flag;//不需要拦截
     }
+*/
 
-
-
+/*
     public boolean isAuthorization( HttpServletResponse response){
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         if(isHandle( request)){//是白名单
@@ -169,5 +154,5 @@ public class CORSFilter implements Filter {
             }
         }
         return false;
-    }
+    }*/
 }

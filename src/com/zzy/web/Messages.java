@@ -1,4 +1,4 @@
-﻿package com.zzy.web;
+package com.zzy.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;

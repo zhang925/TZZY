@@ -26,8 +26,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="lib2" level="project" />
-    <orderEntry type="library" name="lib" level="project" />
-    <orderEntry type="library" name="lib1" level="project" />
+    <orderEntry type="library" name="activation-1.1" level="project" />
+    <orderEntry type="library" name="jsp-api" level="project" />
   </component>
 </module>
