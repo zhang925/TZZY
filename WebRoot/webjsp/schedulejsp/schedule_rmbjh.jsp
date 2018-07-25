@@ -25,7 +25,7 @@
 	<table width="1000">
 		<tr>
 			<td>
-				<span>一百元：人民大会堂<i style="color: blue;">[2016年6月10日]</i></span>
+				<span>一百元：人民大会堂<i style="color: blue;">[2010年6月]</i></span>
 				<img alt="100元风景" title="100元风景" src="../../image/rmbfj/100yuanfj.jpg" width="300" height="200"><br/>
 			</td>
 			<td>
@@ -33,7 +33,7 @@
 				<img alt="50元风景" title="50元风景" src="../../image/rmbfj/50yuanfj.jpg" width="300" height="200"><br/>
 			</td>
 			<td>
-				<span>二十元：桂林山水</span>
+				<span>二十元：桂林山水<i style="color: blue;">[2018年5月6日]</i></span>
 				<img alt="20元风景" title="20元风景" src="../../image/rmbfj/20yuanfj.jpg" width="300" height="200"><br/>
 			</td>
 		</tr>
