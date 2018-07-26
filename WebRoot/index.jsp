@@ -241,6 +241,7 @@ function logindialog(){
 	    drag: true,//是否允许拖拽
 	    resize: false,//是否允许调窗口大小
 	    height: 300,
+		top:100,
 	    lock:true,
 	    max: false,
 	    min: false,
@@ -267,6 +268,8 @@ function logindialog(){
 		    content: cont,
 		    title: "提示",
 		    width: "150px",
+        	top:100,
+        	right:100,
 		    drag: true,//是否允许拖拽
 		    resize: false,//是否允许调窗口大小
 		    height: 50,
@@ -316,6 +319,7 @@ function logindialog(){
 		    title: "快递查询",
 		    width: "600px",
 		    height: 400,
+        	top:100,
 		    drag: true,//是否允许拖拽
 		    resize: false,//是否允许调窗口大小
 		    lock:true,
