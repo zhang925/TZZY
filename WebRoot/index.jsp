@@ -70,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    
     
     <div id="important"  >
-  		
+		<div style="max-width:1500px;min-width: 1000px;margin: 0 auto"><img src="../image/indeximg/bj_import.png" height="255px" style="width:100%;min-width: 1000px;" /></div>
     </div>
       
    
@@ -95,28 +95,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     
 	  	<%-- 中间部分左侧开始 --%>
-	  	<div id="mian_left" style="height: 500px;" >
-
-	  	</div>
+	  	<div id="mian_left" style="height: 500px;" ></div>
 	  	<%-- 中间部分左侧结束 --%>
 	  	
 	  	<%-- 中间部分中部开始 --%>
 	  	<div id="mian_center">
-	  	 	
-	
-	  	
-	  	
-	  	
+
 			<div class="main_wenzi">
-			
-			
-
-			
-			
-			
 			<a style="color: red;">还有我--任贤齐</a>
-
-
 <!--	播放器		-->
 	<div >
 <!--	1、自动播放：autostart=true、false	
@@ -132,10 +118,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		11、前景色和背景色：palette=color|color
 		12、对齐方式：align=top、bottom、center、baseline、 left、right、texttop、middle、absmiddle、absbottom
 						height=60px;  -->
- <%-- 
+
 				<embed src="mp3/haiyouwo.mp3" title="冬天的秘密" height=80px;  loop="true" autostart="false" type="audio/mpeg"></embed>
 				
-	--%>			
+
 				
 		  	</div>
 <pre>
