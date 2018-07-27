@@ -93,7 +93,13 @@ public class DatagridSerach {
 		criteria.add(Restrictions.or(Restrictions.ne("state", "del"),Restrictions.isNull("state")));
 		//String citycode = request.getParameter("citycode");
 	}
-	
+
+	public static void searchCategory(HttpServletRequest request, Criteria criteria) {
+		//状态不是del的
+		//criteria.add(Restrictions.or(Restrictions.ne("state", "del"),Restrictions.isNull("state")));
+		//String citycode = request.getParameter("citycode");
+	}
+
 	
 	
 	

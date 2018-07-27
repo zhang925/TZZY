@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.zzy.model.Category;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
@@ -57,12 +58,16 @@ public class Datagrid {
 		//utilService.close(session);	spring 可以不关闭
 		util_Json.jsonForEasyUI(list, total , response);
 	}
+
+	public static void list(HttpServletRequest request,HttpServletResponse response,Class cla){
+		list( request, response, cla, null);
+	}
 	/**
 	 * DataGrid 的通用 DetachedCriteria 查询
 	 * @param request
 	 * @param response
-	 * @param cla[本实体]
-	 * @param clalist[本实体关联的实体(可多个)按顺序写]
+	 * @param cla [本实体]
+	 * @param clalist [本实体关联的实体(可多个)按顺序写]
 	 * @param utilService
 	 */
 	public static void list2(HttpServletRequest request,HttpServletResponse response,Class cla,List<Class> clalist, UtilService utilService){
@@ -111,7 +116,10 @@ public class Datagrid {
 				DatagridSerach.searchTxl(request, criteria);
 			}else if(objcla instanceof TxlGroup){
 				DatagridSerach.searchTxlGroup(request, criteria);
+			}else if(objcla instanceof Category){
+				DatagridSerach.searchCategory(request, criteria);
 			}
+
 			
 			
 			

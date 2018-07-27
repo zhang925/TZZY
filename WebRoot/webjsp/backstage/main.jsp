@@ -145,15 +145,35 @@
 				"url": "http://fanyi.baidu.com/"
 			}]
 		}
-		
+
+            ,
+            {
+                "menuid": "117",
+                "menuname": "分类管理",
+                "icon": "icon-log",
+                "url": "",
+                "child": [{
+                    "menuid": "1171",
+                    "menuname": "分类管理",
+                    "icon": "icon-role",
+                    "url": "../../api/category/list"
+                },
+                    {
+                        "menuid": "154",
+                        "menuname": "其他",
+                        "icon": "icon-set",
+                        "url": "../../api/category/jump"
+                    }]
+            }
+
 		,
 		{
-			"menuid": "117",
+			"menuid": "118",
 			"menuname": "其他",
 			"icon": "icon-log",
 			"url": "",
 			"child": [{
-				"menuid": "1171",
+				"menuid": "1181",
 				"menuname": "配置管理",
 				"icon": "icon-role",
 				"url": "../sysconfigurejsp/sysconfigure_list.jsp"
