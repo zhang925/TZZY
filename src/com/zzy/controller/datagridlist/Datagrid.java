@@ -3,6 +3,7 @@ package com.zzy.controller.datagridlist;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.stereotype.Controller;
 
 import com.zzy.dao.BaseDao;
@@ -23,6 +25,11 @@ import com.zzy.model.mail.TxlGroup;
 import com.zzy.service.UtilService;
 import com.zzy.util.util_Empty;
 import com.zzy.util.util_Json;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.web.context.support.XmlWebApplicationContext;
 
 /**
  * time: 2016年11月21日14:24:13 <br/>
@@ -33,7 +40,11 @@ import com.zzy.util.util_Json;
  * @author zzy
  */
 public class Datagrid {
-	
+
+
+	private static UtilService utilService;
+
+
 	/**
 	 * DataGrid 的通用 Criteria查询
 	 * @param request
@@ -59,8 +70,18 @@ public class Datagrid {
 		util_Json.jsonForEasyUI(list, total , response);
 	}
 
-	public static void list(HttpServletRequest request,HttpServletResponse response,Class cla){
-		list( request, response, cla, null);
+	public static void list(Class cla){
+
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+
+		HttpServletResponse response = ((ServletWebRequest)RequestContextHolder.getRequestAttributes()).getResponse();
+		//解决 filter 中注入  systemService 失败
+		ServletContext sc = request.getSession().getServletContext();
+		XmlWebApplicationContext cxt = (XmlWebApplicationContext) WebApplicationContextUtils.getWebApplicationContext(sc);
+		if(cxt != null && cxt.getBean("utilService") != null){
+			utilService = (UtilService) cxt.getBean("utilService");
+		}
+		list( request, response, cla, utilService);
 	}
 	/**
 	 * DataGrid 的通用 DetachedCriteria 查询
