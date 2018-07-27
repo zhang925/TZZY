@@ -2,6 +2,7 @@ package com.zzy.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zzy.dao.BaseDao;
@@ -10,6 +11,7 @@ import com.zzy.service.TxlService;;
 
 /**市区 接口的实现*/
 @Transactional
+@Service()
 public class TxlServiceImpl implements TxlService{
 	private BaseDao<Txl> basedao;
 	

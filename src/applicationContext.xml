@@ -68,42 +68,45 @@
                 日志用的filter:log4j
                防御SQL注入的filter:wall -->
 <!--         <property name="filters" value="stat" />    -->
-        
-		
-		
-		
-		
-		
-		
-		
+
+
 		
 	</bean>
 	
 	<!--  配置	sessionFactory	 -->
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
-		p:dataSource-ref="dataSource" p:mappingLocations="classpath*:/**/*.hbm.xml">
-		<property name="annotatedClasses">    
+		p:dataSource-ref="dataSource" >
+
+		<!-- 扫描的实体 所在的包 -->
+		<property name="packagesToScan">
+			<list>
+				<value>com.zzy.model*</value>
+				<value>com.zzy.model</value>
+			</list>
+		</property>
+
+		<!--<property name="annotatedClasses">
              <list>
-				<!-- 每次新添加实体在这配置一下就行了    -->
+				&lt;!&ndash; 每次新添加实体在这配置一下就行了    &ndash;&gt;
              	<value>com.zzy.model.User</value>
              	<value>com.zzy.model.Files</value>
              	<value>com.zzy.model.Worklog</value>
              	<value>com.zzy.model.BornInfo</value>
              	<value>com.zzy.model.Classic</value>
-             	
              	<value>com.zzy.model.district.Area</value>
              	<value>com.zzy.model.district.City</value>
              	<value>com.zzy.model.district.Province</value>
              	<value>com.zzy.model.district.District</value>
-             	
              	<value>com.zzy.model.SysConfigure</value>
              	<value>com.zzy.model.mail.Txl</value>
              	<value>com.zzy.model.mail.Zmail</value>
              	<value>com.zzy.model.mail.TxlGroup</value>
              	<value>com.zzy.model.mail.ZmailRelationShip</value>
-             	
-             </list>     
-        </property>
+             </list>
+        </property>-->
+
+
+
 		<property name="hibernateProperties">
 			<props>
 <!--<prop key="hibernate.dialect">org.hibernate.dialect.Oracle9Dialect</prop>-->
@@ -116,6 +119,8 @@
 				<prop key="hibernate.cache.use_second_level_cache">true</prop>
 				<prop key="hibernate.cache.use_query_cache">true</prop>
 				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.EhCacheRegionFactory</prop>
+				<!-- 自动更新表 -->
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
 			</props>
 		</property>
 		

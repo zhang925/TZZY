@@ -2,6 +2,7 @@ package com.zzy.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zzy.dao.BaseDao;
@@ -9,6 +10,7 @@ import com.zzy.model.BornInfo;
 import com.zzy.service.BornInfoService;
 
 @Transactional
+@Service()
 public class BornInfoServiceImpl implements BornInfoService{
 private BaseDao<BornInfo> basedao;
 	

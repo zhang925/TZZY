@@ -21,17 +21,14 @@ import com.zzy.service.UserService;
  *
  */
 @Transactional
+@Service()
 //springMVC和hibernate结合必须加上不然会报
 //No Session found for current thread 异常
 public class UserServiceImpl implements UserService{
-	
+
+	@Autowired
 	private BaseDao<User> basedao;
-	public BaseDao<User> getBasedao() {
-		return basedao;
-	}
-	public void setBasedao(BaseDao<User> basedao) {
-		this.basedao = basedao;
-	}
+
 	public List<User> getAllUser(String hql,Object param[]) {
 		return basedao.find(hql,param );
 	}

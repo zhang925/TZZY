@@ -2,6 +2,7 @@ package com.zzy.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zzy.dao.BaseDao;
@@ -11,6 +12,7 @@ import com.zzy.util.page.PageZzy;
 
 /**省份 接口的实现*/
 @Transactional
+@Service()
 public class ProvinceServiceImpl implements ProvinceService{
 	private BaseDao<Province> basedao;
 	

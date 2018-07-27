@@ -30,7 +30,19 @@
      当出现问题的时候可以尝试改成这样-->
     <context:component-scan base-package="com.zzy.controller" > 
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>   
-    </context:component-scan>    
+    </context:component-scan>
+
+	<!-- 扫描webservice -->
+	<context:component-scan base-package="com.zzy.webservice"/>
+	<!-- 扫描 service -->
+	<context:component-scan base-package="com.zzy.service"/>
+	<!-- 扫描实体 -->
+	<context:component-scan base-package="com.zzy.model"/>
+	<!-- 扫描其他 -->
+	<context:component-scan base-package="com.zzy.*"/>
+
+
+
 	  
  	<!--  配置 HanderMapping 根据bean name 找到 对应的 Controller -->
  	<bean class="org.springframework.web.servlet.mvc.support.ControllerBeanNameHandlerMapping"></bean>

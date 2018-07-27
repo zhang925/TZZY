@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.*;
 import org.hibernate.criterion.Projections;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -18,6 +19,7 @@ import com.zzy.service.UtilService;
 import com.zzy.util.util_Empty;
 
 @Transactional
+@Service()
 public class UtilServiceImpl implements UtilService {
 	private BaseDao<BornInfo> basedao;
 	

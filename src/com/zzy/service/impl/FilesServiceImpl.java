@@ -3,6 +3,7 @@ package com.zzy.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zzy.dao.BaseDao;
@@ -10,6 +11,7 @@ import com.zzy.model.Files;
 import com.zzy.service.FilesService;
  /**文件服务的接口的实现*/
 @Transactional
+@Service()
 public class FilesServiceImpl implements FilesService {
 	
 	private BaseDao<Files> basedao;

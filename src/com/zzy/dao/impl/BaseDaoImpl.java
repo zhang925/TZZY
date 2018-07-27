@@ -12,8 +12,9 @@ import org.springframework.stereotype.Repository;
 
 import com.zzy.dao.BaseDao;
 import com.zzy.model.district.District;
+import org.springframework.transaction.annotation.Transactional;
 
-
+@Transactional//事务处理的注解
 public class BaseDaoImpl<T> implements BaseDao<T> {
 	
 	
