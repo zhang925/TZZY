@@ -19,9 +19,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 
 	function test (src){
-	 	  //var rows = $('#t_user').datagrid('getSelections');获取选中checkbox的值
+	 	  //var rows = $('#t_province').datagrid('getSelections');获取选中checkbox的值
 	 	  //var rows = $('#dg').datagrid('getSelected');//返回第一个被选中的行 		选中行的时候
-		  var rows = $('#t_user').datagrid('getRows');
+		  var rows = $('#t_province').datagrid('getRows');
 		  var row = rows[8];
 		  var id = row.uid;
 	}
@@ -98,7 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						handler: function(){
 							//允许多行选中(但只能选中一条)
 						    var ids = [];
-						    var rows = $('#t_user').datagrid('getSelections');
+						    var rows = $('#t_province').datagrid('getSelections');
 						    for(var i=0; i<rows.length; i++){
 						    	ids.push(rows[i].uid);
 						    }
@@ -127,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						handler: function(){
 							//允许多行选中(但只能选中一条)
 						    var ids = [];
-						    var rows = $('#t_user').datagrid('getSelections');
+						    var rows = $('#t_province').datagrid('getSelections');
 						    for(var i=0; i<rows.length; i++){
 						    	ids.push(rows[i].uid);
 						    }
@@ -149,14 +149,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						text:'删除',
 						handler: function(){
 							/*只允许单个选中
-							var row = $('#t_user').datagrid('getSelected');
+							var row = $('#t_province').datagrid('getSelected');
 							if (row){
 								alert('Item ID:'+row.id+"username:"+row.username);
 							}
 							*/
 							//允许多行选中
 						    var ids = [];
-						    var rows = $('#t_user').datagrid('getSelections');
+						    var rows = $('#t_province').datagrid('getSelections');
 						    for(var i=0; i<rows.length; i++){
 						    	ids.push(rows[i].uid);
 						    }
@@ -205,7 +205,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			
 			  //设置分页控件  
-		    var p = $('#t_user').datagrid('getPager'); 
+		    var p = $('#t_province').datagrid('getPager');
 		    $(p).pagination({  
 		        pageSize: 10,//每页显示的记录条数，默认为10  
 		        pageList: [5,10,15,20],//可以设置每页记录条数的列表  
@@ -239,7 +239,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        		//alert(data+"data.message:"+data.message);
 			        		if(data.message=="success"){
 			        			$.messager.alert('提示','删除成功！','info');
-			        			$('#t_user').datagrid('load',{});//刷新页面数据
+			        			$('#t_province').datagrid('load',{});//刷新页面数据
 			        		}else{
 			        			$.messager.alert('警告',data.message,'warning');
 			        		}
@@ -286,7 +286,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var pname = $("#pname").val();
 			var pstate = $("#pstate").val();
 			//alert("搜索1："+pid+"--"+pusername+"--"+pname);
-			$('#t_user').datagrid('load',{
+			$('#t_province').datagrid('load',{
 		    		uid: pid,
 		    		name: pname,
 		    		username:pusername,
@@ -299,11 +299,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$("#pusername").val("");
 			$("#pname").val("");
 			$("#pstate").val("");
-			$('#t_user').datagrid('load',{});
+			$('#t_province').datagrid('load',{});
 		}
 		/*搜索2*/
 		    function doSearch(){
-		    	$('#t_user').datagrid('load',{
+		    	$('#t_province').datagrid('load',{
 		    		pid: $('#pids').val(),
 		    		pname: $('#pnames').val()
 		    	});
@@ -318,7 +318,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		$("#t_city").datagrid({
 				idField:'id',//标识列
-				width:200,
+				width:280,
 				height:380,
 				url:'cityController/list.do?provincecode='+code,
 				singleSelect:true,//单选
@@ -351,7 +351,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function seearea(code){
 		$("#t_area").datagrid({
 				idField:'id',//标识列
-				width:200,
+				width:280,
 				height:380,
 				url:'areaController/list.do?citycode='+code,
 				singleSelect:true,//单选
@@ -391,13 +391,13 @@ $('#dg').datagrid("reload");
 	<div>
 	<%--<a href="<%=basePath%>index.jsp">返回首页</a>--%>
 	<%-- 列表信息 --%>
-<div id="cc" class="easyui-layout" style="width:800px;height:422px;">   
+<div id="cc" class="easyui-layout" style="width:880px;height:422px;">
 <!-- 上 -->
 <!--     <div data-options="region:'north',title:'North Title',split:true" style="height:100px;"></div>    -->
 <!-- 下 -->     
 <!--     <div data-options="region:'south',title:'South Title',split:true" style="height:100px;"></div>    -->
 <!-- 中  右  title:'中  右', -->      
-    <div data-options="region:'east',title:'地区',split:false,collapsible:false" style="width:280px;">
+    <div data-options="region:'east',title:'地区',split:false,collapsible:false" style="width:285px;">
     	<!-- 地区 的datagrid -->
     	<table id="t_area"></table>
     </div>   
@@ -407,7 +407,7 @@ $('#dg').datagrid("reload");
     	<table id="t_province"></table>
     </div>   
 <!-- 中   -->     
-    <div data-options="region:'center',title:'市区'" style="padding:5px;">
+    <div data-options="region:'center',title:'市区'" style="padding:1px;">
     	<!-- 市区 的datagrid -->
     	<table id="t_city"></table>
     </div>   
