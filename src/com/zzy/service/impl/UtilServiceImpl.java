@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.*;
 import org.hibernate.criterion.Projections;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,15 +22,10 @@ import com.zzy.util.util_Empty;
 @Transactional
 @Service()
 public class UtilServiceImpl implements UtilService {
+
+	@Autowired
 	private BaseDao<BornInfo> basedao;
-	
-	public BaseDao<BornInfo> getBasedao() {
-		return basedao;
-	}
-	
-	public void setBasedao(BaseDao<BornInfo> basedao) {
-		this.basedao = basedao;
-	}
+
 	
 	private SessionFactory sessionFactory;
 

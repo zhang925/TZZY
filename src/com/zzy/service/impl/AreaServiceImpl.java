@@ -2,6 +2,8 @@ package com.zzy.service.impl;
 
 import java.util.List;
 
+import com.zzy.model.district.Province;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,15 +15,9 @@ import com.zzy.service.AreaService;
 @Transactional
 @Service()
 public class AreaServiceImpl implements AreaService{
+	@Autowired
 	private BaseDao<Area> basedao;
-	
-	public BaseDao<Area> getBasedao() {
-		return basedao;
-	}
-	
-	public void setBasedao(BaseDao<Area> basedao) {
-		this.basedao = basedao;
-	}
+
 	/**根据实体ID删除Area*/
 	public Integer delAreaByID(Integer id) {
 		Integer i=1;

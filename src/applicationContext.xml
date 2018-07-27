@@ -80,7 +80,7 @@
 		<!-- 扫描的实体 所在的包 -->
 		<property name="packagesToScan">
 			<list>
-				<value>com.zzy.model*</value>
+				<value>com.zzy.model.*</value>
 				<value>com.zzy.model</value>
 			</list>
 		</property>

@@ -3,6 +3,7 @@ package com.zzy.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,16 +14,11 @@ import com.zzy.service.FilesService;
 @Transactional
 @Service()
 public class FilesServiceImpl implements FilesService {
-	
+
+	@Autowired
 	private BaseDao<Files> basedao;
 	
-	public BaseDao<Files> getBasedao() {
-		return basedao;
-	}
-	
-	public void setBasedao(BaseDao<Files> basedao) {
-		this.basedao = basedao;
-	}
+
 
 	/*public Files getFilesModelByID(Integer id) {
 		String hql="from Files where id=?";

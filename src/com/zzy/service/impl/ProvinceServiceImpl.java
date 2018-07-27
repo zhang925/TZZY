@@ -2,6 +2,7 @@ package com.zzy.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,15 +15,9 @@ import com.zzy.util.page.PageZzy;
 @Transactional
 @Service()
 public class ProvinceServiceImpl implements ProvinceService{
+	@Autowired
 	private BaseDao<Province> basedao;
 	
-	public BaseDao<Province> getBasedao() {
-		return basedao;
-	}
-	
-	public void setBasedao(BaseDao<Province> basedao) {
-		this.basedao = basedao;
-	}
 	/**根据实体ID删除Province*/
 	public Integer delProvinceByID(Integer id) {
 		Integer i=1;

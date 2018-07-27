@@ -2,6 +2,7 @@ package com.zzy.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,15 +13,8 @@ import com.zzy.service.BornInfoService;
 @Transactional
 @Service()
 public class BornInfoServiceImpl implements BornInfoService{
-private BaseDao<BornInfo> basedao;
-	
-	public BaseDao<BornInfo> getBasedao() {
-		return basedao;
-	}
-	
-	public void setBasedao(BaseDao<BornInfo> basedao) {
-		this.basedao = basedao;
-	}
+	@Autowired
+	private BaseDao<BornInfo> basedao;
 
 	public int delBornInfo(BornInfo bornInfo) {
 		int i = 1;

@@ -2,6 +2,7 @@ package com.zzy.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,15 +14,9 @@ import com.zzy.service.WorklogService;
 @Transactional
 @Service()
 public class WorklogServiceImpl implements WorklogService{
+	@Autowired
 	private BaseDao<Worklog> basedao;
-	
-	public BaseDao<Worklog> getBasedao() {
-		return basedao;
-	}
-	
-	public void setBasedao(BaseDao<Worklog> basedao) {
-		this.basedao = basedao;
-	}
+
 	/**根据实体ID删除Worklog*/
 	public Integer delWorklogByID(Integer id) {
 		Integer i=1;

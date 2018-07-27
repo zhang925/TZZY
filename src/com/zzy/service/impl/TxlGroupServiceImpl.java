@@ -2,6 +2,7 @@ package com.zzy.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,15 +14,10 @@ import com.zzy.service.TxlGroupService;;
 @Transactional
 @Service()
 public class TxlGroupServiceImpl implements TxlGroupService{
+
+	@Autowired
 	private BaseDao<TxlGroup> basedao;
-	
-	public BaseDao<TxlGroup> getBasedao() {
-		return basedao;
-	}
-	
-	public void setBasedao(BaseDao<TxlGroup> basedao) {
-		this.basedao = basedao;
-	}
+
 	/**根据实体ID删除TxlGroup*/
 	public Integer delTxlGroupByID(Integer id) {
 		Integer i=1;
