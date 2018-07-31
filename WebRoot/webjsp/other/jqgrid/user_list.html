@@ -1,0 +1,373 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<!-- 表格样式 非必须  -->
+		<link rel="stylesheet" href="../../../plugins_sunny/jqgrid/css/ui.jqgrid.css" />
+		<!-- 表格样式 5.2.1 版本必须  不然样式很难看 -->
+		<link rel="stylesheet" href="../../../plugins_sunny/jqgrid/jquery-ui-1.12.1/jquery-ui.css" />
+		<!-- 必须  -->
+		<script type="text/javascript" src="../../../plugins_sunny/jqgrid/js/jquery-1.11.0.min.js"></script>
+		<!-- 必须  -->
+		<script type="text/javascript" src="../../../plugins_sunny/jqgrid/src/jquery.jqGrid.js" > </script>
+		<!-- 国际化 必须 不然 js 报错 影响分页等使用 -->
+		<script type="text/javascript" src="../../../plugins_sunny/jqgrid/js/i18n/grid.locale-cn.js" > </script>
+		<title>jqgrid示例</title>
+		<style>
+			/*html, body {
+				margin: 0;
+				padding: 0;
+				font-size: 75%;
+			}*/
+		</style>
+
+		<script type="text/javascript">
+
+			$(function(){
+                /*$.extend($.fn.fmatter, {
+                    actionFormatter: function(cellvalue, options, rowObject) {
+                        var retVal = "显示在原来编辑按钮的按个地方的代码";
+                        return retVal;
+                    }
+                } );*/
+
+
+
+                var usergrid = $("#t_user").jqGrid({
+                    caption : "用户信息列表",//表格的标题名字
+                    mtype : "post",//向后台请求数据的ajax的类型。可选post,get
+					url : '../../../userController/userlistjqgrid.do',//组件创建完成之后请求数据的url //userdata.json  userController/userlistjqgrid
+                    datatype : "json",//请求数据返回的类型。可选json,xml,txt
+                    viewrecords: true, //是否显示总记录数 右下角的 第多少到多少共多少
+                    rownumbers: true,// 行号
+                    multiboxonly:false,// 当 multiboxonly 为ture时只有选择checkbox才会起作用
+                    multiselect:true,// true 【多选、并且checkbox显示】【单选、并且ccheckbox隐藏】
+                    //multikey:"ctrlKey",//只有在multiselect设置为ture时起作用，定义使用那个key来做多选。shiftKey，altKey，ctrlKey
+					width:1000,
+					height:280,
+                    //cellEdit:true,//单元格可编辑  	要在 colModel 设置 可以编辑的单元格  editable:true 才能起作用 还要配置 cellurl
+                    //cellsubmit:"remote",
+                   // cellurl:"../../../userController/test.do",
+                    hidegrid:true,//开启 右上角的 折叠按钮
+                    hiddengrid:false,//true 的时候  点击 折叠按钮 才加载数据起到 延迟加载数据的功效
+                    colNames : [ '用户的ID', '用户名字', '昵称','密码', '出生日期', '手机',"操作" ],//jqGrid的列显示名字
+					colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
+						{name : 'uid',index : 'uid',width : 55,editable:false,hidden:false, key:true},//key:true 该列是 id 而不是 传行号
+						{name : 'username',index : 'username',width : 100,align : "center",editable:true},
+                        {name : 'name',index : 'name',width : 90,align : "center",editable:true},
+                        {name : 'password',index : 'password',hidden: true},//隐藏列
+						{name : 'borntime',index : 'borntime',width : 80,align : "center",editable:true},
+						{name : 'phone',index : 'phone',width : 80,align : "center",sortable : false,editable:true},
+						{name: 'opt', index: '', width: 80, fixed: true, sortable: false, resize: false,editable:false,
+							formatter: 'actions',//自定义操作列
+							formatoptions: {
+								keys: true,
+                                editbutton:true,
+								delbutton:true,
+                                url:"../../../userController/addOrUpdate.do",
+								delOptions: {
+								    recreateForm: true,
+									url: "../../../userController/deluser.do"
+								}
+							}
+						}
+					],
+					rowNum : 10,//一页显示多少条
+					rowList : [ 10,5,15 ],//可供用户选择一页显示多少条
+                    pager : '#pager', //表格页脚的占位符(一般是div)的id
+					sortname : 'uid',//初始化的时候排序的字段
+					sortorder : "desc",	//排序方式,可选desc,asc
+                    toolbar:[true,"top"],// 增加 自定义 工具 按钮 [位置：top/bottom/both]
+                    onSelectRow: function (rowid, status) { //单 点击某行的时候
+                       //alert(rowid+"--"+status);
+                    },
+                    ondblClickRow : function (rowid, iCol,e) { //双击 点击某行的时候
+						//主键 -- 行号 -- 第几个单元格
+                        //alert(rowid+"--"+iCol+"--"+e);
+                    }
+                 });
+                //toolbar 会生成 一个div id 为 t_ 加上原来的 grid的id 这里为 t_t_user
+                $("#t_t_user").append("<input id='zdyval' type='text'   /> <input id='zdy' type='button' value='自定义按钮' />");
+				$("#zdy").on("click",function () {
+					alert("点击了自定按钮: "+$("#zdyval").val());
+                });
+				//搜索 1 td 里里面的搜索
+               /* $("#t_user").jqGrid("filterToolbar", {//这个搜索 也能实现 但是 非常 丑陋【但是明了，直接能找到】 没有 搜索2 好看
+                    autoSearch: true,
+                    beforeSearch: function () {
+                        alert("开始搜索之前");
+                    },
+                    afterSearch: function () {
+                        alert("搜索之后");
+                    },
+                    searchOnEnter: true  //回车触发搜索
+                });*/
+                //搜索 2 底部 button 的搜索
+                $("#t_user")
+					.navGrid("#pager",//系统的工具栏 渲染到 分页上 其他地方暂时测试不同过
+						{ //以下是系统自带的增删 改查 把第一个参数设置为 true 即可开启
+						    edit:true,//
+                            edittext: "修改 ",
+
+							add:true,
+                            addicon:"ui-icon-pencil",
+                            addtext: "添加",
+
+							del:true,
+                            deltext: "删除",
+
+							view:true,
+                            viewtext: "查看",
+
+							search:true,
+                            searchtext: "搜索",
+
+							refresh: false,
+                            refreshtext: "刷新"
+
+                           /* alertcap: "Warning",//提示 框信息 内容
+							alerttext: "Please, select row",
+							viewtitle: "View selected row"*/
+            } //系统自带  colModel 配置 editable:true 才起作用
+                		,{ //配置顺序 暂时理解为 edit add delete search view
+					    	//对 edit 进行配置
+                            /*bClose:"1321",//没发现什么作用
+                            saveData: "Data has been changed! Save changes?",
+                            bYes : "Yes",
+                            bNo : "No",
+                            bExit : "Cancel",*/
+                           //afterSubmit:function () { //这个 和 closeAfterEdit 不能同时使用
+                                //alert("修改成功！");
+                            //},
+                            top : 100,  //上
+                            left: 300, //左
+                            afterComplete:function () {
+								alert("修改成功！");
+                            },
+							msg:"123",
+                            closeAfterEdit:true,//编辑完成之后关闭窗口
+                            url:"../../../userController/addOrUpdate.do"
+						},{
+					    	//对 add 进行配置
+                            top : 100,  //上
+                            left: 300, //左
+					    	//width:350, // 宽
+							//height:300,// 高
+                            addCaption:"添加用户信息",// 弹出页面的的标题
+                            //bSubmit:"确定",// 提交按钮 的 文字信息
+                            //bCancel:"取消",//取消按钮的提示信息
+                            //afterSubmit:function () { //和 closeAfterAdd 不能同时使用
+								//alert("添加成功！");
+                            //},
+                            //这个大括号是 添加 编辑的配置项
+                            url:"../../../userController/addOrUpdate.do",
+                            closeAfterAdd:true,//添加完成之后 关闭窗口
+                            afterComplete:function () {
+                                alert("添加成功！");
+                            },
+                            reloadAfterSubmit: true //执行 完了 URL 后 刷新数据表格
+						},{
+					    	//对 删除进行配置
+                            top : 100,  //位置
+                            left: 300, //位置
+                            afterComplete:function () {
+                                alert("删除成功！");
+                            },
+							//caption:"提示",//删除的时候提示语 标题
+                            //msg:"确定删除吗", //删除的时候提示语 内容
+                            url:"../../../userController/deluser.do"
+						},{
+					    	// 对 搜索 配置
+                            multipleSearch : true //  是否开启 多条件查询
+						},{
+					    	//对 查看 配置
+                            closeOnEscape:true //是否支持 esc 关闭 提示 窗口
+						}
+						) //底部 插件自带 的 增删改查 样式不好控制
+
+					//这个是 自定义 的 不过 要自己 去做 页面 根据需要 自己 选择
+                   .navSeparatorAdd("#pager",{}) // 按钮之间的分割 以下是 底部自定义按钮
+                    .navButtonAdd('#pager',{ // 添加
+						caption:"navGrid",
+						// ui-icon ui-icon-plus 添加 // ui-icon ui-icon-pencil 编辑 // ui-icon ui-icon-trash 删除 // ui-icon ui-icon-search 查询
+						//buttonicon:"ui-icon ui-icon-plus",
+						onClickButton: function(){
+                            window.open('nav.html', 'navGrid的详细参数', 'height=500, width=800, top=10, left=10, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no');
+						},
+                        position:"top" //位置
+                    })
+                   .navButtonAdd('#pager',{ // 删除
+                        caption:"其他",
+                        buttonicon:"ui-icon ui-icon-search", // ui-icon-del
+                        onClickButton: function(){
+                            alert("打开 console.log 查看！");
+                            //所选中行的，最后一行的 id 如果 colModel 没有 设置key 则为 改行的行号
+                            var rowid = $("#t_user").jqGrid("getGridParam", "selrow");
+                            console.log("所选中行的，最后一行的id："+rowid);
+
+                            //所选中行的id字符串集合,拼接
+                            var ids=$('#t_user').jqGrid('getGridParam','selarrrow');
+                            console.log("所选中行的id字符串集合："+ids);
+
+                            //获得所有行的ID数组 即当前 页面所有数据的 id 字符处集合
+                            var ids02 = $("#t_user").jqGrid('getDataIDs');
+                            console.log("获得所有行的ID ："+ids02);
+
+                            //var rowData = $('#t_user').jqGrid('getRowData');//获取当前 页面所有 数据
+                            //var rowData2 = usergrid.getRowData('123123');//等价于下面的
+                            var rowData2 = $('#t_user').jqGrid('getRowData',"123123");//后面的是 key 主键
+                            console.log(rowData2);
+
+                            //获取单元格 数据
+                            //var celldata = $("#t_user").jqGrid('getCell',"123123","name");
+                            //console.log("单元格数据："+celldata);
+
+                            //$("#t_user").jqGrid('setSelection',"123123");//指定某行 选中
+                            //$('#t_user').jqGrid('resetSelection');//列表 取消 选中所有的数据
+
+                        },
+                        position:"last" //位置
+                    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+			});
+		</script>
+		
+
+	</head>
+	<body>
+		<!-- 数据表格 -->
+		<div id="mysearch"></div>
+		<table id="t_user"></table>
+		<!-- 分页显示的div -->
+		<div id="pager"></div>
+
+	</body>
+</html>
+
+<script>
+
+/*
+
+分页 自定义参数 信息
+defaults : {
+         recordtext: "View {0} - {1} of {2}",
+             emptyrecords: "No records to view",
+         loadtext: "Loading...",
+         pgtext : "Page {0} of {1}"
+    }
+
+grid_id ：表格id
+gridpager ：导航栏id
+parameters ：参数列表
+prmEdit, prmAdd, prmDel, prmSearch, prmView ：事件
+
+· $.jgrid = {
+
+· ...
+
+·    search : {
+
+·      caption: "Search...",
+
+·      Find: "Find",
+
+·      Reset: "Reset",
+
+·      odata : ['equal', 'not equal', 'less', 'less or equal','greater','greater or equal', 'begins with','does not begin with','is in','is not in','ends with','does not end with','contains','does not contain'],
+
+·      groupOps: [ { op: "AND", text: "all" }, { op: "OR", text: "any" } ],
+
+·      matchText: " match",
+
+·      rulesText: " rules"
+
+·    },
+
+·    edit : {
+
+·      addCaption: "Add Record",
+
+·      editCaption: "Edit Record",
+
+·      bSubmit: "Submit",
+
+·      bCancel: "Cancel",
+
+·      bClose: "Close",
+
+·      saveData: "Data has been changed! Save changes?",
+
+·      bYes : "Yes",
+
+·      bNo : "No",
+
+·      bExit : "Cancel",
+
+·   },
+
+·   view : {
+
+·     caption: "View Record",
+
+·     bClose: "Close"
+
+·   },
+
+·   del : {
+
+·     caption: "Delete",
+
+·     msg: "Delete selected record(s)?",
+
+·     bSubmit: "Delete",
+
+·     bCancel: "Cancel"
+
+·   },
+
+·   nav : {
+
+·     edittext: "",
+
+·     edittitle: "Edit selected row",
+
+·     addtext:"",
+
+·     addtitle: "Add new row",
+
+·     deltext: "",
+
+·     deltitle: "Delete selected row",
+
+·     searchtext: "",
+
+·     searchtitle: "Find records",
+
+·     refreshtext: "",
+
+·     refreshtitle: "Reload Grid",
+
+·     alertcap: "Warning",
+
+·     alerttext: "Please, select row",
+
+·     viewtext: "",
+
+·     viewtitle: "View selected row"
+
+·   },
+*/
+
+</script>

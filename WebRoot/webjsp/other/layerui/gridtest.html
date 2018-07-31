@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layerui 非js方式 示例</title>
+    <link rel="stylesheet" href="../../../plugins_sunny/layerui/layui-2.1.5/src/css/layui.css">
+
+    <script src="../../../plugins_sunny/jquery/jquery-1.9.1.min.js"></script>
+    <script src="../../../plugins_sunny/layerui/layui-2.1.5/src/layui.js"></script>
+
+    <style type="text/css">
+        body{margin: 10px;}
+    </style>
+    <!--<script src="mylayerui.js"></script>-->
+
+    <script type="text/javascript">
+        $(function () {
+            layui.config({ //模块化引入 即引入 某个 js
+                base: '' //你存放新模块的目录，注意，不是layui的模块目录
+            }).use('mylayerui'); //加载入口 即对应的js 代码
+            // 使用 table 对象
+
+
+            layui.use('table', function(){
+                var table = layui.table;
+
+                // 其他操作 看js 方式的即可
+            });
+
+        });
+
+    </script>
+
+</head>
+<body>
+<div>
+    <table class="layui-table"  lay-data="{height:500, url:'../../../userController/userlistlayerui.do', page:true, id:'test'}" lay-filter="test">
+        <thead>
+        <tr >
+            <th lay-data="{checkbox:true}"></th>
+            <th lay-data="{field:'uid',width:150,  sort: true}">ID</th>
+            <th lay-data="{field:'username',width:150 }">用户登陆名</th>
+            <th lay-data="{field:'name',width:150   }">用户名</th>
+            <th lay-data="{field:'sex', width:80 ,align:'center'}">性别</th>
+            <th lay-data="{field:'phone', width:120}">手机</th>
+            <th lay-data="{field:'borntime', width:135, sort: true}">出生日期</th>
+            <th lay-data="{field:'opt', width:155,toolbar: '#barDemo'}">操作</th>
+        </tr>
+        </thead>
+    </table>
+
+
+    <div>
+        <!-- 工具栏 toobar  可以放到 任意位置-->
+        <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-mini" lay-event="detail">查看</a>
+            <a class="layui-btn layui-btn-mini" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
+
+            <!-- 这里同样支持 laytpl 语法，如：
+            {{#  if(d.auth > 2){ }}
+            <a class="layui-btn layui-btn-mini" lay-event="check">审核</a>
+            {{#  } }}
+            -->
+        </script>
+    </div>
+
+</div>
+
+
+
+</body>
+</html>

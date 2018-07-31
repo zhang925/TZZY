@@ -1,0 +1,10 @@
+{"page":1,
+  "total":3,
+  "records":"3",
+  "rows":[
+    {"uid":"13","name":"name1","username":"名字1","borntime":"2000-12-12","phone":"13011112222"},
+    {"uid":"12","name":"name2","username":"名字2","borntime":"2001-12-12","phone":"13111112222"},
+    {"uid":"11","name":"name3","username":"名字3","borntime":"2002-12-12","phone":"13211112222"}
+  ]
+
+}

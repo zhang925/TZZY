@@ -1,0 +1,12 @@
+easyui 轻量级
+
+js 和 jsp html 可以 有效结合 页面 样式  容易 控制
+
+大数据 列表 加载的时候 easyui 会卡 处理方法 给每个 列表 加上一个宽度 或者 其他缓存解决
+
+easyui 的 窗口底层 经 个人测试 是 lhgdialog 也就说，  lhgdialog 的所有方法 适合 easyui 的dialog
+
+ 商用的 easyui 需要付费 。
+
+ 【2017年10月23日 11:03:04 版本 1.4.3 】
+
