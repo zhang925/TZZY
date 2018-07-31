@@ -1,0 +1,73 @@
+.customEditingToolbar {
+	float: right;
+	right: 0px;
+	height: 30px;
+	width: 200px;
+}
+
+.customEditingToolbar div {
+	float: right;
+	margin: 5px;
+	width: 24px;
+	height: 24px;
+}
+
+.olControlNavigationItemActive {
+	background-image:
+		url("../openlayers/theme/default/img/editing_tool_bar.png");
+	background-repeat: no-repeat;
+	background-position: -103px -23px;
+}
+
+.olControlNavigationItemInactive {
+	background-image:
+		url("../openlayers/theme/default/img/editing_tool_bar.png");
+	background-repeat: no-repeat;
+	background-position: -103px -0px;
+}
+
+.olControlDrawFeaturePointItemInactive {
+	background-image:
+		url("../openlayers/theme/default/img/editing_tool_bar.png");
+	background-repeat: no-repeat;
+	background-position: -77px 0px;
+}
+
+.olControlDrawFeaturePointItemActive {
+	background-image:
+		url("../openlayers/theme/default/img/editing_tool_bar.png");
+	background-repeat: no-repeat;
+	background-position: -77px -23px;
+}
+
+.olControlModifyFeatureItemActive {
+	background-image: url("../openlayers/theme/default/img/move_feature_on.png");
+	background-repeat: no-repeat;
+	background-position: 0px 1px;
+}
+
+.olControlModifyFeatureItemInactive {
+	background-image: url("../openlayers/theme/default/img/move_feature_off.png")
+		;
+	background-repeat: no-repeat;
+	background-position: 0px 1px;
+}
+
+.olControlDeleteFeatureItemActive {
+	background-image: url("../openlayers/theme/default/img/remove_point_on.png");
+	background-repeat: no-repeat;
+	background-position: 0px 1px;
+}
+
+.olControlDeleteFeatureItemInactive {
+	background-image: url("../openlayers/theme/default/img/remove_point_off.png");
+	background-repeat: no-repeat;
+	background-position: 0px 1px;
+}
+.x-grid3-col-checkbox{
+	padding-top:2px;
+	padding-bottom:2px;	
+	min-height:15px;
+	height:auto !important;/*这是兼容FF IE的方法，如果没有这行， this height should be set to 15px in FF*/
+   	height:20px
+}

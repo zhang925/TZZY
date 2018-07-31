@@ -1,0 +1,722 @@
+<html>
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<link rel="stylesheet" type="text/css" href="ext2.1/resources/css/ext-all.css" />
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+
+<script type="text/javascript" src="ext2.1/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="ext2.1/ext-all.js"></script>
+<script type="text/javascript" src="ext2.1/ext-all-debug.js"></script>
+
+<script type="text/javascript" >
+  Ext.onReady(function(){
+  
+	  Ext.form.Field.prototype.msgTarget = 'side';
+	  var userEditSidSearchWin;
+	  var userinfoAddWin; 
+	  var userinfoEditWin; 
+	  var userinfoEditpwWin; 
+	  var userinfoIDWin; 
+	  
+	 //-----------------------------------------------------------------------------------员工搜索提示
+  	 var searchStore = new Ext.data.Store({ 
+	    proxy: new Ext.data.HttpProxy({
+	      	     url:'system.do?method=stafferLike',
+	      	     scripts:true 
+	      	}),  
+	     reader: new Ext.data.JsonReader({
+			    totalProperty: 'stafferCount',
+			    root: 'root', 
+				fields: [
+					      'sid','name','cid' 
+				        ]
+	           })  
+     }); 
+ 
+	 var searchCm = new Ext.grid.ColumnModel([
+	        new Ext.grid.RowNumberer(),//显示行号
+	        {header:'员工编号',dataIndex:'sid'},
+	        {header:'姓名',dataIndex:'name' },
+	        {header:'卡号',dataIndex:'cid'}
+	 ]);
+    
+   
+ 	 var searchGrid = new Ext.grid.GridPanel({ 
+ 	 	title:'请双击选择所选记录',
+		bodyStyle:'width:100%',
+	    autoWidth:true,
+	    height:300,
+	    el:'userEditSidSearch',
+	    store: searchStore,
+	    stripeRows: true,
+	    cm: searchCm,
+	    trackMouseOver:true,
+	    loadMask: {msg:'正在加载数据，请稍侯……'},
+	    bbar: new Ext.PagingToolbar({
+	        pageSize: 30,  
+	        store: searchStore,
+	        displayInfo: true,
+	        displayMsg: '显示第 {0} - {1} 条,共 {2} 条',
+	        emptyMsg: "当前没有可以显示的数据"
+        })
+	 });
+     
+     searchGrid.addListener('rowdblclick', onRowDoubleClick);
+     function onRowDoubleClick(){    
+	    var record = searchGrid.getSelectionModel().getSelected();
+	    var qsid=record.data['sid'];  
+	    userinfoForm.getForm().findField('stafferidSe').setValue(qsid);
+	    if(userinfoAddForm.getForm().findField('stafferidSe') == null){
+	    
+	    }else{
+	    	userinfoAddForm.getForm().findField('stafferidSe').setValue(qsid);
+	    } 
+	    if(userinfoEditForm.getForm().findField('stafferidEdit') == null){
+	    
+	    }else{
+	    	userinfoEditForm.getForm().findField('stafferidEdit').setValue(qsid);
+	    } 
+	    userEditSidSearchWin.hide();
+     }
+     
+     function  doSearch(){
+   	   var iname= userinfoForm.getForm().findField('stafferidSe').getValue();
+   	   iname=iname.trim();
+   	   if(iname.length == 0 ){
+   	   	   Ext.Msg.alert("信息提示","员工不能为空或者为空格");
+   	   }else{
+   	   	     searchGrid.render();  
+   	   	     searchStore.baseParams.iname = iname;
+             searchStore.load({params:{start:0,limit:30}});
+             useridSearch();	   	   
+   	   }
+     }
+     
+     function  doSearch1(){
+   	   var iname= userinfoAddForm.getForm().findField('stafferidSe').getValue();
+   	   iname=iname.trim();
+   	   if(iname.length == 0 ){
+   	   	   Ext.Msg.alert("信息提示","员工不能为空或者为空格");
+   	   }else{
+   	   	     searchGrid.render();  
+   	   	     searchStore.baseParams.iname = iname;
+             searchStore.load({params:{start:0,limit:30}});
+             useridSearch();	   	   
+   	   }
+     }
+     function  doSearch2(){
+   	   var iname= userinfoEditForm.getForm().findField('stafferidEdit').getValue();
+   	   iname=iname.trim();
+   	   if(iname.length == 0 ){
+   	   	   Ext.Msg.alert("信息提示","员工不能为空或者为空格");
+   	   }else{
+   	   	     searchGrid.render();  
+   	   	     searchStore.baseParams.iname = iname;
+             searchStore.load({params:{start:0,limit:30}});
+             useridSearch();	   	   
+   	   }
+     }
+  
+     function useridSearch(){
+	    if(!userEditSidSearchWin){
+			userEditSidSearchWin = new Ext.Window({
+			    title:'查询员工信息->员工搜索提示',
+			    width: 400,
+		        height: 400,
+		        layout: 'fit',
+		        bodyStyle:'padding:5px;',
+			    draggable: false, 
+			    collapsible : true,//是否可以折叠
+		        closable : true,//是否可以关闭
+		        maximizable : false,//是否可以最大化  
+			    closeAction:'hide',
+		        plain:true,
+		        modal:true,  
+		        resizable:false,  
+		        items:searchGrid
+			});
+	    }
+		userEditSidSearchWin.show(); 
+     }  
+    
+	 
+
+  //--------------------------------------------------------------------------------------主GRID
+  
+	  function renderNull(value) {
+		    if (value == 'null') {
+		        return " ";
+		    } else {
+		        return value;
+		    }
+	    }
+	  var data=[ ['aa','11','EasyJWeb','111111','系统用户','2010-04-21','aaaa'],
+                 ['bb','22','jfox','222222','系统用户','2010-04-22','bbbb'], 
+                 ['cc','33','jdon','333333','普通用户','2010-04-23','cccc'],
+                 ['dd','44','springside','4444444','系统用户','2010-04-22','ddddd'] 
+			    ];
+
+    
+	  var store = new Ext.data.SimpleStore({ 
+		    data:data, 
+			fields: [
+						'userid','stafferid','staffername','userphone','usertype','createtime','otherinfo'
+					 ]
+		      
+	     }); 
+	   var cm = new Ext.grid.ColumnModel([
+	        new Ext.grid.RowNumberer(),//显示行号
+	        {header:'用户名',dataIndex:'userid',sortable:true,renderer:renderNull},
+	        {header:'用户编号',dataIndex:'stafferid',sortable:true,renderer:renderNull},
+	        {header:'用户姓名',dataIndex:'staffername',sortable:true,renderer:renderNull},
+	        {header:'手机号',dataIndex:'userphone',sortable:true,renderer:renderNull},
+	        {header:'用户类型',dataIndex:'usertype',sortable:true,renderer:renderNull},
+	        {header:'创建时间',dataIndex:'createtime',sortable:true,width:150,renderer:renderNull},
+	        {header:'备注信息',dataIndex:'otherinfo',sortable:true,renderer:renderNull}
+	    ]);
+		    
+		var grid = new Ext.grid.GridPanel({ 
+	    autoWidth:true,
+	    autoHeight:true,
+	    el:'userinfoGrid',
+	    store: store,
+	    cm: cm,
+	    trackMouseOver:true,
+	    stripeRows: true,
+	    loadMask: {msg:'正在加载数据，请稍侯……'},
+	    bbar: new Ext.PagingToolbar({
+	        pageSize: 30, //每页显示几条数据
+	        store: store,
+	        displayInfo: true,
+	        displayMsg: '显示第 {0} - {1} 条,共 {2} 条',
+	        emptyMsg: "当前没有可以显示的数据"
+       }),
+       tbar:[{
+       		enableToggle:true,
+            text:'增&nbsp;&nbsp;加 ',
+            tooltip:'增加一条记录',
+            handler:function(){
+                   userinfoAddForm.getForm().reset();//清空修改信息
+            	   showUserinfoAddWin(); //显示表单所在窗体
+            	}
+	        }, '-', {
+	        	enableToggle:true,
+	            text:'修改信息',
+	            tooltip:'请选择一条记录进行修改',
+	            handler:function(){
+	                   userinfoAddForm.getForm().reset();//清空添加信息
+	            	   doUpdate();
+	            	}
+	        }, '-', {
+	        	enableToggle:true,
+	            text:'修改密码',
+	            tooltip:'请选择一个用户修改密码',
+	            handler:function(){
+	                   userinfoEditpwForm.getForm().reset();//清空添加信息
+	            	   doUpdatepw();
+	            	}
+	        },'-',{
+	        	enableToggle:true,
+	            text:'删&nbsp;&nbsp;除 ',
+	            tooltip:'删除所选记录',
+	            handler:function(){
+						var checkLength = grid.getSelections();
+					    if(checkLength.length  != 1){
+					    	Ext.Msg.alert("信息提示","请选择一条记录进行删除!");
+					    }else{
+					    	var records=grid.getSelectionModel().getSelected(); 
+							var rid=records.get("userid");
+							if(rid == 'sys'){
+								Ext.Msg.alert("信息提示", "该账户为系统管理员账户,无法删除!");
+							}else{
+								Ext.MessageBox.confirm('确认删除', '你真的要删除所选行吗?', function(btn){
+									if(btn == 'yes'){
+										Ext.Ajax.request({
+								       	method:'POST',
+								        url:'userinfo.do?method=delete&rid='+rid,
+								        success:function(request){
+								        Ext.Msg.alert("信息提示",request.responseText); 
+											store.reload();
+								        },
+										failure:function(){ 
+									    	Ext.Msg.alert("信息提示", " 连接服务器出现错误,请稍后再试");
+										}	
+								       }); 	 	  
+								  	 }	
+								  });
+							}
+								
+							 
+					    }
+	            	}
+	         }
+	        ]
+	});
+	 
+	grid.render();//让grid开始渲染
+	//store.load({params:{start:0,limit:30}});  //对数据进行初始化,如果配置了分页工具条，ds.load()就必须在构造grid以后才能执行，
+
+    grid.addListener('rowdblclick', showUpate);
+	function showUpate(){    
+	    userinfoAddForm.getForm().reset(); 
+        doUpdate();
+    }
+	   
+ 
+
+  //--------------------------------------------------------------------------------------增加
+  
+   var userinfoAddForm = new Ext.FormPanel({
+    	labelAlign:'right',
+        buttonAlign:'right',
+        frame:true,
+        items:[{
+                layout:'column',
+                items:[
+	                    {
+		            		columnWidth:1,
+		            		layout:'form',
+		            		labelWidth:65,
+		            		items:
+		            		[{
+		           				fieldLabel:'用户名',
+								name:'useridSe',
+								xtype:'textfield',
+								allowBlank:false,
+								blankText:'请输入用户名',
+						        anchor:'90%'
+		            		 }]
+	            	     },{
+		            		columnWidth:1,
+		            		layout:'form',
+		            		labelWidth:65,
+		            		items:
+		            		[{
+		           				fieldLabel:'密码',
+								name:'userpwSe',
+								inputType:'password',
+								xtype:'textfield',
+								anchor:'90%',
+								allowBlank:false,
+								blankText:'请输入密码'
+		            		 }]
+	            	     },
+	            	     {
+		            		columnWidth:1,
+		            		layout:'form',
+		            		labelWidth:65,
+		            		items:
+		            		[{ 
+			                   fieldLabel:'用户类型',
+			                    xtype: 'combo',
+								name:'usertypeSe',
+								hiddenName:'usertypeSe',
+							    mode: 'local',
+							    readOnly:true,
+							    triggerAction:'all',
+							    value: '0',
+							    anchor:'90%',
+							    allowBlank:false,
+						    	blankText:'用户类型不能为空',
+								store:new Ext.data.SimpleStore({
+									fields:['usertypeValue','usertypeText'],
+									data:[
+										['0','普通用户'],
+										['1','系统用户']
+									]
+								}),
+								valueField: 'usertypeValue',
+							    displayField: 'usertypeText' 
+			                }]
+	            	     },{
+			                columnWidth:1,
+			                layout: 'form',
+			                labelWidth:65,
+			                items: 
+			                [{ 
+			                    fieldLabel: '员工编号',
+		                        name:'stafferidSe',
+		                        xtype: 'textfield',
+		                        selectOnFocus:true,
+		                        allowBlank:false,
+						    	blankText:'员工编号不能为空',
+		                        anchor:'90%'
+			                }]
+		            	},
+	            	     {
+		            		columnWidth:1,
+		            		layout:'form',
+		            		labelWidth:65,
+		            		items:
+		            		[{
+		           				fieldLabel:'手机号',
+								xtype: 'textfield',
+								name:'userphoneSe',
+								allowBlank:false,
+								blankText:'请输入手机号',
+						        anchor:'90%'
+		            		 }]
+	            	     },{
+			                columnWidth:1,
+			                layout: 'form',
+			                labelWidth:65,
+			                items: 
+			                [{ 
+			                    fieldLabel: '备注信息',
+		                        name:'otherinfoSe',
+		                        xtype: 'textarea',
+		                        selectOnFocus:true,
+		                        anchor:'90%'
+			                }]
+		            	}
+                ] 
+        }], 
+        buttons:[{
+	        text:'保存',
+	        type: 'submit',
+	        handler:function(){
+	              if(userinfoAddForm.getForm().isValid()){
+	        		  userinfoAddForm.getForm().submit({ 
+	        		       	 url: 'userinfo.do?method=add',
+	        		       	 method: 'post',
+	        		       	 waitMsg: '保存中，请稍后...',
+	        		         success:function(form,option){//提交成功的回调函数
+	        		               if (option.result.message=='1') {
+								         Ext.Msg.alert('信息提示','新增用户成功');
+								         userinfoAddWin.hide();
+								         store.reload(); //重新加载数据源
+							       }
+		        		         },
+						     failure:function(form,option){ //提交失败的回调函数
+									if(option.result.message=='0') {
+								          Ext.Msg.alert('信息提示','该用户已存在，请重新输入');
+								     }else{
+								          Ext.Msg.alert("信息提示", " 连接服务器出现错误,请稍后再试！");
+								     }
+								}
+	        		       }); }
+	        }
+	    },{
+	    	text:'清空',
+	    	handler:function(){
+	    		userinfoAddForm.getForm().reset();//表单清空
+	     } 
+	    },{
+	    	 text: '关闭',
+             handler: function(){
+                 userinfoAddWin.hide();
+             }
+	    }]
+    });  
+  
+    
+   function showUserinfoAddWin(){
+	    if(!userinfoAddWin){
+			userinfoAddWin = new Ext.Window({
+			    title:'编辑用户信息->增加',
+			    width: 350,
+		        height:270,
+		        layout: 'fit',
+		        bodyStyle:'padding:5px;',
+			    draggable: false,//是否启动拖动效果
+			    closable:true,//关闭按钮
+			    closeAction:'hide',
+		        plain:true,
+		        modal:true,//父页面不可编辑
+		        resizable:false,//false不可拖动边框的大小
+			    items: [userinfoAddForm]
+			});
+	    }
+		userinfoAddWin.show();
+     }  
+  //--------------------------------------------------------------------------------------修改
+     
+       
+   var userinfoEditForm = new Ext.FormPanel({
+    	labelAlign:'right',
+        buttonAlign:'right',
+        frame:true,
+
+             items:[{
+                layout:'column',
+                items:[
+	                    {
+		            		columnWidth:1,
+		            		layout:'form',
+		            		labelWidth:65,
+		            		items:
+		            		[{
+		           				fieldLabel:'用户名',
+								name:'useridEdit',
+								xtype:'textfield',
+								style: ' background-color:#CCCCCC;background-repeat: no-repeat;',
+							    readOnly: true,
+						        anchor:'90%'
+		            		 }]
+	            	     },
+	            	     {
+		            		columnWidth:1,
+		            		layout:'form',
+		            		labelWidth:65,
+		            		items:
+		            		[{ 
+			                   fieldLabel:'用户类型',
+			                    xtype: 'combo',
+								name:'usertypeEdit',
+								hiddenName:'usertypeEdit',
+							    mode: 'local',
+							    readOnly:true,
+							    triggerAction:'all',
+							    value: '0',
+							    anchor:'90%',
+							    allowBlank:false,
+						    	blankText:'用户类型不能为空',
+								store:new Ext.data.SimpleStore({
+									fields:['usertypeValue','usertypeText'],
+									data:[
+										['普通用户','普通用户'],
+										['系统用户','系统用户']
+									]
+								}),
+								valueField: 'usertypeValue',
+							    displayField: 'usertypeText' 
+			                }]
+	            	     },{
+			                columnWidth:1,
+			                layout: 'form',
+			                labelWidth:65,
+			                items: 
+			                [{ 
+			                    fieldLabel: '员工编号',
+		                        name:'stafferidEdit',
+		                        xtype: 'textfield',
+		                        selectOnFocus:true,
+		                        allowBlank:false,
+						    	blankText:'员工编号不能为空',
+		                        anchor:'90%'
+			                }]
+		            	},
+	            	     {
+		            		columnWidth:1,
+		            		layout:'form',
+		            		labelWidth:65,
+		            		items:
+		            		[{
+		           				fieldLabel:'手机号',
+								xtype: 'textfield',
+								name:'userphoneEdit',
+								allowBlank:false,
+								blankText:'请输入手机号',
+						        anchor:'90%'
+		            		 }]
+	            	     },{
+			                columnWidth:1,
+			                layout: 'form',
+			                labelWidth:65,
+			                items: 
+			                [{ 
+			                    fieldLabel: '备注信息',
+		                        name:'otherinfoEdit',
+		                        xtype: 'textarea',
+		                        selectOnFocus:true,
+		                        anchor:'90%'
+			                }]
+		            	}
+                ] 
+        }],
+        buttons:[{
+	        text:'保存',
+	        type: 'submit',
+	        handler:function(){
+	              if(userinfoEditForm.getForm().isValid()){
+	        		  userinfoEditForm.getForm().submit({ 
+	        		       	 url: 'userinfo.do?method=update',
+	        		       	 method: 'post',
+	        		       	 waitMsg: '保存中，请稍后...',
+	        		         success:function(form,option){//提交成功的回调函数
+	        		               if (option.result.message=='1') {
+	        		                     store.reload(); //重新加载数据源
+	        		                     userinfoEditWin.hide();
+								         Ext.Msg.alert('信息提示','修改用户信息成功');
+								        
+							       }else {
+								         Ext.Msg.alert('信息提示',option.result.message);
+							       }
+		        		         },
+						     failure:function(){ //提交失败的回调函数
+									     Ext.Msg.alert("信息提示", " 连接服务器出现错误,请稍后再试！");
+								}
+	        		       }); }
+	          }
+	    },{
+	    	 text: '关闭',
+             handler: function(){
+                 userinfoEditWin.hide();
+             }
+	    }]
+    });  
+   
+    //--------------------------------------------------------------------------------------修改密码
+       
+   var userinfoEditpwForm = new Ext.FormPanel({
+    	labelAlign:'right',
+        buttonAlign:'right',
+        frame:true,
+             items:[{
+                layout:'column',
+                items:[
+	                    {
+		            		columnWidth:1,
+		            		layout:'form',
+		            		labelWidth:70,
+		            		items:
+		            		[{
+		           				fieldLabel:'用户ID',
+								name:'userid1Edit',
+								xtype:'textfield',
+							    style: ' background-color:#CCCCCC;background-repeat: no-repeat;',
+							    readOnly: true, 
+						        anchor:'93%'
+		            		 }]
+	            	     },
+	            	     {
+		            		columnWidth:1,
+		            		layout:'form',
+		            		labelWidth:70,
+		            		items:
+		            		[{
+		           				fieldLabel:'用户密码',
+								inputType:'password',
+								xtype:'textfield',
+								name:'userpw1Edit',
+								allowBlank:false,
+								blankText:'密码不能为空',
+						        anchor:'93%'
+		            		 }]
+	            	     }
+                ] 
+        }],
+        buttons:[{
+	        text:'保存',
+	        type: 'submit',
+	        handler:function(){
+	              if(userinfoEditpwForm.getForm().isValid()){
+	        		  userinfoEditpwForm.getForm().submit({ 
+	        		       	 url: 'userinfo.do?method=updatePw',
+	        		       	 method: 'post',
+	        		       	 waitMsg: '保存中，请稍后...',
+	        		         success:function(form,option){//提交成功的回调函数
+	        		               if (option.result.message=='1') {
+	        		                     store.reload(); //重新加载数据源
+	        		                     userinfoEditpwWin.hide();
+								         Ext.Msg.alert('信息提示','修改用户密码成功');
+								        
+							       }else {
+								         Ext.Msg.alert('信息提示',option.result.message);
+							       }
+		        		         },
+						     failure:function(){ //提交失败的回调函数
+									     Ext.Msg.alert("信息提示", " 连接服务器出现错误,请稍后再试！");
+								}
+	        		       }); }
+	          }
+	    },{
+	    	 text: '关闭',
+             handler: function(){
+                 userinfoEditpwWin.hide();
+             }
+	    }]
+    });  
+    
+       
+   function showUserinfoEditWin(){
+	    if(!userinfoEditWin){
+			userinfoEditWin = new Ext.Window({
+			    title:'编辑用户信息->修改',
+			    width: 350,
+		        height:270,
+		        layout: 'fit',
+		        bodyStyle:'padding:5px;',
+			    draggable: false,//是否启动拖动效果
+			    closable:true,//关闭按钮
+			    closeAction:'hide',
+		        plain:true,
+		        modal:true,//父页面不可编辑
+		        resizable:false,//false不可拖动边框的大小
+			    items: [userinfoEditForm]
+			});
+	    }
+		userinfoEditWin.show();
+     }  
+    
+       
+   function showUserinfoEditPwWin(){
+	    if(!userinfoEditpwWin){
+			userinfoEditpwWin = new Ext.Window({
+			    title:'修改用户密码->修改',
+			    width: 300,
+		        height:150,
+		        layout: 'fit',
+		        bodyStyle:'padding:5px;',
+			    draggable: false,//是否启动拖动效果
+			    closable:true,//关闭按钮
+			    closeAction:'hide',
+		        plain:true,
+		        modal:true,//父页面不可编辑
+		        resizable:false,//false不可拖动边框的大小
+			    items: [userinfoEditpwForm]
+			});
+	    }
+		userinfoEditpwWin.show();
+     }  
+     
+     function doUpdate(){
+      var checkLength = grid.getSelections();
+	  if(checkLength.length  != 1){
+		  Ext.Msg.alert("信息提示","请选择一条记录进行修改!");
+	  }else{
+          var recordEdit= grid.getSelectionModel().getSelected(); 
+          var userid= recordEdit.get("userid");
+          var stafferid= recordEdit.get("stafferid");
+          var userphone= recordEdit.get("userphone");
+          var usertype= recordEdit.get("usertype");
+          var otherinfo= recordEdit.get("otherinfo");
+          
+          showUserinfoEditWin();
+          
+          userinfoEditForm.getForm().findField('useridEdit').setValue(userid);
+          userinfoEditForm.getForm().findField('stafferidEdit').setValue(stafferid);
+          userinfoEditForm.getForm().findField('userphoneEdit').setValue(userphone);
+          userinfoEditForm.getForm().findField('usertypeEdit').setValue(usertype);
+          userinfoEditForm.getForm().findField('otherinfoEdit').setValue(otherinfo);
+          
+
+      }
+	}  
+	
+	  function doUpdatepw(){
+	      var checkLength = grid.getSelections();
+		  if(checkLength.length  != 1){
+			  Ext.Msg.alert("信息提示","请选择一条记录进行修改!");
+		  }else{
+	          var recordEdit= grid.getSelectionModel().getSelected(); 
+	          var userid= recordEdit.get("userid");
+	          
+	          showUserinfoEditPwWin();
+	          
+	          userinfoEditpwForm.getForm().findField('userid1Edit').setValue(userid);
+	          
+	      }
+	 } 
+	
+});
+</script> 
+ 
+</head>
+<body>
+
+
+<div id="userEditSidSearch"></div>
+<div id="userinfoGrid"></div>
+</body>
+</html>
