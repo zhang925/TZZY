@@ -34,9 +34,9 @@ public class jspFilter implements Filter {
         User p = new User();
         p = (User) session.getAttribute("user");
         if((url.endsWith(".do") || url.endsWith(".jsp")) 
-        		&& (!url.endsWith("index.jsp") 
-        		&& !url.endsWith("login.jsp") 
-        		&& !url.endsWith("login.do") 
+        		&& (!url.endsWith("index.jsp")
+        		&& !url.endsWith("login.jsp")
+        		&& !url.endsWith("login.do")
         		&& !url.endsWith("test.do") 
         		&& !url.endsWith("forgetPwd.jsp")
         		&& !url.endsWith("user_zc.jsp")

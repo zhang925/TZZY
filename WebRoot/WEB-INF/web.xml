@@ -150,7 +150,8 @@
 	
 	
     <!-- 非正常进入的判断 该过滤 会过滤掉引用页面 所以不建议开启过滤 -->
-  <filter>  
+<!--
+  <filter>
     <filter-name>jspFilter</filter-name>  
     <filter-class>com.zzy.filter.jspFilter</filter-class>  
 </filter>  
@@ -158,6 +159,7 @@
     <filter-name>jspFilter</filter-name>  
     <url-pattern>/*</url-pattern>  
 </filter-mapping>  
+-->
 
  
  <!--
@@ -192,6 +194,7 @@
 	</error-page>
   
   <welcome-file-list>
+	  <welcome-file>index.html</welcome-file>
    <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
 </web-app>
