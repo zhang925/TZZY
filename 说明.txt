@@ -53,4 +53,19 @@ new String(downname.getBytes("GBK"), "ISO-8859-1");
 查看端口占用		 netstat -aon|findstr "8888"
 
 2018年7月25日12:11:05 上传到git
-		 
+
+
+		 4.前端涉及到 基本教程 有
+             extjs
+             easyui
+             jqGrid
+             lghdialog
+             layerui
+         ------------------
+             ueditor
+             echarts
+             bootstrap
+             angularjs
+             ArcGIS
+             Nodejs
+             mapbox
