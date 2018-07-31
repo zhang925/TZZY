@@ -1,0 +1,3 @@
+layer 是 layerui的一个弹框 组件
+引用了 layerui 就不用 引用 layer
+jquery 需要 1.8 以上
