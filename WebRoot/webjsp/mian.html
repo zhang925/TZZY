@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mian</title>
+    <style>
+        #main{
+            margin-left: 30px;
+        }
+    </style>
+
+    <script src="/js/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        //加载经典语录
+        $(function(){
+            $.ajax({
+                url:'/classicController/getClassicNow.do',
+                type:'POST',
+                dataType:'json',
+                success:function(data){
+                    $("#mrjd").html(data.classic.content);
+                    $("#mrjd2").html(data.classic.createtime);//data.classic.uid.name+"："+
+
+                }
+            });
+        });
+    </script>
+</head>
+
+
+<body>
+
+
+<div id="main">
+    <h1 id="mrjd" style="font-size:20px;color:blue;" ></h1>
+    <h3 id="mrjd2" style="color: red;"></h3>
+</div>
+
+
+
+</body>
+</html>

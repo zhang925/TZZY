@@ -6,7 +6,7 @@
     <title>layerui js方式 示例</title>
     <link rel="stylesheet" href="../../../plugins_sunny/layerui/layui-2.1.5/src/css/layui.css">
 
-    <script src="../../../plugins_sunny/jquery/jquery-1.9.1.min.js"></script>
+    <script src="../../../js/jquery/jquery-1.9.1.min.js"></script>
     <script src="../../../plugins_sunny/layerui/layui-2.1.5/src/layui.js"></script>
 
     <style type="text/css">
@@ -256,6 +256,11 @@
             <button class="layui-btn layui-btn-small layui-btn-primary">
                 <i class="layui-icon" onclick="reloadTable()">&#x1002;刷新</i>
             </button>
+
+            <button class="layui-btn layui-btn-small layui-btn-primary">
+                <i class="layui-icon" onclick="window.location.reload()">&#x1002;刷新2</i>
+            </button>
+
         </div>
     </div>
     <table id="t_user" lay-filter="tableFilter" ></table>

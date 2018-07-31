@@ -23,7 +23,7 @@
     </style>
 
     <!--  引入jquery -->
-    <script type="text/javascript" src="<%=basePath%>plugins_sunny/jquery/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="<%=basePath%>js/jquery/jquery-1.9.1.min.js"></script>
 
 </head>
 <body>
@@ -32,23 +32,23 @@
 <div  style="width: 100%;">
     <table id="tts">
         <tr>
-            <td><a href="webpage/other/extjs/userList.jsp">extjs教程[ 4.0 ]</a></td>
+            <td><a href="webjsp/other/extjs/userList.jsp">extjs教程[ 4.0 ]</a></td>
             <td>2017年10月20日 15:32:19</td>
         </tr>
         <tr>
-            <td><a href="webpage/other/easyui/user_list.jsp">easyui教程[ 1.4.3 ]</a></td>
+            <td><a href="webjsp/other/easyui/user_list.jsp">easyui教程[ 1.4.3 ]</a></td>
             <td>2017年10月23日 11:05:57</td>
         </tr>
         <tr>
-            <td><a href="webpage/other/jqgrid/user_list.html">jqGrid教程[ 5.2.1 ]</a></td>
+            <td><a href="webjsp/other/jqgrid/user_list.html">jqGrid教程[ 5.2.1 ]</a></td>
             <td>2017年</td>
         </tr>
         <tr>
-            <td><a href="webpage/other/lhgdialog/lhg_first.jsp">lghdialog教程[ 4.2.0 ]</a></td>
+            <td><a href="webjsp/other/lhgdialog/lhg_first.jsp">lghdialog教程[ 4.2.0 ]</a></td>
             <td>2017年</td>
         </tr>
         <tr>
-            <td><a href="webpage/other/layerui/user_list.html">layerui教程[ 2.1.5 ]</a></td>
+            <td><a href="webjsp/other/layerui/user_list.html">layerui教程[ 2.1.5 ]</a></td>
             <td>2017年</td>
         </tr>
 

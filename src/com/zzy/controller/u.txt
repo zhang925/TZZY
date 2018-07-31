@@ -32,8 +32,8 @@ import com.zzy.util.util_RandomCode;
 @Controller
 @RequestMapping(value = "/userController")
 public class UserController {
-	
-	@Autowired 
+
+	@Autowired
 	//即使配置了userService这个bin@Autowired也得加上不然为null
 	private UserService userService;
 	@Autowired
@@ -45,7 +45,7 @@ public class UserController {
 	 */
 	@RequestMapping(value="/login.do")
 	public void login(HttpServletResponse  response,HttpServletRequest request){
-		
+
 		try {
 			response.setContentType("text/html");
 			response.setCharacterEncoding("utf-8");
@@ -70,9 +70,9 @@ public class UserController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	/**
 	 * 后台easyUI显示用户列表
 	 * @param response
@@ -86,19 +86,19 @@ public class UserController {
 		String name = request.getParameter("name");
 		String username = request.getParameter("username");
 		String state = request.getParameter("state");
-		
+
 		String hql = "from User where state!='del' ";
 		String counthql = " select count(*) from User where state!='del' ";
-		
-		
+
+
 		if(util_Empty.strEmpty(state)){// 1 条件state优先
 			hql = "from User where state='"+state+"'";
 			counthql = " select count(*) from User where state='"+state+"'";
 		}
-		
+
 		/**要追加的条件*/
 		String condition="";
-		
+
 		if(util_Empty.strEmpty(uid)){// 2
 			condition = condition + " and uid='"+uid+"'";
 		}
@@ -109,10 +109,10 @@ public class UserController {
 			condition = condition + " and username like '%"+username+"%'";
 		}
 		condition = condition + " order by createtime desc";
-		
-		
+
+
 		int total=userService.getTotalNum( counthql + condition, new Object[]{});
-		
+
 		List<User> list = new ArrayList<User>();
 		int p=1,r=10;
 		if(util_Empty.strEmpty(page)){
@@ -121,14 +121,14 @@ public class UserController {
 		if(util_Empty.strEmpty(rows)){
 			r=Integer.valueOf(rows);
 		}
-		
-		
+
+
 		list=userService.getUserPage(hql+condition, new Object[]{},p,r);
-		
+
 		util_Json.jsonForEasyUI(list, total, response);
-		
+
 	}
-	
+
 	/**
 	 * 添加用户 或者 修改用户
 	 * @param user
@@ -166,15 +166,15 @@ public class UserController {
 			}else{
 				i = 0;
 			}
-			
+
 		}
 		util_Json.jsonPrintln(i+"", response);
 	}
-	
-	
+
+
 	/**
 	 * 添加用户
-	 * @param
+	 * @param user
 	 * @param response
 	 * @param request
 	 */
@@ -184,7 +184,7 @@ public class UserController {
 		request.setAttribute("user",user );
 		return "/webjsp/userjsp/user_check.jsp";
 	}
-	
+
 	/**
 	 * 删除用户 多条 或者 单条 删除
 	 * @param uid
@@ -234,7 +234,7 @@ public class UserController {
 		m.put("message", message);
 		util_Json.jsonPrintModel(m, response);
 	}
-	
+
 	/**
 	 * 修改用户信息前的页面跳转
 	 * @param uid
@@ -247,7 +247,7 @@ public class UserController {
 		request.setAttribute("user", u);
 		return "/webjsp/userjsp/user_update.jsp";
 	}
-	
+
 
 	@RequestMapping(value="/checkUsername")
 	 public void checkUsername(HttpServletRequest request,HttpServletResponse  response){
@@ -262,7 +262,7 @@ public class UserController {
 		 }
 		 util_Json.jsonPrintModel(m, response);
 	}
-	
+
 	@RequestMapping(value="/checkAqyz.do")
 	 public void checkAqyz(HttpServletRequest request,HttpServletResponse  response){
 		//安全验证
@@ -278,10 +278,10 @@ public class UserController {
 		 }
 		 util_Json.jsonPrintModel(m, response);
 	 }
-	
+
 	@RequestMapping(value="/xgmm.do")
 	 public void xgmm(HttpServletRequest request,HttpServletResponse  response){
-		
+
 		//修改密码
 		String password = request.getParameter("password");
 		String  username=  request.getParameter("username");//找回密码时候修改密码
@@ -303,7 +303,7 @@ public class UserController {
 			u.setPasswordmd5(util_Md5.MD5(password));
 			i = userService.saveOrUpdateUser(u);
 		}
-		
+
 		 if(i==1){
 			 m.put("check", "success");
 		 }else{
@@ -311,21 +311,21 @@ public class UserController {
 		 }
 		 util_Json.jsonPrintModel(m, response);
 	 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	/**
 	 * 退出
 	 * @param response
@@ -366,9 +366,9 @@ public class UserController {
 		}while(util_Empty.listEmpty(list2));//false的时候停止
 		return uid;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * 个人中心显示用户信息
 	 */
@@ -380,7 +380,7 @@ public class UserController {
 		return "/webjsp/userjsp/user_self.jsp";
 	}
 
-/*-----------------	以下为JS例子部分	--------------------------------*/
+
 
 	@RequestMapping(value="/userlistlayerui")
 	public void userlistlayerui(HttpServletResponse  response,HttpServletRequest request){
@@ -399,6 +399,6 @@ public class UserController {
 		int total = userService.getTotalNum( "select count(*) from User ", new Object[]{});
 		util_Json.jsonForLayerUI(list,total,r,response);
 	}
-	
-	
+
+
 }
