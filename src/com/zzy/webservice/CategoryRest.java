@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**分类管理的RestController*/
 @RestController
-@RequestMapping(value = "/category")
+@RequestMapping(value = "/category/rest/")
 public class CategoryRest {
 
 }
