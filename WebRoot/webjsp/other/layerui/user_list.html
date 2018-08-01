@@ -141,12 +141,18 @@
                 offset : ['2px', ''],
                 content:'../../../userController/goInfoLayerUI.do',
                 yes:function(index,frameDom){
+
                     var openFrame = $(frameDom).find("iframe")[0].contentWindow;//代开的窗开
-                    openFrame.save();//调用打开窗口的方法
-                    layer.close(index);//关闭当前窗口
-                    layer.msg('添加成功！', {icon: 1});
-                    setTimeout(reloadTable,500);//用这个方法解决 hibernate 刚添加的数据 layerui 查询不到的问题
-                    //layui.table.reload('ts_user', {   where: { key: { } } });//刷新数据 这里没有看到明显效果。暂时不处理了
+                    if(openFrame.save()==true){//调用打开窗口的方法
+                        layer.close(index);//关闭当前窗口
+                        layer.msg('添加成功！', {icon: 1});
+                        setTimeout(reloadTable,500);//用这个方法解决 hibernate 刚添加的数据 layerui 查询不到的问题
+                        //layui.table.reload('ts_user', {   where: { key: { } } });//刷新数据 这里没有看到明显效果。暂时不处理了
+                    }else{
+                        return false;
+                    }
+
+
                 }
             });
         }
@@ -213,10 +219,13 @@
                 content:'../../../userController/goInfoLayerUI.do?uid='+uid,
                 yes:function(index,frameDom){
                     var openFrame = $(frameDom).find("iframe")[0].contentWindow;//代开的窗开
-                    openFrame.save();//调用打开窗口的方法
-                    layer.close(index);//关闭当前窗口
-                    layer.msg('修改成功！', {icon: 1});
-                    setTimeout(reloadTable,500);//用这个方法解决 hibernate 刚添加的数据 layerui 查询不到的问题
+                    if(openFrame.save()==true){//调用打开窗口的方法
+                        layer.close(index);//关闭当前窗口
+                        layer.msg('修改成功！', {icon: 1});
+                        setTimeout(reloadTable,500);//用这个方法解决 hibernate 刚添加的数据 layerui 查询不到的问题
+                    }else{
+                        return false;
+                    }
                 }
             });
 

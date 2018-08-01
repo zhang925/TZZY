@@ -41,7 +41,7 @@
 			<tr>
 				<td align="right">*用户名(长度1-20之间)：</td>
 				<td>
-					<input  id="username" name="username" readonly="readonly" value="${user.username }" class="easyui-validatebox"  data-options="required:true,validType:'minLength[1,20]'"  />
+					<input  id="username" name="username" value="${user.username }" class="easyui-validatebox"  data-options="required:true,validType:'minLength[1,20]'"  />
 					<input id="uid" name="uid" value="${user.uid }" type="hidden" />
 					<input id="passwordmd5" name="passwordmd5" value="${user.passwordmd5 }" type="hidden" />
 					<input id="createtime" name="createtime" value="${user.createtime }" type="hidden" />
@@ -159,6 +159,14 @@
         });//click事件结束
 
     });//加载事件结束
+
+   $(function () {
+       var uid = $("#uid").val();
+       if(uid!=null && uid!=""){//修改
+           $("#username").attr("readonly","readonly");
+       }
+
+   });
 
 	function save() {
 	    var username = $("#username").val();

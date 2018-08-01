@@ -44,7 +44,7 @@
 			<tr>
 				<td align="right">用户名：</td>
 				<td>
-					<input type="text" name="username" value="${user.username }" required  lay-verify="required"  autocomplete="off" class="layui-input">
+					<input  id="username" type="text" name="username" value="${user.username }" required  lay-verify="required"  autocomplete="off" class="layui-input">
 					<input id="uid" name="uid" value="${user.uid }" type="hidden" />
 					<input id="passwordmd5" name="passwordmd5" value="${user.passwordmd5 }" type="hidden" />
 					<input id="createtime" name="createtime" value="${user.createtime }" type="hidden" />
@@ -138,10 +138,50 @@
             // readonly //disabled // removeAttr
             $("#ff input,select").attr("readonly","readonly");//这样导致 父页面 也跟着 带了属性。我们在子页面 form 的id 加以区分
         }
+
+        var uid = $("#uid").val();
+        if(uid!=null && uid!=""){//修改
+            $("#username").attr("readonly","readonly");
+        }
+
+
     });//加载事件结束
 
 
-    function save() { //这个方法一定要写到 外面不然 父页面 调不到
+
+    function save() {
+        var res = false;
+        var username = $("#username").val();
+        var uid = $("#uid").val();
+        if(uid!=null && uid!=""){//修改
+            dosave();
+            res = true;
+        }else{//添加
+            if(username){
+                $.ajax({
+                    url: 'userController/checkUser.do',
+                    async : false,
+                    cache : false,
+                    type:"POST",
+                    dataType:"json",
+                    data:{ "username":username },
+                    success:function(data) {
+                        if(data.msg=="yes"){//允许注册
+                            dosave();
+                            res = true;
+                        }else{
+                            parent.layer.msg('用户已经存在！');
+                        }
+                    }
+                });
+            }
+        }
+
+        return res;
+
+    }
+
+    function dosave() { //这个方法一定要写到 外面不然 父页面 调不到
 		// 添加用户需要验证是否 用户已经存在
 		$("#ff").submit();
     }
