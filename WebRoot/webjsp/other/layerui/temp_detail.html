@@ -1,0 +1,390 @@
+<!-- 弹出页 -->
+<form class="layui-form" id="faward"  enctype="multipart/form-data"   >
+	<!-- 隐藏属性 -->
+	<input id="opttype"  type="hidden" name="opttype" value="${opttype}" />
+	#if($award.id) <input id="id"  type="hidden"    name="id" value="${award.id}"  />  #end
+	<input id="createuser"  type="hidden" name="createuser" #if($award.createuser) value="${award.createuser}" #end   />
+	<input id="createid"  type="hidden" name="createid" #if($award.createid) value="${award.createid}" #end   />
+	<input id="createtime"  type="hidden" name="createtime" #if($award.createtime) value="${award.createtime}" #end   />
+	<input id="organ"  type="hidden" name="organ" #if($award.organ) value="${award.organ}" #end   />
+	<input id="organid"  type="hidden" name="organid" #if($award.organid) value="${award.organid}" #end   />
+
+
+
+
+	<!-- 内容 -->
+	<div class="manage_text2">
+
+		<div class="layui-form-item manage-form-item" >
+			<label class="layui-form-label manage_text_bt"><span>项目名称：</span><i>*</i></label>
+			&nbsp;&nbsp;<a class="layui-btn btn_color_lanse" onclick="showPro()"  style="line-height: 30px;height: 30px;" >查看详情</a>
+
+			<div class="layui-input-inline" style="width: 400px;" >
+				#if($opttype=='detail')
+				  <input id="projectid" type="hidden"  name="projectid"  value="${award.projectid}"   />
+				  <input class="layui-input"   id="name"    name="name"  value="${award.name}" />
+				#else
+					<input   id="name" type="hidden"  name="name" />
+					<select  id="projectid" name="projectid"  lay-search="" ></select>
+				#end
+			</div>
+		</div>
+
+
+
+		<div class="layui-form-item manage-form-item" >
+			<label class="layui-form-label manage_text_bt"><span>推荐等级：</span><i>*</i></label>
+			<div class="layui-inline">
+				<div class="layui-input-inline" >
+					#if($opttype=='detail')
+						<input class="layui-input"   id="level"    name="level"  value="${award.level}" />
+					#else
+						<input  type="hidden"  id="level01"  value="${award.level}" />
+						<select id="level" name="level"  lay-search="" ></select>
+					#end
+				</div>
+			</div>
+		</div>
+
+
+		<div class="layui-form-item manage-form-item" >
+			<label class="layui-form-label manage_text_bt"><span>奖励类别：</span><i>*</i></label>
+			<div class="layui-inline">
+				<div class="layui-input-inline" >
+					#if($opttype=='detail')
+						<input class="layui-input"   id="type"    name="type"  value="${award.type}" />
+					#else
+						<input  type="hidden"  id="type01"  value="${award.type}" />
+						<select id="type" name="type"  lay-search="" ></select>
+					#end
+				</div>
+			</div>
+		</div>
+
+		<div class="layui-form-item manage-form-item">
+			<label class="layui-form-label manage_text_bt"></label>
+			<div class="zijin_txt_fujian_main">
+				<div class="zijin_txt_fujian" name="upload"><a class="layui-btn btn_color_lanse zijin_txt_fujian_a" name="upload" id="upload" onclick="addFile()">添加附件</a>&nbsp;上传成果概要、鉴定材料等资料(最多选择三个文件)</div>
+                <input type="hidden" id="files" name="files"  #if($award.files) value="${award.files}" #end /><!-- 用于初始化  -->
+				<input type="hidden" id="deletefile" name="deletefile"  /><!-- 用于删除  -->
+                <ul class="jindu_ktbg_txt zijin_ktbg_txt" id="files-ul"></ul>
+			</div>
+		</div>
+
+
+
+
+
+	</div>
+</form>
+
+
+
+
+
+<script type="text/javascript">
+
+
+
+    var form;
+    layui.use(['laypage', 'layer','table','form'], function(){
+        var  layer = layui.layer
+			,forms = layui.form;
+			form = forms;
+    });
+
+
+
+	function initProject() {//初始化项目信息
+        $.ajax({
+            url:"${path}/st/query/list",
+            type:"POST",
+            cache:false,
+            async:false,
+            data:{"flownode":"end"},//查询已经结项的
+            dataType:"json",
+            success:function(data){
+                var results = data.result;
+                if(results){
+                    var appendHtml = '';
+                    var che = '';
+                    var projectid = "${award.projectid}";
+                    for(var i=0;i<results.length;i++){
+                        var result = results[i];
+                        var thisid = result.id;
+                        if(thisid==projectid){
+                            che = ' selected="selected" '
+						}
+                        appendHtml+='<option '+che+' value="'+thisid+'" >'+result.name+'</option>';
+					}
+					$("#projectid").append(appendHtml);
+                    if(form){
+                        form.render();//重新渲染
+                    }
+				}
+
+            },error:function(data){console.log(data)}
+        });
+    }
+  	//从字典表里面获取下级分类
+    function initFL(code,appendid) {
+        $.ajax({
+            url:"${path}/dict/query/next",
+            type:"POST",
+            cache:false,
+            async:false,
+            data:{"code":code},//
+            dataType:"json",
+            success:function(data){
+                var results = data.result;
+
+
+                if(results){
+                    var appendHtml = '';
+
+                    var che = '';
+                    var name01 = $("#"+appendid+"01").val();
+                    for(var i=0;i<results.length;i++){
+                        var result = results[i];
+
+                        var thisname = result.name;
+                        if(thisname==name01){
+                            che = ' selected="selected" '
+                        }
+
+                        appendHtml+='<option  '+che+' value="'+result.name+'" >'+result.name+'</option>';
+                    }
+                    $("#"+appendid).append(appendHtml);
+                    if(form){
+                        form.render();//重新渲染
+                    }
+                }
+
+            },
+            error:function(data){console.log(data)}
+        });
+    }
+
+    function initFile() {
+	    var opt = $("#opttype").val();
+        var files = $("#files").val();
+        var appendHtml = '<div class="zijin_txt_fujian"> 成果概要、鉴定材料等资料：</div>';
+        if(files){
+            var files = files.split(",");
+            for(var i=0;i<files.length;i++){
+                //获取文件的ID，前32位
+                var fileid = files[i].substring(0,32);
+                var filename= files[i].substring(33,files[i].length);
+                var delhtml = '';
+                if(opt=="update"){
+                    delhtml = '<i class="layui-icon" onclick="doDeleteFile(this)">ဆ</i>';
+                }
+                appendHtml += '<li><a href="${path}/file?down&id='+fileid+'">'+filename+'</a><input type="hidden" flag="hidefile" value="'+files[i]+'"/>'+delhtml+'</li>';
+            }
+            $("#files-ul").append(appendHtml);
+        }
+
+        if(form){
+            form.render();//重新渲染
+        }
+
+    }
+
+    function addFile(){
+        var lis = $("#files-ul li");//寻找文件下的 li 的数量
+        if(lis!=null && lis.length>=3){//不管是修改还是添加，超过5个就不然添加了
+            parent.layer.msg("最多只能上传三个附件");
+            return ;
+        }
+        //如果最后一个附件没有值，不准许添加，实际上这个判断是没用的，用户可以先选上，然后，清空，
+        $("#files-ul").append('<li><a><input type="file"  name="file"/></a><i class="layui-icon" onclick="deleteFile(this)">ဆ</i></li>');
+    }
+    function deleteFile(dom){
+        $(dom).parent().remove();
+    }
+
+
+    var deletefiles = "";
+    function doDeleteFile(dom){
+        parent.layer.confirm('确认要删除该文件吗？', {
+            btn : [ '确定', '取消' ]//按钮
+        }, function(index) {
+            $(dom).parent().remove();//删除html
+            var thisfile = $(dom).prev().val();//获取删除的文件
+            deletefiles = thisfile+"," + deletefiles;
+            $("#deletefile").val(deletefiles);//为删除的文件赋值
+            parent.layer.close(index);
+        });
+    }
+
+
+
+    function  check() {//用layui的验证 返回true和false 没法使用，二者不可兼得 舍弃layui验证
+		//验证
+		/*var number = $("#number").val();
+        var code = $("#code").val();
+        var startdate = $('#startdate').val();
+        var parten = /^.{1,200}$/ ;//标题不能超过200个字
+        if(!number.match(parten)) {
+            parent.layer.msg('指标号在1~200个字符之内！' );
+            return false;
+        }
+		if(!code.match(parten)) {
+			parent.layer.msg('校验码在1~200个字符之内！' );
+			return false;
+		}
+		if(!startdate){
+            parent.layer.msg('开始时间不能为空！' );
+            return false;
+		}*/
+        return true;
+    }
+
+
+    function checkFile() {
+
+        var opttype = "${opttype}";
+        //修改的时候看看 hidefile 是否存在,即上一次传递的file是否还在
+		if(opttype=="update"){
+            var hidefile = $("[flag='hidefile']");
+            if(hidefile==null || hidefile.length==0){
+                parent.layer.msg('附件不能为空！' );
+                return false;
+			}else{//上一次的文件还在，就不做判断了
+                return true;
+			}
+		}
+        var files = $("[name='file']");
+		if(!files || files.length==0){
+            parent.layer.msg('附件不能为空！' );
+            return false;
+		}else{
+		    var flag = false;
+            files.each(function (i,d) {
+				if(d.value){
+				    //文件有一个不为空就是true
+                    flag = true;
+                }
+            });
+            if(flag==false){
+                parent.layer.msg('附件不能为空！' );
+                return false;
+            }
+		}
+        return true;
+    }
+
+
+    function save(){
+        var res = false;
+        if(!checkFile()){//验证文件不通过
+            return false;
+		}
+		if(!check()){//验证不通过
+		    return false;
+		}
+
+		$("#name").val( $("#projectid option:selected").text()  );
+
+        var formData = new FormData($("#faward" )[0]);
+
+        $.ajax({
+            url:"${path}/award/save",
+            type:"POST",
+            cache:false,
+            async:false,
+            processData: false,
+            contentType: false,
+            data:formData,//$("#faward").serialize(),
+            dataType:"json",
+            success:function(data){
+                if(data.success==true || data.success=='true' ){
+                    parent.layer.msg('添加成功！', {icon: 1});
+                    res = true;
+                }else{
+                    parent.layer.msg('添加失败：'+data.msg, {icon: 5});
+                }
+            },
+            error:function(data){
+                parent.layer.msg('系统异常！', {icon: 5});
+            }
+        });
+        return res;
+    }
+
+    function update(){
+        if(!checkFile()){//验证文件不通过
+            return false;
+        }
+        var res = false;
+        if(!check()){//验证不通过
+            return false;
+        }
+
+        $("#name").val($("#projectid").text());//项目名称
+
+        var formData = new FormData($("#faward" )[0]);
+
+        $.ajax({
+            url:"${path}/award/update",
+            type:"POST",
+            cache:false,
+            async:false,
+            processData: false,
+            contentType: false,
+            data:formData, //$("#faward").serialize(),
+            dataType:"json",
+            success:function(data){
+                if(data.success==true || data.success=='true' ){
+                    parent.layer.msg('修改成功！', {icon: 1});
+                    res = true;
+                }else{
+                    parent.layer.msg('修改失败：'+data.msg, {icon: 5});
+                }
+            },
+            error:function(data){
+                parent.layer.msg('系统异常！', {icon: 5});
+            }
+        });
+        return res;
+    }
+
+
+    (function() {
+        //删除的文件清空，防止js缓存
+        deletefiles = "";
+
+        var opttype = "${opttype}";
+        if(opttype!="add"){
+            initFile();//显示文件
+		}
+        if("detail"==opttype){//是查看
+            $("input,textarea,select").attr("disabled","disabled");
+            $("[name='upload']").hide();
+        }else{
+            initProject(); //初始化项目信息
+            initFL("awardlevel","level")//初始化推荐等级
+            initFL("awardtype","type");//初始化奖励类别
+		}
+    })();
+
+
+    // 进程管理的审批流程页面，即只有查看使用该页面
+    function showPro() {
+        var id = $("#projectid").val();
+        parent.layer.open({
+            type:2,
+            area: ['100%', '100%'],
+            skin: 'layui-layer-lan',
+            title: "项目信息" ,
+            shade: [0.5, '#393D49'],
+            maxmin: true, //开启最大化最小化按钮
+            content:"${path}/st/jump?opttype=view&id="+id
+        });
+    }
+
+
+
+</script>
+<!-- 验证所选择的文件是否合法 -->
+<script type="text/javascript" src="${path}/skin/js/checkfile.js"></script>

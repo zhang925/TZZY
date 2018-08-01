@@ -10,3 +10,4 @@ layui 包含了很多组建 layer 弹框 是其中一个 引用了layerui 就不
 六、layer遵循MIT开源协议，将永久性提供无偿服务。
 
 【2.x // 2017年10月27日 16:43:42】
+temp_detail、temp_index 是 其他项目 拿过来的例子暂时不用

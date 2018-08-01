@@ -1,0 +1,364 @@
+<div class="section_mian">
+	<!-- 列表页 -->
+	<div class="larry-personal">
+		<div class="layui-tab">
+			<!-- 筛选 -->
+			<form class="layui-form" action="">
+
+
+				<div class="layui-form-item" style="display:inline-block">
+					<div class="layui-inline">
+						<label class="layui-form-label">推荐等级 :</label>
+						<div class="layui-input-inline" style="width:80px" >
+							<select  id="level" name="level" > </select>
+						</div>
+					</div>
+				</div>
+
+				<div class="layui-form-item" style="display:inline-block">
+					<div class="layui-inline">
+						<label class="layui-form-label">奖励类别 :</label>
+						<div class="layui-input-inline" style="width:80px" >
+							<select  id="type" name="type" > </select>
+						</div>
+					</div>
+				</div>
+
+				<!--  -->
+				<div class="layui-form-item" style="display:inline-block">
+					<div class="layui-inline">
+						<label class="layui-form-label">状态:</label>
+						<div class="layui-input-inline" style="width:80px" >
+							<select  id="flownode" name="flownode"   >
+								<option value="">全部</option>
+								<option value="0">待处理</option>
+								<option value="1" >已处理</option>
+							</select>
+						</div>
+					</div>
+            	</div>
+
+
+				<!-- 日期范围选择 -->
+				<div class="layui-form-item" style="display:inline-block">
+					<div class="layui-inline">
+						<label class="layui-form-label">日期范围:</label>
+						<div class="layui-input-inline">
+							<input type="text"  name="dates" class="layui-input" id="test6" placeholder="请选择" style="width: 150px;" />
+						</div>
+					</div>
+				</div>
+				<!-- 日期范围选择结束 -->
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<a class="layui-btn search_btn btn_color_lanse"  onclick="reloadTable()" style="margin-left:10px">重置</a>
+				<a class="layui-btn search_btn btn_color_lanse"  onclick="searchs()" style="margin-left:10px">查询</a>
+			</form>
+			<!-- 功能区域 -->
+			<blockquote class="layui-elem-quote news_search">
+				<div class="layui-inline"><a class="layui-btn btn_color_lanse" onclick="addOrUpdate('add','')">申请评奖</a></div>
+				<div class="layui-inline"><a class="layui-btn btn_color_hongse" onclick="del()" >批量删除</a></div>
+			</blockquote>
+			<!-- 功能区域结束 -->
+			<!-- 表格开始 -->
+			<form class="layui-form">
+				<table class="layui-table" id="layuitable" lay-filter="tableFilter" > </table>
+			</form>
+			<div>
+				<!-- 工具栏 toobar  可以放到 任意位置-->
+				<script type="text/html" id="toolbar">
+					<a class="layui-btn btn_color_lanse" lay-event="detail" style="line-height: 25px;height: 25px;" >查看</a>
+					{{#
+						var nodes = d.flownode;      /*流程节点AC-01*/
+						var node = 0;
+						if(nodes){
+							node = parseInt( nodes.substring(3,nodes.length) ) ; /*流程节点数字 1*/
+						}
+					if(    d.task   ){ }}
+						{{#  if(node==1){ }}
+							<a class="layui-btn btn_color_lvse" lay-event="update"  style="line-height: 25px;height: 25px;" >修改</a>
+							<a class="layui-btn btn_color_hongse" lay-event="del"  style="line-height: 25px;height: 25px;" >删除</a>
+						{{#  } }}
+						<!--&nbsp;<span style="color: #0000FF">待处理</span>-->
+					{{#  }
+
+
+					}}
+
+				</script>
+			</div>
+
+		</div>
+	</div>
+	<!-- 列表页结束 -->
+
+
+</div>
+
+
+<script>
+
+    var form;
+    layui.use(['laypage', 'layer','table','form'], function(){
+        var  layer = layui.layer
+            ,forms = layui.form;
+        form = forms;
+    });
+
+    $(function () {
+        initFL("awardlevel","level")//初始化推荐等级
+        initFL("awardtype","type");//初始化奖励类别
+    });
+
+
+    function searchs(){//查询
+        var dates = $("#test6").val();
+        var type = $("#type").val();
+        var level = $("#level").val();
+        var flownode = $("#flownode").val();
+        layui.table.reload('layuitable', {   where: {   dates:dates,type:type,level:level,flownode:flownode  } });
+    }
+
+    function  reloadTable() {//刷新表格
+        $("#test6").val('');
+        $("#type").val('');
+        $("#level").val('');
+        $("#flownode").val('');
+        $("option").removeAttr("selected");
+        $("[class='layui-input layui-unselect']").val('全部');
+        layui.table.reload('layuitable', {   where: {  dates:null,type:null,level:null,flownode:null } });
+    }
+
+    layui.use(['laypage', 'layer','table','form'], function(){
+        var laypage = layui.laypage
+            ,layer = layui.layer
+            ,form = layui.form
+            , table = layui.table;
+
+        table.render({
+            url: "${path}/award/query",
+            method: 'POST',
+            elem: '#layuitable',
+            id: 'layuitable',
+            where: { }, //默认 参数
+            //height: 500 ,
+            //width:1000,
+            cols: [[
+                {checkbox: true   },//checkbox框 , LAY_CHECKED: true 默认都选中
+                {field: 'id', title: '用户ID' },
+                {field:"name",title:'项目名称'  ,minWidth:200 },
+                {field:"level",title:'推荐等级',minWidth:100 },
+                {field:"organ",title:'推荐单位',minWidth:100 },
+				{field:"type",title:'奖励类别',minWidth:100 },
+                {field:"type",title:'奖励类别',minWidth:100 },
+                {field:"nodename",title:'进度' ,minWidth:100 },
+                {field:"flownode",title:'进度' ,minWidth:100 },
+                {field:"task",title:'状态' ,minWidth:80 },
+                //{field:"createtime",title:'创建时间',minWidth:120 },
+                //{field:"createuser",title:'创建人',minWidth:100 },
+                {field:"opt",title:'操作', toolbar: '#toolbar',minWidth:300 }
+            ]],
+
+            done: function(res, curr, count){
+
+                $("[data-field='id']").css('display','none');//隐藏列
+                $("[data-field='flownode']").css('display','none');//隐藏列
+
+                $("[data-field='task']").children().each(function(){
+                    var flownode = $(this).parent().prev().children(0).html();//获取node
+                    var node = 0;
+                    if(flownode){
+                        node = parseInt( flownode.substring(6,flownode.length) ) ;
+                    }
+                    var task = $(this).text();
+                    if(task  && task!="状态" ){
+                        $(this).html('<span style="color: red" >待处理</span>');
+                    }else if(!task  && task!="状态" ){
+                        $(this).html('<span style="color: purple" >进行中</span>');
+                    }
+                });
+
+
+                $("[data-field='nodename']").children().each(function(){//格式化 类型
+                    var nodename = $(this).text();
+                    if(nodename!="进度"){
+                        $(this).html("<span style='color: #0000FF'>"+nodename+"</span>");
+					}
+                });
+
+                $("[data-field='nodename']").children().each(function(){
+                    var nodename = $(this).text();
+                    if(!nodename){
+                        $(this).text("评奖结束");
+                    }
+                });
+
+
+            },
+            request: {//修改请求参数的 属性名字
+                limitName: 'row' //每页数据量的参数名，默认：limit
+            },
+            response: {
+                statusCode: 1//成功的状态码，默认：0
+            },
+            page: {layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']}, //是否显示分页栏
+            limit: 10
+
+        });
+        //监听工具条
+        table.on('tool(tableFilter)', function(obj){ //注：tool是工具条事件名，tableFilter是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+            var id = data.id;
+            if(layEvent === 'add'){ //添加
+                addOrUpdate('add','');
+            } else if(layEvent === 'detail'){ //查看
+                awardPro(layEvent,id,data.task);//进程
+            } else if(layEvent === 'update'){ //编辑
+                addOrUpdate(layEvent,id);
+            } else if(layEvent === 'del'){ //删除
+                del(id);
+            }
+        });
+
+    });
+
+
+    //查看、添加、修改 的公用页面
+    function addOrUpdate(opttype,id) {
+        var titles = "指标管理";
+        if(opttype=='detail'){
+            titles += " -- 查看"
+        }else if(opttype=='add'){
+            titles += " -- 添加"
+        }else if(opttype=='update'){
+            titles += " -- 修改"
+        }
+        parent.layer.open({
+            type:2,
+            btn: ['确定', '取消'],
+            area: ['50%', '60%'],
+            skin: 'layui-layer-lan',
+            title: titles ,
+            shade: [0.5, '#393D49'],
+            maxmin: true, //开启最大化最小化按钮
+            content:"${path}/award/jump?opttype="+opttype+"&id="+id,
+            yes:function(index,frameDom){
+                var openFrame = $(frameDom).find("iframe")[0].contentWindow; // 窗口
+                if(opttype=='add'){//添加
+                    var res = openFrame.save();
+                    if(res){//调用 添加方法
+                        parent.layer.close(index);//关闭当前窗口
+                        setTimeout(reloadTable,500);
+                    }else{
+                        return false;
+                    }
+                }else if(opttype=='detail'){//查看
+                    parent.layer.close(index);//关闭当前窗口
+                }else if(opttype=='update'){//修改
+                    var res = openFrame.update();
+                    if(res){//调用 添加方法
+                        parent.layer.close(index);//关闭当前窗口
+                        setTimeout(reloadTable,500);
+                    }else{
+                        return false;
+                    }
+                }
+            }
+
+        });
+    }
+
+    function awardPro(layEvent,id,task) {
+        var titles = "评奖管理 -- 进度 ";
+        if(!task){//保证不是undefined
+            task="";
+        }
+        parent.layer.open({
+            type:2,
+            area: ['100%', '100%'],
+            skin: 'layui-layer-lan',
+            title: titles ,
+            shade: [0.5, '#393D49'],
+            maxmin: true, //开启最大化最小化按钮
+            content:"${path}/award/jump?opttype=detail&id="+id+"&task="+task
+        });
+    }
+
+
+    //删除
+    function del(id) {
+        var delid = [];
+        if(id){//单个删除
+
+        }else{//多条件删除
+            var checkRows = layui.table.checkStatus('layuitable').data;//数组
+            if(checkRows.length<=0){
+                parent.layer.msg('请选择要删除的数据！', {icon: 5});
+                return;
+            }
+            for(var i in checkRows){
+                delid.push(checkRows[i].id);
+            }
+            id = delid;
+        }
+
+        parent.layer.confirm('确认要删除吗？', {
+            btn : [ '确定', '取消' ]//按钮
+        }, function(index) {
+            //执行删除……
+            var url = "${path}/award/delete?id="+id;
+            $.ajax({
+                url:url,
+                type:"POST",
+                data:{},
+                dataType:"json",
+                success:function(data){
+                    if(data.success==true || data.success=='true' ){
+                        parent.layer.msg('删除成功！', {icon: 1});
+                        layer.close(index);
+                        setTimeout(reloadTable,500);
+                    }else{
+                        parent.layer.msg('删除失败！', {icon: 5});
+                    }
+                },
+                error:function(data){
+                    parent.layer.msg('系统异常！', {icon: 5});
+                }
+            });
+
+
+        });
+
+    }
+
+
+
+    //从字典表里面获取下级分类
+    function initFL(code,appendid) {
+        $.ajax({
+            url:"${path}/dict/query/next",
+            type:"POST",
+            data:{"code":code},//
+            dataType:"json",
+            success:function(data){
+                var results = data.result;
+                if(results){
+                    var appendHtml = '<option value="">全部</option>';
+                    for(var i=0;i<results.length;i++){
+                        var result = results[i];
+                        appendHtml+='<option value="'+result.name+'" >'+result.name+'</option>';
+                    }
+                    $("#"+appendid).append(appendHtml);
+                    if(form){
+                        form.render();//重新渲染
+                    }
+                }
+
+            },
+            error:function(data){console.log(data)}
+        });
+    }
+
+</script>
+

@@ -3,13 +3,6 @@
 <3> 基本功能在2016年6月已经实现
 <4> 开发版本和发布版本最好不一样 不能带注释 安全性考虑
 
-${fn:substring(wl.content,0,10)}${fn:length(wl.content)>10?'...':''}
-
------------------修改的内存的方法[在JAVA_OPTS下面的下滑线下面添加一下配置]
-set JAVA_OPTS=%JAVA_OPTS% -server -XX:PermSize=512m -XX:MaxPermSize=512m -Xms512m -Xmx1024m -XX:MaxNewSize=512m
-		 
-查看端口占用		 netstat -aon|findstr "8888"
-
 2018年7月25日12:11:05 上传到git
 
 2018年7月31日15:28:03 把 maven的MySunny项目整合到这个里面，以后这个当做全部了
