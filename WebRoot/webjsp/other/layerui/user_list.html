@@ -24,7 +24,7 @@
                 elem: '#t_user', //数据表格渲染到什么位置
                 id: 'ts_user', //生成 Layui table 的标识 id 用于操作数据用
                 where: { type: "all" }, //其他参数
-                height: 400 ,  //容器高度
+                height: 500 ,  //容器高度
                 //width:1000,
                 cols: [[
                         {checkbox: true},//checkbox框 , LAY_CHECKED: true 默认都选中
@@ -34,7 +34,7 @@
                         {field:"sex",title:'性别',width:100,align:"center"},
                         {field:"phone",title:'手机号',width:150},
                         {field:"borntime",title:'出生日期',width:150,sort:true},
-                        {field:"opt",title:'操作',width:150,align:"center", toolbar: '#barDemo'}
+                        {field:"opt",title:'操作',align:"center", toolbar: '#barDemo',width:200}
                 ]],
                 page: true, //是否显示分页栏
                 limits: [10,20,30],//默认10-90
@@ -101,7 +101,7 @@
             doCheck(uid);
         }
         function doCheck(uid) {//查看方法
-            parent.layer.open({
+            layer.open({
                 type:2,// 1 是 文本 //2 是url 链接 // 4 是 tips层  ['内容', '#id']
                 btn: ['确定', '取消'],
                 area: ['550px', '400px'],
@@ -131,7 +131,7 @@
             layui.table.reload('ts_user', {   where: { key: { } } });
         }
         function add() {//添加
-            parent.layer.open({
+            layer.open({
                 type:2,// 1 是 文本 //2 是url 链接 // 4 是 tips层  ['内容', '#id']
                 btn: ['确定', '取消'],
                 area: ['550px', '410px'],
@@ -172,7 +172,7 @@
                 layer.confirm('真的删除行么', function(index){
                     //向服务端 删除
                     $.ajax({
-                        url:'../../../userController/deluser.do',
+                        url:'../../../userController/delusers.do',
                         type:'POST',
                         async:false,
                         dataType:'json',
@@ -202,7 +202,7 @@
                 }
                 uid = checkRows[0].uid;
             }
-            parent.layer.open({
+            layer.open({
                 type:2,
                 btn: ['确定', '取消'],
                 area: ['550px', '410px'],

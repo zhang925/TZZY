@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
-<%@include file="../../../common/tags.jsp"%>
+<%@include file="../../common/tags.jsp"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -14,7 +14,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<%-- 引入easuui  --%>
 	<link rel="stylesheet" href="<%=basePath%>plugins_sunny/layerui/layui-2.1.5/src/css/layui.css">
-	<script src="<%=basePath%>plugins_sunny/jquery/jquery-1.9.1.min.js"></script>
+	<script src="<%=basePath%>js/jquery/jquery-1.9.1.min.js"></script>
 	<script src="<%=basePath%>plugins_sunny/layerui/layui-2.1.5/src/layui.js"></script>
 
 	<style type="text/css">
@@ -142,6 +142,7 @@
 
 
     function save() { //这个方法一定要写到 外面不然 父页面 调不到
+		// 添加用户需要验证是否 用户已经存在
 		$("#ff").submit();
     }
 

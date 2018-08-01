@@ -1,5 +1,7 @@
 package com.zzy.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -21,6 +23,7 @@ public class User implements Serializable{
 	//private int id;
 	/**2 用户ID*/
 	@Id
+	//@GenericGenerator(name = "uuid", strategy = "uuid")
 	@Column(name = "uid", nullable = false)
 	private String uid;
 	/**3 登录名*/

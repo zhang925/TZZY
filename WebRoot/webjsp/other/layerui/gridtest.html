@@ -35,6 +35,11 @@
 </head>
 <body>
 <div>
+
+    <h3 id="test" style="border: 1px solid red;width: 120px;">
+        <a href="user_list.html">layui表格js方式</a>
+    </h3>
+
     <table class="layui-table"  lay-data="{height:500, url:'../../../userController/userlistlayerui.do', page:true, id:'test'}" lay-filter="test">
         <thead>
         <tr >
@@ -45,7 +50,7 @@
             <th lay-data="{field:'sex', width:80 ,align:'center'}">性别</th>
             <th lay-data="{field:'phone', width:120}">手机</th>
             <th lay-data="{field:'borntime', width:135, sort: true}">出生日期</th>
-            <th lay-data="{field:'opt', width:155,toolbar: '#barDemo'}">操作</th>
+            <th lay-data="{field:'opt', width:200,toolbar: '#barDemo'}">操作</th>
         </tr>
         </thead>
     </table>

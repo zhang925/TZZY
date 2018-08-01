@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.zzy.model.ResultOk;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
@@ -24,6 +26,8 @@ import com.zzy.util.util_Empty;
 import com.zzy.util.util_Json;
 import com.zzy.util.util_Md5;
 import com.zzy.util.util_RandomCode;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 /**
  * 用户控制层(UserController)
  * @author zzy
@@ -87,12 +91,12 @@ public class UserController {
 		String username = request.getParameter("username");
 		String state = request.getParameter("state");
 		
-		String hql = "from User where state!='del' ";
+		String hql = "from User where state!='del' order by createtime desc ";
 		String counthql = " select count(*) from User where state!='del' ";
 		
 		
 		if(util_Empty.strEmpty(state)){// 1 条件state优先
-			hql = "from User where state='"+state+"'";
+			hql = "from User where state='"+state+"' order by createtime desc ";
 			counthql = " select count(*) from User where state='"+state+"'";
 		}
 		
@@ -160,7 +164,7 @@ public class UserController {
 				u.setUid(uid);
 				u.setPasswordmd5(util_Md5.MD5(u.getPassword()));
 				//u.setPhotoid("tupianid");
-				u.setCreatetime(util_Date.dateToStr1(new Date(), "yyyy:MM:dd HH:mm:ss"));
+				u.setCreatetime(util_Date.dateToStr1(new Date(), "yyyy-MM-dd HH:mm:ss"));
 				u.setState("0");
 				i = userService.saveUser(u);
 			}else{
@@ -395,10 +399,88 @@ public class UserController {
 		if(util_Empty.strEmpty(rows)){
 			r=Integer.valueOf(rows);
 		}
-		list = userService.getUserPage("from User ",new Object[]{},p,r);
+		list = userService.getUserPage("from User order by createtime desc",new Object[]{},p,r);
 		int total = userService.getTotalNum( "select count(*) from User ", new Object[]{});
 		util_Json.jsonForLayerUI(list,total,r,response);
 	}
-	
-	
+
+	@RequestMapping({"/goInfoLayerUI.do"})
+	public String goInfoLayerUI(String uid, HttpServletResponse response, HttpServletRequest request) {
+		User user = this.userService.getUserByUID(uid);
+		request.setAttribute("user", user);
+		request.setAttribute("load", request.getParameter("load"));
+		return "webjsp/other/layerui/user_add_update.jsp";
+	}
+
+	@ResponseBody
+	@RequestMapping({"/delusers.do"})
+	public ResultOk delusers(String uids, HttpServletResponse response, HttpServletRequest request) {
+		ResultOk resultOk = new ResultOk();
+		String msg = "删除成功！";
+		String jqids = request.getParameter("id");
+		if (jqids != null && !"".equals(jqids) && !"_empty".equals(jqids)) {
+			uids = jqids;
+		}
+
+		if (uids != null) {
+			String[] var7 = uids.split(",");
+			int var8 = var7.length;
+
+			for(int var9 = 0; var9 < var8; ++var9) {
+				String uid = var7[var9];
+				this.userService.delUser(uid);
+			}
+		}
+
+		resultOk.setMsg(msg);
+		return resultOk;
+	}
+
+	@RequestMapping({"/addOrUpdate.do"})
+	@ResponseBody
+	public ResultOk addOrUpdate(User user, String type , HttpServletRequest request) {
+		ResultOk resultOk = new ResultOk();
+		String msg = "操作成功！";
+
+		if ("update".equals(type)) {
+			msg = "修改成功！";
+		} else if ("add".equals(type)) {
+			msg = "保存成功！";
+		}
+
+		String jqid = request.getParameter("id");
+		if (jqid != null && !"".equals(jqid) && !"_empty".equals(jqid)) {//jqgrid专用
+			user.setUid(jqid);
+		}
+
+		if (StringUtils.hasText(user.getUid())) {//修改
+			List<User> list2 = new ArrayList<User>();
+			list2=userService.getAllUser("from User where username=? and uid !=?", new Object[]{user.getUsername(),user.getUid()});
+			if(list2.isEmpty()){
+				user.setPasswordmd5(util_Md5.MD5(user.getPassword()));
+				userService.updateUser(user);
+			}
+		} else {
+			//首先判断添加的新用户名是否存在
+			List<User> list2 = new ArrayList<User>();
+			list2=userService.getAllUser("from User where username=?", new Object[]{user.getUsername()});
+			if(list2==null || list2.size()<=0 ){
+				user.setUid(getuid());
+				user.setPasswordmd5(util_Md5.MD5(user.getPassword()));
+				//u.setPhotoid("tupianid");
+				user.setCreatetime(util_Date.dateToStr1(new Date(), "yyyy-MM-dd HH:mm:ss"));
+				user.setState("0");
+				userService.saveUser(user);
+			}else{
+				msg="账户已经存在";
+			}
+		}
+		resultOk.setMsg(msg);
+		return resultOk;
+
+
+	}
+
+
+
 }
