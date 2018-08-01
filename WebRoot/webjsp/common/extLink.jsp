@@ -13,8 +13,8 @@ String basePathExtJs = request.getScheme()+"://"+request.getServerName()+":"+req
 	<%-- extjs  含有 jquery  --%>
 	<%--<script type ="text/javascript" src = "<%=basePathExtJs%>plugins_sunny/jquery/jquery-1.9.1.js" > </script>--%>
 	<!-- extjs 4.0 以上版本 只需引入这些就可以 -->
-	<link rel = "stylesheet" type ="text/css" href= "<%=basePathExtJs%>plugins_sunny/extjs/resources/css/ext-all.css" />
-	<script type ="text/javascript" src = "<%=basePathExtJs%>plugins_sunny/extjs/bootstrap.js" > </script>
+	<link rel = "stylesheet" type ="text/css" href= "<%=basePathExtJs%>extjs/resources/css/ext-all.css" />
+	<script type ="text/javascript" src = "<%=basePathExtJs%>extjs/bootstrap.js" > </script>
 
 
 </head>

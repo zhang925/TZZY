@@ -423,7 +423,47 @@ public class UserController {
 		util_Json.jsonForEasyUI(list, total, response);
 	}
 
+	@RequestMapping({"/userlistext"})
+	public void userlistext(HttpServletResponse response, HttpServletRequest request) {
+		String page;
+		try {
+			page = request.getParameter("names");
+			page = new String(page.getBytes("ISO-8859-1"), "UTF-8");
+			System.out.println(page);
+		} catch (Exception var9) {
+			;
+		}
 
+		page = request.getParameter("page");
+		String rows = request.getParameter("limit");
+		new ArrayList();
+		int p = 1;
+		int r = 5;
+		if (util_Empty.strEmpty(page)) {
+			p = Integer.valueOf(page);
+		}
+
+		if (util_Empty.strEmpty(rows)) {
+			r = Integer.valueOf(rows);
+		}
+
+		List<User> list = this.userService.getUserPage("from User ", new Object[0], p, r);
+		int total = this.userService.getTotalNum("select count(*) from User ", new Object[0]);
+		util_Json.jsonForExt(list, total, response);
+	}
+
+	/**EXtjs返回一个json对象*/
+	@RequestMapping({"/getUserById.do"})
+	@ResponseBody
+	public ResultOk getUserById(String uid) {
+		ResultOk resultOk = new ResultOk();
+		String msg = "操作成功！";
+		User user = this.userService.getUserByUID(uid);
+		this.userService.saveOrUpdateUser(user);
+		resultOk.setObj(user);
+		resultOk.setMsg(msg);
+		return resultOk;
+	}
 
 	@RequestMapping({"/goInfoLayerUI.do"})
 	public String goInfoLayerUI(String uid, HttpServletResponse response, HttpServletRequest request) {

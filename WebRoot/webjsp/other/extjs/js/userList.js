@@ -28,7 +28,7 @@
             pageSize: 5,
             proxy: {
                 type: 'ajax',
-                url : 'userController/userlist',
+                url : 'userController/userlistext',
                 reader: {
                     type: 'json',
                     root: 'rows' //对应 json 根节点 一般为rows
@@ -218,7 +218,7 @@
                             uidArray.push(records[i].data.uid);
                         }
                         $.ajax({
-                            url:"userController/deluser.do",
+                            url:"userController/delusers.do",
                             type:"POST",
                             data:{"uids":uidArray.join(",")},
                             dataType:"json",
