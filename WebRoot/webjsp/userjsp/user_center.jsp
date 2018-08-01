@@ -88,7 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	<span style="cursor: pointer;" onclick="javascript:location.href='index.jsp'">返回首页</span>&nbsp;&nbsp;
 	    	
-	    	<img onclick="gomail()" style="vertical-align:middle; margin:0px auto;cursor: pointer;" title="邮件" width="22px" height="16px" alt="邮件" src="image/email/email.jpg">
+	    	<img onclick="gomail()" style="vertical-align:middle; margin:0px auto;cursor: pointer;" title="邮件" width="22px" height="16px" alt="邮件" src="images/image/email/email.jpg">
 	    	</div>
 	    
 	    </div>   

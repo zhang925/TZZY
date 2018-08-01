@@ -38,8 +38,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    //height: 300,    
 			    closed: false,    
 			    cache: false,  
-			    content:'<img style="width:800px;" src="<%=basePath%>image/guilin/gl01.jpg"></img><img  style="width:800px;" src="<%=basePath%>image/guilin/gl02.jpg"></img><img  style="width:800px;" src="<%=basePath%>image/guilin/gl03.jpg"></img><img  style="width:800px;" src="<%=basePath%>image/guilin/gl04.jpg"></img><img  style="width:800px;" src="<%=basePath%>image/guilin/gl05.jpg"></img>',
-			    //href: '<img src="../../image/qingdao/airInfo.png"></img>',    
+			    content:'<img style="width:800px;" src="<%=basePath%>images/image/guilin/gl01.jpg"></img><img  style="width:800px;" src="<%=basePath%>images/image/guilin/gl02.jpg"></img><img  style="width:800px;" src="<%=basePath%>images/image/guilin/gl03.jpg"></img><img  style="width:800px;" src="<%=basePath%>images/image/guilin/gl04.jpg"></img><img  style="width:800px;" src="<%=basePath%>images/image/guilin/gl05.jpg"></img>',
+			    //href: '<img src="../../images/image/qingdao/airInfo.png"></img>',
 			    modal: true,
 			    buttons:[{
 					text:'关闭',

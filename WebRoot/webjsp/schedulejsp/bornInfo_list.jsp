@@ -16,7 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<%@include file="../../js/easyuiLink.jsp"%>
 	<%@include file="../../js/tags.jsp"%>
 	<%-- easuui和lghdialog是有冲突的 --%>
-<%--<script type="text/javascript" src="<%=basePath%>js/lhgDialog/lhgdialog.min.js"></script>--%>
+<%--<script type="text/javascript" src="<%=basePath%>plugins_sunny/lhgDialog/lhgdialog.min.js"></script>--%>
 
 
 	

@@ -38,8 +38,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    //height: 300,    
 			    closed: false,    
 			    cache: false,  
-			    content:"<img src=\"<%=basePath%>image/qingdao/airInfo.png\"></img>",  
-			    //href: '<img src="../../image/qingdao/airInfo.png"></img>',    
+			    content:"<img src=\"<%=basePath%>images/image/qingdao/airInfo.png\"></img>",
+			    //href: '<img src="../../images/image/qingdao/airInfo.png"></img>',
 			    modal: true,
 			    buttons:[{
 					text:'关闭',

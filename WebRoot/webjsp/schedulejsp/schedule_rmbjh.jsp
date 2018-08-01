@@ -26,29 +26,29 @@
 		<tr>
 			<td>
 				<span>一百元：人民大会堂<i style="color: blue;">[2010年6月]</i></span>
-				<img alt="100元风景" title="100元风景" src="../../image/rmbfj/100yuanfj.jpg" width="300" height="200"><br/>
+				<img alt="100元风景" title="100元风景" src="../../images/image/rmbfj/100yuanfj.jpg" width="300" height="200"><br/>
 			</td>
 			<td>
 				<span>五十元：布达拉宫</span>
-				<img alt="50元风景" title="50元风景" src="../../image/rmbfj/50yuanfj.jpg" width="300" height="200"><br/>
+				<img alt="50元风景" title="50元风景" src="../../images/image/rmbfj/50yuanfj.jpg" width="300" height="200"><br/>
 			</td>
 			<td>
 				<span>二十元：桂林山水<i style="color: blue;">[2018年5月6日]</i></span>
-				<img alt="20元风景" title="20元风景" src="../../image/rmbfj/20yuanfj.jpg" width="300" height="200"><br/>
+				<img alt="20元风景" title="20元风景" src="../../images/image/rmbfj/20yuanfj.jpg" width="300" height="200"><br/>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<span>十元：长江三峡(夔&lt;kui&gt;门)</span>
-				<img alt="10元风景" title="10元风景" src="../../image/rmbfj/10yuanfj.jpg" width="300" height="200"><br/>
+				<img alt="10元风景" title="10元风景" src="../../images/image/rmbfj/10yuanfj.jpg" width="300" height="200"><br/>
 			</td>
 			<td>
 				<span>五元：泰山</span>
-				<img alt="5元风景" title="50元风景" src="../../image/rmbfj/5yuanfj.jpg" width="300" height="200"><br/>
+				<img alt="5元风景" title="50元风景" src="../../images/image/rmbfj/5yuanfj.jpg" width="300" height="200"><br/>
 			</td>
 			<td>
 				<span>一元：西湖(三潭印月)<i style="color: blue;">[2016年8月6日]</i></span>
-				<img alt="1元风景" title="1元风景" src="../../image/rmbfj/1yuanfj.jpg" width="300" height="200"><br/>
+				<img alt="1元风景" title="1元风景" src="../../images/image/rmbfj/1yuanfj.jpg" width="300" height="200"><br/>
 			</td>
 		</tr>
 	</table>

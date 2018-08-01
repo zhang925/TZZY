@@ -15,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<%-- 引入easuui --%>
 	<%@include file="../../js/easyuiLink.jsp"%>
 	<%-- easuui和lghdialog是有冲突的 --%>
-<%--<script type="text/javascript" src="<%=basePath%>js/lhgDialog/lhgdialog.min.js"></script>--%>
+<%--<script type="text/javascript" src="<%=basePath%>plugins_sunny/lhgDialog/lhgdialog.min.js"></script>--%>
 <script type="text/javascript">
 
 	//通过行号找到对应的行以及里面的值

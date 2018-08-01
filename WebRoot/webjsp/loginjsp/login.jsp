@@ -40,7 +40,7 @@
   <p align="center"> 
   	<br/>
 <a href="#" onclick='toLogin()'>
-<img  src="<%=basePath %>image/qqimg/qq_login1.png" alt="使用QQ登录" title="使用QQ登录" style="width:20px;height: 20px; " ></a>
+<img  src="<%=basePath %>images/image/qqimg/qq_login1.png" alt="使用QQ登录" title="使用QQ登录" style="width:20px;height: 20px; " ></a>
   &nbsp;&nbsp;
   <a href="forgetPwd.jsp" target="_bland" class="f12 c999"   >忘记密码</a>
   </p> 

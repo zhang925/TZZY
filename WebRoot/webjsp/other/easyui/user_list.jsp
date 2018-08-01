@@ -15,14 +15,14 @@
 	<%-- 引入easuui --%>
 	<%@include file="../../common/easyuiLink.jsp" %>
 	<%-- easuui和lghdialog是有冲突的 --%>
-	<%--<script type="text/javascript" src="<%=basePath%>js/lhgDialog/lhgdialog.min.js"></script>--%>
+	<%--<script type="text/javascript" src="<%=basePath%>plugins_sunny/lhgDialog/lhgdialog.min.js"></script>--%>
 	<script type="text/javascript">
 
         function test (index){
             //var rows = $('#t_user').datagrid('getChecked');//在复选框 选中的时候返回所有行
             // var rows = $('#t_user').datagrid('getSelections'); // 返回所有被选中的行，当没有记录被选中的时候将返回一个空数组。
             //var rows = $('#dg').datagrid('getSelected');//返回第一个被选中的行或如果没有选中的行则返回null。
-            // resources/image/bishigou.jpg
+            // resources/images/image/bishigou.jpg
              var rows = $('#t_user').datagrid('getRows');
             var row = rows[index];
             var id = row.uid;

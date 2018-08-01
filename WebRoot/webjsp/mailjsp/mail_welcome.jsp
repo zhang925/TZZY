@@ -73,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 			
 		<div>
-			<img style="vertical-align:middle; margin:0px auto;cursor: pointer;" title="邮件" width="22px" height="16px" alt="邮件" src="image/email/email.jpg">
+			<img style="vertical-align:middle; margin:0px auto;cursor: pointer;" title="邮件" width="22px" height="16px" alt="邮件" src="images/image/email/email.jpg">
 			：
 		<span style="cursor: pointer;" onclick="goUnReadMail()"><span> 0 </span>封未读邮件。</span> 
 			

@@ -201,7 +201,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	
 	  	<%-- 中间部分右侧开始 --%>
 	  	<div id="mian_right" style="height: 760px;" >
-<!--	  		<img src="image/indeximg/bj_main_right01.jpg"></img><br/>
+<!--	  		<img src="images/image/indeximg/bj_main_right01.jpg"></img><br/>
 	  			人生就像蒲公英<br/>
 		  		看似自由<br/>
 		  		实则身不由己<br/>

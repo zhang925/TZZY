@@ -38,8 +38,8 @@
                 //height: 300,
                 closed: false,
                 cache: false,
-                content:'<img style="width:600px;" src="<%=basePath%>image/baligou/blg01.jpg"></img> <img style="width:600px;" src="<%=basePath%>image/baligou/blg02.jpg"></img> <img style="width:600px;" src="<%=basePath%>image/baligou/blg03.jpg"></img>',
-                //href: '<img src="../../image/qingdao/airInfo.png"></img>',
+                content:'<img style="width:600px;" src="<%=basePath%>images/image/baligou/blg01.jpg"></img> <img style="width:600px;" src="<%=basePath%>images/image/baligou/blg02.jpg"></img> <img style="width:600px;" src="<%=basePath%>images/image/baligou/blg03.jpg"></img>',
+                //href: '<img src="../../images/image/qingdao/airInfo.png"></img>',
                 modal: true,
                 buttons:[{
                     text:'关闭',
