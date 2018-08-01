@@ -46,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  			$("#yiji").click(function(){
 		 		mm = $.dialog({
 		 			id:'second',
-				    content: 'url:webpage/other/lhgdialog/lhg_second.jsp',
+				    content: 'url:webjsp/other/lhgdialog/lhg_second.jsp',
 				    title: '二级窗口',
 				    width: '500px',
 				    height: 300,

@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  			$("#erji").click(function(){
 		 		demoDG3 = $.dialog({
 		 			id:'third',
-				    content: 'url:webpage/other/lhgdialog/lhg_third.jsp',
+				    content: 'url:webjsp/other/lhgdialog/lhg_third.jsp',
 				    title: '三级窗口',
 				    width: '300px',
 				    height: 250,
