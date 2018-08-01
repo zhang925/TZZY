@@ -18,7 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="description" content="This is my page">
 
 	  <script type="text/javascript" src="<%=basePath%>plugins_sunny/jquery/jquery-1.8.3.min.js"></script>
-	  <script type="text/javascript" src="<%=basePath%>plugins_sunny/lhgdialog/lhgdialog.min.js"></script>
+	  <script type="text/javascript" src="<%=basePath%>plugins_sunny/lhgDialog/lhgdialog.min.js"></script>
 
 
 	  <script type="text/javascript">

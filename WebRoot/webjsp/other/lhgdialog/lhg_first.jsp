@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<script type="text/javascript" src="<%=basePath%>plugins_sunny/jquery/jquery-1.8.3.min.js"></script>
-	<script type="text/javascript" src="<%=basePath%>plugins_sunny/lhgdialog/lhgdialog.min.js"></script>
+	<script type="text/javascript" src="<%=basePath%>plugins_sunny/lhgDialog/lhgdialog.min.js"></script>
  
  	<script type="text/javascript">
  	
