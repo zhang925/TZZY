@@ -41,15 +41,15 @@
         </tr>
         <tr>
             <td><a href="webjsp/other/jqgrid/user_list.html">jqGrid教程[ 5.2.1 ]</a></td>
-            <td>2017年</td>
+            <td>2017年10月23日 11:05:57</td>
         </tr>
         <tr>
             <td><a href="webjsp/other/lhgdialog/lhg_first.jsp">lghdialog教程[ 4.2.0 ]</a></td>
-            <td>2017年</td>
+            <td>2017年10月23日 11:05:57</td>
         </tr>
         <tr>
             <td><a href="webjsp/other/layerui/user_list.html">layerui教程[ 2.1.5 ]</a></td>
-            <td>2017年</td>
+            <td>2017年10月23日 11:05:57</td>
         </tr>
 
         <tr>

@@ -13,7 +13,7 @@
 	<base href="<%=basePath%>">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<%-- 引入easuui --%>
-	<%@include file="../../../common/easyuiLink.jsp" %>
+	<%@include file="../../common/easyuiLink.jsp" %>
 	<%-- easuui和lghdialog是有冲突的 --%>
 	<%--<script type="text/javascript" src="<%=basePath%>js/lhgDialog/lhgdialog.min.js"></script>--%>
 	<script type="text/javascript">
@@ -36,7 +36,7 @@
                 idField:'uid',//标识列 必须 存在的列 不然会出现 意想不到的 bug 比如只能回去一条数据
                 width:1000,
                 height:350,
-                url:'userController/userlisteasyui',
+                url:'userController/userlisteasyui.do',
                 //是否显示斑马线效果。
                 striped:true,
                 //如果为true，则在同一行中显示数据。设置为true可以提高加载性能
@@ -272,7 +272,7 @@
                         uids = uid;
 					}
                     $.ajax({
-                        url:'userController/deluser.do',
+                        url:'userController/delusers.do',
                         type:'POST',
                         async:false,
                         dataType:'json',

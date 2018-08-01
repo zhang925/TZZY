@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
-<%@include file="../../../common/tags.jsp"%>
+<%@include file="../../common/tags.jsp"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -13,7 +13,7 @@
 	<base href="<%=basePath%>">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<%-- 引入easuui  --%>
-	<%@include file="../../../common/easyuiLink.jsp"%>
+	<%@include file="../../common/easyuiLink.jsp"%>
 	<style type="text/css">
 		.gray{
 			color:#686868!important;
@@ -41,7 +41,7 @@
 			<tr>
 				<td align="right">*用户名(长度1-20之间)：</td>
 				<td>
-					<input  id="username" name="username" value="${user.username }" class="easyui-validatebox"  data-options="required:true,validType:'minLength[1,20]'"  />
+					<input  id="username" name="username" readonly="readonly" value="${user.username }" class="easyui-validatebox"  data-options="required:true,validType:'minLength[1,20]'"  />
 					<input id="uid" name="uid" value="${user.uid }" type="hidden" />
 					<input id="passwordmd5" name="passwordmd5" value="${user.passwordmd5 }" type="hidden" />
 					<input id="createtime" name="createtime" value="${user.createtime }" type="hidden" />
@@ -160,7 +160,35 @@
 
     });//加载事件结束
 
-    function save(){
+	function save() {
+	    var username = $("#username").val();
+	    var uid = $("#uid").val();
+	    if(uid!=null && uid!=""){//修改
+            dosave();
+		}else{//添加
+            if(username){
+                $.ajax({
+                    url: 'userController/checkUser.do',
+                    async : false,
+                    cache : false,
+                    type:"POST",
+                    dataType:"json",
+                    data:{ "username":username },
+                    success:function(data) {
+                        if(data.msg=="yes"){//允许注册
+                            dosave();
+                        }else{
+                            $.messager.alert('警告','用户已经存在！','warning');
+                        }
+                    }
+                });
+            }
+		}
+
+    }
+
+
+    function dosave(){
         $('#ff').form('submit', {
             url:'userController/addOrUpdate.do',
             onSubmit: function(){

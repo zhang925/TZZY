@@ -384,7 +384,7 @@ public class UserController {
 		return "/webjsp/userjsp/user_self.jsp";
 	}
 
-/*-----------------	以下为JS例子部分	--------------------------------*/
+/*-----------***------	以下为JS例子部分	--------------------------------*/
 
 	@RequestMapping(value="/userlistlayerui")
 	public void userlistlayerui(HttpServletResponse  response,HttpServletRequest request){
@@ -403,6 +403,27 @@ public class UserController {
 		int total = userService.getTotalNum( "select count(*) from User ", new Object[]{});
 		util_Json.jsonForLayerUI(list,total,r,response);
 	}
+	@RequestMapping({"/userlisteasyui"})
+	public void userlisteasyui(HttpServletResponse response, HttpServletRequest request) {
+		String page = request.getParameter("page");
+		String rows = request.getParameter("rows");
+		new ArrayList();
+		int p = 1;
+		int r = 5;
+		if (util_Empty.strEmpty(page)) {
+			p = Integer.valueOf(page);
+		}
+
+		if (util_Empty.strEmpty(rows)) {
+			r = Integer.valueOf(rows);
+		}
+
+		List<User> list = this.userService.getUserPage("from User order by createtime desc ", new Object[0], p, r);
+		int total = this.userService.getTotalNum("select count(*) from User ", new Object[0]);
+		util_Json.jsonForEasyUI(list, total, response);
+	}
+
+
 
 	@RequestMapping({"/goInfoLayerUI.do"})
 	public String goInfoLayerUI(String uid, HttpServletResponse response, HttpServletRequest request) {
@@ -411,6 +432,16 @@ public class UserController {
 		request.setAttribute("load", request.getParameter("load"));
 		return "webjsp/other/layerui/user_add_update.jsp";
 	}
+
+	@RequestMapping({"/goInfoEasyUI.do"})
+	public String goInfoEasyUI(String uid, HttpServletResponse response, HttpServletRequest request) {
+		User user = this.userService.getUserByUID(uid);
+		request.setAttribute("user", user);
+		request.setAttribute("load", request.getParameter("load"));
+		return "webjsp/other/easyui/user_add_update.jsp";
+	}
+
+
 
 	@ResponseBody
 	@RequestMapping({"/delusers.do"})
@@ -477,10 +508,25 @@ public class UserController {
 		}
 		resultOk.setMsg(msg);
 		return resultOk;
-
-
 	}
 
+
+	/**验证用户是否被注册*/
+	@RequestMapping({"/checkUser.do"})
+	@ResponseBody
+	public ResultOk checkUser(String username) {
+		ResultOk resultOk = new ResultOk();
+		List<User> list = null;
+		if(username!=null){
+			list = userService.getAllUser("from User where username=?", new Object[]{username});
+		}
+		if(list.isEmpty()){
+			resultOk.setMsg("yes");//允许注册
+		}else{
+			resultOk.setMsg("no");//不允许注册
+		}
+		return resultOk;
+	}
 
 
 }
