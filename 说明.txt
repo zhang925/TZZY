@@ -14,20 +14,22 @@ set JAVA_OPTS=%JAVA_OPTS% -server -XX:PermSize=512m -XX:MaxPermSize=512m -Xms512
 
 2018年7月31日15:28:03 把 maven的MySunny项目整合到这个里面，以后这个当做全部了
 
-		 4.前端涉及到 基本教程 有
-             extjs
-             easyui
-             jqGrid
-             lghdialog
-             layerui
-         ------------------
-             ueditor
-             echarts
-             bootstrap
-             angularjs
-             ArcGIS
-             Nodejs
-             mapbox
+2018年8月1日16:12:48 整合完毕。
+
+前端涉及到 基本教程 有
+ extjs
+ easyui
+ jqGrid
+ lghdialog
+ layerui
+ bootstrap
+------------------
+ ueditor
+ echarts
+ angularjs
+ ArcGIS
+ Nodejs
+ mapbox
 
 
 
