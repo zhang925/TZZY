@@ -84,6 +84,7 @@ public class UserServiceImpl implements UserService{
 			basedao.update(user);
 		} catch (Exception e) {
 			i = 2;
+			e.printStackTrace();
 		}
 		return i;
 	}

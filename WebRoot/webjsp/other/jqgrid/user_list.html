@@ -50,14 +50,19 @@
                    // cellurl:"../../../userController/test.do",
                     hidegrid:true,//开启 右上角的 折叠按钮
                     hiddengrid:false,//true 的时候  点击 折叠按钮 才加载数据起到 延迟加载数据的功效
-                    colNames : [ '用户的ID', '用户名字', '昵称','密码', '出生日期', '手机',"操作" ],//jqGrid的列显示名字
+                    colNames : [ '用户的ID', '用户名字', '昵称', '出生日期', '手机','密码','性别','状态','创建时间',"操作" ],//jqGrid的列显示名字
 					colModel : [ //jqGrid每一列的配置信息。包括名字，索引，宽度,对齐方式.....
 						{name : 'uid',index : 'uid',width : 55,editable:false,hidden:false, key:true},//key:true 该列是 id 而不是 传行号
 						{name : 'username',index : 'username',width : 100,align : "center",editable:true},
                         {name : 'name',index : 'name',width : 90,align : "center",editable:true},
-                        {name : 'password',index : 'password',hidden: true},//隐藏列
 						{name : 'borntime',index : 'borntime',width : 80,align : "center",editable:true},
 						{name : 'phone',index : 'phone',width : 80,align : "center",sortable : false,editable:true},
+
+                        //隐藏列 ,hidden:true,editable:true 同时使用才能传递参数 、这里字段没有写完，实际根据需要写完
+                        {name : 'password',index : 'password',hidden:true,editable:true},
+                        {name : 'sex',index : 'sex',width : 80,hidden:true,editable:true},
+                        {name : 'state',index : 'state',width : 80,hidden:true,editable:true},
+                        {name : 'createtime',index : 'createtime',width : 80,hidden:true,editable:true},
 						{name: 'opt', index: '', width: 80, fixed: true, sortable: false, resize: false,editable:false,
 							formatter: 'actions',//自定义操作列
 							formatoptions: {
@@ -67,7 +72,7 @@
                                 url:"../../../userController/addOrUpdate.do",
 								delOptions: {
 								    recreateForm: true,
-									url: "../../../userController/deluser.do"
+									url: "../../../userController/delusers.do"
 								}
 							}
 						}
@@ -175,7 +180,7 @@
                             },
 							//caption:"提示",//删除的时候提示语 标题
                             //msg:"确定删除吗", //删除的时候提示语 内容
-                            url:"../../../userController/deluser.do"
+                            url:"../../../userController/delusers.do"
 						},{
 					    	// 对 搜索 配置
                             multipleSearch : true //  是否开启 多条件查询
