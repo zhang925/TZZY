@@ -28,7 +28,7 @@
             pageSize: 5,
             proxy: {
                 type: 'ajax',
-                url : 'userController/userlistext',
+                url : 'userController/userlistext.do',
                 reader: {
                     type: 'json',
                     root: 'rows' //对应 json 根节点 一般为rows
@@ -287,13 +287,13 @@
                         name: 'uid',
                         fieldLabel: '用户的UID',
                         allowBlank: false,
-                        readOnly:isReadOnly(),
+                        readOnly:true,
                         value:user.uid,
                         blankText:"uid不能为空！"
                     }, {
                         //输入文本框
                         xtype: 'textfield',
-                        readOnly:isReadOnly(),
+                        readOnly:true,
                         name: 'username',
                         value:user.username,
                         fieldLabel: '用户登陆名'
@@ -370,6 +370,13 @@
                         }),
                         queryMode: 'local',
                         typeAhead: true
+                    }, {
+                        //输入文本框
+                        xtype: 'textfield',
+                        readOnly:true,
+                        name: 'createtime',
+                        value:user.createtime,
+                        fieldLabel: '创建时间'
                     }/*
                     带上 上传功能，表单提升为 文件 提交 比较麻烦！
                     , {
@@ -466,14 +473,14 @@
                         labelWidth: 90,
                         anchor: '100%'
                     },
-                    items: [ {
+                    items: [/* {
                         //输入文本框
                         xtype: 'textfield',
                         name: 'uid',
                         fieldLabel: '用户的UID',
                         allowBlank: false,
                         blankText:"uid不能为空！"
-                    }, {
+                    },*/ {
                         //输入文本框
                         xtype: 'textfield',
                         name: 'username',

@@ -423,7 +423,7 @@ public class UserController {
 		util_Json.jsonForEasyUI(list, total, response);
 	}
 
-	@RequestMapping({"/userlistext"})
+	@RequestMapping({"/userlistext.do"})
 	public void userlistext(HttpServletResponse response, HttpServletRequest request) {
 		String page;
 		try {
@@ -447,7 +447,7 @@ public class UserController {
 			r = Integer.valueOf(rows);
 		}
 
-		List<User> list = this.userService.getUserPage("from User ", new Object[0], p, r);
+		List<User> list = this.userService.getUserPage("from User order by createtime desc", new Object[0], p, r);
 		int total = this.userService.getTotalNum("select count(*) from User ", new Object[0]);
 		util_Json.jsonForExt(list, total, response);
 	}
