@@ -19,8 +19,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<%@include file="js/tags.jsp"%>
 <!-- 首页的css	-->
 <link rel="stylesheet" type="text/css" href="css/index.css" />
-	<script type="text/javascript" src="js/jquery/jquery-1.8.3.min.js"></script>
-	<script type="text/javascript" src="js/lhgDialog/lhgdialog.min.js"></script>
+	<script type="text/javascript" src="plugins_sunny/jquery/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="plugins_sunny/lhgDialog/lhgdialog.min.js"></script>
 		<%--  头部js css 引入  结束 --%>
 	
   </head>
@@ -70,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    
     
     <div id="important"  >
-		<div style="max-width:1500px;min-width: 1000px;margin: 0 auto"><img src="../image/indeximg/bj_import.png" height="255px" style="width:100%;min-width: 1000px;" /></div>
+		<div style="max-width:1500px;min-width: 1000px;margin: 0 auto"><img src="../images/image/indeximg/bj_import.png" height="255px" style="width:100%;min-width: 1000px;" /></div>
     </div>
       
    
@@ -119,7 +119,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		12、对齐方式：align=top、bottom、center、baseline、 left、right、texttop、middle、absmiddle、absbottom
 						height=60px;  -->
 
-				<embed src="mp3/haiyouwo.mp3" title="冬天的秘密" height=80px;  loop="true" autostart="false" type="audio/mpeg"></embed>
+				<embed src="resources/mp3/haiyouwo.mp3" title="冬天的秘密" height=80px;  loop="true" autostart="false" type="audio/mpeg"></embed>
 				
 
 				
