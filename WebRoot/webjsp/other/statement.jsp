@@ -23,7 +23,7 @@
     </style>
 
     <!--  引入jquery -->
-    <script type="text/javascript" src="<%=basePath%>js/jquery/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="<%=basePath%>plugins_sunny/jquery/jquery-1.9.1.min.js"></script>
 
 </head>
 <body>

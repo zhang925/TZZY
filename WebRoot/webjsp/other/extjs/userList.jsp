@@ -14,7 +14,7 @@
     <%-- 引入 extjs --%>
     <%@include file="../../common/extLink.jsp"%>
     <!--  引入jquery -->
-    <script type="text/javascript" src="<%=basePath%>js/jquery/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="<%=basePath%>plugins_sunny/jquery/jquery-1.9.1.min.js"></script>
     <%-- 引入 自定义js --%>
     <script type="text/javascript" src="<%=basePath%>webjsp/other/extjs/js/userList.js"></script>
 </head>

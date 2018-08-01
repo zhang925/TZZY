@@ -11,7 +11,7 @@ String basePath1 = request.getScheme()+"://"+request.getServerName()+":"+request
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ include file="../../js/easyuiLink.jsp"%>
 <title>测试不用框架的Ajax上传文件</title>
-<script type="text/javascript" src="<%=basePath1%>js/jquery/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="<%=basePath1%>plugins_sunny/jquery/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="<%=basePath1%>js/jquery.form.js"></script>
 <script type="text/javascript" src="<%=basePath1%>js/ajaxfileupload.js"></script>
 
