@@ -9,6 +9,10 @@
 
 2018年8月1日16:12:48 整合完毕。
 
+服务器存储 token 的方式。1、session监听中，数据量不大可以用。2、redis中3、数据库中3.其他工具中如JWT
+
+kissso--JTW单点登录
+
 前端涉及到 基本教程 有
  extjs
  easyui
@@ -23,6 +27,8 @@
  ArcGIS
  Nodejs
  mapbox
+
+
 
 
 
