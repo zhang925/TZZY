@@ -19,8 +19,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-1.9.1.js"></script>
 	<script type="text/javascript">
 		$(function(){
-		
-			
+
+
+
+		    $("#select1").on("change",function () {
+                alert(1);
+            });
+
+            $("#select2").on("change",function () {
+                alert(2);
+            });
+
+
 		});
 	</script>
 	
