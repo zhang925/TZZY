@@ -36,14 +36,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </head>
   <body>
-   		  
+
      省:
      <select id="select1" name="select1" onchange="getSelectOptionCity(this.value,'select2')">
      	<option id="init" value="">-----请选择-----</option>
-     	
      </select>
-    市：<select id="select2" name="select2" onchange="getSelectOptionArea(this.value,'select3')"><option value="">-----请选择-----</option></select>
-    县：<select id="select3" name="select3" onchange="getSelectOption(this.value,'select4' )"><option value="">-----请选择-----</option></select>
+
+    市：<select id="select2" name="select2" onchange="getSelectOptionArea(this.value,'select3')">
+         <option value="">-----请选择-----</option>
+     </select>
+
+    县：<select id="select3" name="select3" >
+         <option value="">-----请选择-----</option>
+     </select>
 
   
   </body>
