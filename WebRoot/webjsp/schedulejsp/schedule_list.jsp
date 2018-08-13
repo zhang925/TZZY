@@ -181,6 +181,33 @@
 				<td></td>
 			</tr>
 
+			<tr>
+				<td colspan="4" align="center" style="color: purple">其他</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td><a href="javascript:void(0);"></a></td>
+				<td>(20??年?月)</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td><a href="javascript:void(0);"></a></td>
+				<td>(20??年?月)</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td><a href="javascript:void(0);"></a></td>
+				<td>(20??年?月)</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td><a href="javascript:void(0);"></a></td>
+				<td>(20??年?月)</td>
+				<td></td>
+			</tr>
 
 		</table>
 		
