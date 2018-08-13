@@ -68,6 +68,12 @@
 			</tr>
 			<tr>
 				<td>1</td>
+				<td>地点</td>
+				<td>【预计时间】</td>
+				<td>【实际时间】</td>
+			</tr>
+			<tr>
+				<td>1</td>
 				<td><a href="javascript:void(0);">宁夏沙湖</a></td>
 				<td>(20??年?月)</td>
 				<td></td>
