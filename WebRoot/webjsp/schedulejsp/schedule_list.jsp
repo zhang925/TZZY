@@ -58,20 +58,16 @@
 				<td>(计划2018年)</td>
 				<td>【2018年6月30日早】</td>
 			</tr>
-		</table>
-		
-		<br/>
-		
-		<table>
+			<tr>
+				<td>6</td>
+				<td><a href="qmshy.jsp">开封清明上河园</a></td>
+				<td>(计划2018年8月)</td>
+				<td>【2018年8月11日早】</td>
+			</tr>
 			<tr>
 				<td colspan="4" align="center"><span style="color: red;font-weight: bolder;">计划中</span><br/></td>
 			</tr>
-			<tr>
-				<td>1</td>
-				<td>地点</td>
-				<td>【预计时间】</td>
-				<td>【实际时间】</td>
-			</tr>
+
 			<tr>
 				<td>1</td>
 				<td><a href="javascript:void(0);">宁夏沙湖</a></td>
@@ -138,26 +134,21 @@
 				<td>(20??年?月)</td>
 				<td></td>
 			</tr>
+
 			<tr>
 				<td>12</td>
-				<td><a href="javascript:void(0);">开封清明上河园</a></td>
-				<td>(20??年?月)</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>13</td>
 				<td><a href="javascript:void(0);">郑州嵩山</a></td>
 				<td>(20??年?月)</td>
 				<td></td>
 			</tr>
 			<tr>
-				<td>14</td>
+				<td>13</td>
 				<td><a href="javascript:void(0);">南阳诸葛庐(武侯祠)</a></td>
 				<td>(20??年?月)</td>
 				<td></td>
 			</tr>
 			<tr>
-				<td>15</td>
+				<td>14</td>
 				<td><a href="javascript:void(0);">焦作云台山</a></td>
 				<td>(20??年?月)</td>
 				<td></td>
@@ -165,7 +156,6 @@
 			<tr>
 				<td colspan="4" align="center" style="color: purple">以下为2018新增</td>
 			</tr>
-
 			<tr>
 				<td>1</td>
 				<td><a href="javascript:void(0);">崖山</a></td>
