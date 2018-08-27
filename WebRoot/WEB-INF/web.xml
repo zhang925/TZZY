@@ -66,6 +66,15 @@
 	</servlet-mapping>
 
 
+	<!-- sebservice 的权限 拦截器 -->
+	<filter>
+		<filter-name>dispatcherDemoFilter</filter-name>
+		<filter-class>com.zzy.webservice.CORSFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>dispatcherDemoFilter</filter-name>
+		<url-pattern>/api/*</url-pattern>
+	</filter-mapping>
 
 	<!-- sebservice 的权限 拦截器 -->
 	<!--<filter>

@@ -1,23 +1,21 @@
 package com.zzy.webservice;
-
 import com.alibaba.fastjson.JSONObject;
-//import com.baomidou.kisso.SSOConfig;
+import com.zzy.service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
 import javax.servlet.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+
+//import com.baomidou.kisso.SSOConfig;
 
 /**
  * 本拦截器只对webservice 有效 即 wwww.aaa.com/api/**的访问拦截
@@ -28,10 +26,10 @@ import java.util.UUID;
  * @Author zzy
  */
 //@Controller
-public class CORSFilter  {//implements Filter
+public class CORSFilter implements Filter{
 
-
-   // private SystemService systemService;
+    @Autowired
+    private SystemService systemService;
 
     public void destroy() {
 
@@ -40,23 +38,23 @@ public class CORSFilter  {//implements Filter
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
 
         HttpServletResponse response = (HttpServletResponse) resp;
+        HttpServletRequest request = (HttpServletRequest) req ;
         response.setHeader("Access-Control-Allow-Origin","*");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Methods","POST,GET,OPTIONS,DELETE, PUT");
         response.setHeader("Access-Control-Max-Age","3600");
         response.setHeader("Access-Control-Allow-Headers","Authorization,Origin, X-Requested-With, Content-Type, Accept,Access-Token");
         response.setHeader("Access-Control-Expose-Headers", "*");
-        response.setDateHeader("expries", -1);
-        response.setHeader("Cache-Control", "no-cache");
-        response.setHeader("Pragma", "no-cache");
-
-       if(isAuthorization(response)){
+        //response.setDateHeader("expries", -1);
+        //response.setHeader("Cache-Control", "no-cache");
+        //response.setHeader("Pragma", "no-cache");
+        if(isAuthorization(request,response)){
             chain.doFilter(req, resp);
         }else{
             response.setCharacterEncoding("utf8");
-           JSONObject obj = new JSONObject();
-           obj.put("responsecode","403");
-           obj.put("msg", "no_login");//应前后端要求，这里统一采用 msg no_login 为没有登录，或者服务器session消失。
+            JSONObject obj = new JSONObject();
+            obj.put("code","403");
+            obj.put("msg", "no_power");
             response.getWriter().println(obj.toJSONString());
         }
 
@@ -75,61 +73,50 @@ public class CORSFilter  {//implements Filter
      */
     public boolean isHandle(HttpServletRequest request){
         String requestUrl = request.getRequestURI();//获取当前请求的url
-        requestUrl = requestUrl.replace("/","");
+        //requestUrl = requestUrl.replace("/","");
         boolean flag = false;
-
         //解决 filter 中注入  systemService 失败
-       /*ServletContext sc = request.getSession().getServletContext();
+        ServletContext sc = request.getSession().getServletContext();
         XmlWebApplicationContext cxt = (XmlWebApplicationContext) WebApplicationContextUtils.getWebApplicationContext(sc);
         if(cxt != null && cxt.getBean("systemService") != null){
             systemService = (SystemService) cxt.getBean("systemService");
         }
         if(systemService!=null){
             //从数据库读取白名单
-            List<Map<String, Object>> list = systemService.findForJdbc(" select authority_uri from t_s_authority_white ");
+            List<Object[]> list = systemService.getBySql(" select url from sso_white  ");
             if(list!=null && list.size()>0){
-                for(Map<String, Object> map : list){
-                    Object  temp =  map.get("authority_uri");
-                    if(temp!=null){//linux 对 / 和 \ 很排斥啊，这里 去掉后变成小写比较
-                        String white = temp.toString().trim();
-                        white = white.toString().replace("/","");
-                        requestUrl = requestUrl.toLowerCase();
-                        white = white.toLowerCase();
-                        if(requestUrl.contains(white)){//和白名单匹配
-                            flag = true;
-                            break;
-                        }
-                    }
-                }
-            }
-        }*/
-        //系统免过滤的白名单，在单点登录的sso.properties的white.list配置
-      /* String whiteList = UtilSht.getPripertyPath("sso.properties",null,"white.list");
-
-        if(whiteList!=null && !"".equals(whiteList)){
-            whiteList = whiteList.trim();
-            String str [] = whiteList.split(";");
-            if(str!=null && str.length>0){
-                for(String temp:str){
-                    if( requestUrl.indexOf(temp)!=-1){//找到该地址
+                for(Object  object : list){
+                    if(requestUrl.contains(object.toString())){
                         flag = true;
                         break;
                     }
+
                 }
             }
-
         }
-        */
         return flag;//不需要拦截
     }
 
 
 
-    public boolean isAuthorization( HttpServletResponse response){
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        if(isHandle( request)){//是白名单
+    public boolean isAuthorization(HttpServletRequest request, HttpServletResponse response){
+        //HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+       /* if(isHandle( request)){//是白名单
             return true;
-        }
+        }else{
+            *//**token 进行验证 *//*
+            String token = request.getHeader("Authorization");
+            if(token!=null){
+                Map<String,Claim> map = JwtToken.verifyToken(token);
+                if(map!=null){//有效的token
+                    return true;
+                }
+            }
+            return false;
+        }*/
+        return true;
+        // 一下可以进行 cookie tooken 验证
+        /*
         String authorization = request.getHeader("Authorization");//token
         //"SESSIONID=947CDE0762299E1241430790C588A7F3; aaa=aaa"
         String SESSIONID  = "";
@@ -155,14 +142,14 @@ public class CORSFilter  {//implements Filter
             if(obj==null){
                 return false;
             }
-           /* TSUser tsUser = (TSUser)obj;
+           *//* TSUser tsUser = (TSUser)obj;
             if(tsUser==null || tsUser.getId()==null){
                 return false;
             }else{
                 return true;//从以前的登陆信息中获取登陆后的用户
-            }*/
+            }*//*
            return true;
         }
-        return false;
+        return false;*/
     }
 }
