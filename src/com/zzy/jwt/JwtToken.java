@@ -67,15 +67,15 @@ public class JwtToken {
     }
 
     public static void main(String a[]){
-       /* Object ss = BinaryCodec.class.getProtectionDomain().getCodeSource().getLocation();
+        Object ss = BinaryCodec.class.getProtectionDomain().getCodeSource().getLocation();
         System.out.println(ss);
 
         String token = JwtToken.createToken();
-        System.out.println(token);*/
-        String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmciOiJ6enkiLCJuYW1lIjoi5byg5bCP5YehIiwiZXhwIjoxNTM0OTIzMjU5LCJhZ2UiOiIyOCJ9.eCvyV_iWtffg-IKnmZAiIjxjj2j7GZ1IGg-NptsEGJg";
+        System.out.println(token);
+       /* String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmciOiJ6enkiLCJuYW1lIjoi5byg5bCP5YehIiwiZXhwIjoxNTM0OTIzMjU5LCJhZ2UiOiIyOCJ9.eCvyV_iWtffg-IKnmZAiIjxjj2j7GZ1IGg-NptsEGJg";
         Map<String,Claim>  map = JwtToken.verifyToken(token);
         System.out.println(map);//如果token失效，map为null
        String userName = map.get("userName").asString();
-        System.out.println(userName);
+        System.out.println(userName);*/
     }
 }

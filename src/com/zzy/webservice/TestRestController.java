@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sso.model.AjaxMsg;
+import com.zzy.webservice.AjaxMsg;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
