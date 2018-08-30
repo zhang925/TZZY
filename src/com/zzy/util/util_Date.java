@@ -13,7 +13,21 @@ import java.util.GregorianCalendar;
 public class util_Date {
 	/**把String(yyyy-MM-dd)字符转换成Date方法1*/
 	public static Date strToDate1(String strdate){
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟  
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟
+		java.util.Date date = null;
+		try {
+			date = sdf.parse(strdate);
+		} catch (ParseException e) {
+			System.out.println("输出时间格式不正确！");
+			e.printStackTrace();
+		}
+		return date;
+	}
+	public static Date strToDate1(String strdate,String format){
+		if(format==null || "".equals(format)){
+			return strToDate1( strdate);
+		}
+		SimpleDateFormat sdf=new SimpleDateFormat(format);//小写的mm表示的是分钟
 		java.util.Date date = null;
 		try {
 			date = sdf.parse(strdate);
