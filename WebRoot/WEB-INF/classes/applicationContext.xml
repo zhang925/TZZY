@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd 
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+<!--    如果web.xml的classpath:applicationContext*.xml  是这样的，就不要导入了，会导致重复加载两次 -->
+<!--      <import resource="applicationContext-service.xml"/> -->
+     <!--打开注解模式 
+     <context:annotation-config /> -->
+     <!-- 开启自动扫描Bean，一般配到基础包即可。使用这个可以不配置-打开注解模式 -->  
+     <context:component-scan base-package="com.zzy.model" /> 
+	
+ <!-- 引入 jdbc.properties 文件  -->
+	<bean id="config" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 配置DataSource -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"></property>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>	
+		
+		
+		
+		<!-- 初始化连接数量 -->
+        <property name="initialSize" value="5" />
+        <!-- 最大并发连接数 -->
+        <property name="maxActive" value="50" />
+        <!-- 最大空闲连接数 -->
+        <property name="maxIdle" value="30" />
+        <!-- 最小空闲连接数 -->
+        <property name="minIdle" value="3" />
+        <!-- 配置获取连接等待超时的时间 -->     
+        <property name="maxWait" value="60000" />
+        <!-- 超过时间限制是否回收 -->
+        <property name="removeAbandoned" value="true" />
+        <!-- 超过时间限制多长； -->
+        <property name="removeAbandonedTimeout" value="180" />
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+        <!-- 用来检测连接是否有效的sql，要求是一个查询语句-->
+        <property name="validationQuery" value="SELECT 1 FROM DUAL" />
+        <!-- 申请连接的时候检测 -->
+        <property name="testWhileIdle" value="true" />
+        <!-- 申请连接时执行validationQuery检测连接是否有效，配置为true会降低性能 -->
+        <property name="testOnBorrow" value="false" />
+        <!-- 归还连接时执行validationQuery检测连接是否有效，配置为true会降低性能  -->
+        <property name="testOnReturn" value="false" />
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+       <!--  <property name="poolPreparedStatements" value="true" />     
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="50" /> -->
+        <!--属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：                 
+                监控统计用的filter:stat
+                日志用的filter:log4j
+               防御SQL注入的filter:wall -->
+<!--         <property name="filters" value="stat" />    -->
+
+
+		
+	</bean>
+	
+	<!--  配置	sessionFactory	 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		p:dataSource-ref="dataSource" >
+
+		<!-- 扫描的实体 所在的包 -->
+		<property name="packagesToScan">
+			<list>
+				<value>com.zzy.model.*</value>
+				<value>com.zzy.model</value>
+			</list>
+		</property>
+
+		<!--<property name="annotatedClasses">
+             <list>
+				&lt;!&ndash; 每次新添加实体在这配置一下就行了    &ndash;&gt;
+             	<value>com.zzy.model.User</value>
+             	<value>com.zzy.model.Files</value>
+             	<value>com.zzy.model.Worklog</value>
+             	<value>com.zzy.model.BornInfo</value>
+             	<value>com.zzy.model.Classic</value>
+             	<value>com.zzy.model.district.Area</value>
+             	<value>com.zzy.model.district.City</value>
+             	<value>com.zzy.model.district.Province</value>
+             	<value>com.zzy.model.district.District</value>
+             	<value>com.zzy.model.SysConfigure</value>
+             	<value>com.zzy.model.mail.Txl</value>
+             	<value>com.zzy.model.mail.Zmail</value>
+             	<value>com.zzy.model.mail.TxlGroup</value>
+             	<value>com.zzy.model.mail.ZmailRelationShip</value>
+             </list>
+        </property>-->
+
+
+
+		<property name="hibernateProperties">
+			<props>
+<!--<prop key="hibernate.dialect">org.hibernate.dialect.Oracle9Dialect</prop>-->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<!-- 显示 sql -->
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<!-- 缓存 -->
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.EhCacheRegionFactory</prop>
+				<!-- 自动更新表 -->
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+		
+	</bean>
+	
+	<!-- 事务的配置 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">  
+    	<property name="sessionFactory" ref="sessionFactory" />  
+	</bean> 
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="search*" read-only="true" />
+			<tx:method name="query*" read-only="true" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="del*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="do*" propagation="REQUIRED" />
+			<tx:method name="get*" propagation="REQUIRED" />
+			<!--hibernate4必须配置为开启事务 否则 getCurrentSession()获取不到-->  
+            <tx:method name="get*" propagation="REQUIRED" read-only="true" />  
+            <tx:method name="count*" propagation="REQUIRED" read-only="true" />  
+            <tx:method name="find*" propagation="REQUIRED" read-only="true" />  
+            <tx:method name="list*" propagation="REQUIRED" read-only="true" /> 
+			<tx:method name="*" propagation="REQUIRED" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	<!-- SpringMVC 和 hibenate4 结合必须加 并且在services 中加上 @Transactional 
+	否则  No Session found for current thread 异常-->
+	<tx:annotation-driven transaction-manager="transactionManager"/> 
+	<aop:config>
+		<aop:pointcut id="mypointcut" expression="execution(* *.service.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="mypointcut" />		
+	</aop:config>	
+	 
+	<bean id="basedao" class="com.zzy.dao.impl.BaseDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+
+
+
+
+</beans>
