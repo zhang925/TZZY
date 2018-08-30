@@ -1,4 +1,4 @@
-package com.sso.model;
+package com.zzy.webservice;
 
 public class AjaxMsg {
 
