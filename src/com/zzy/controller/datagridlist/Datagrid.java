@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.opensymphony.xwork2.ActionContext;
+import com.sun.deploy.net.HttpResponse;
 import com.zzy.model.Category;
+import org.apache.struts2.ServletActionContext;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
@@ -40,11 +44,7 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  * @author zzy
  */
 public class Datagrid {
-
-
 	private static UtilService utilService;
-
-
 	/**
 	 * DataGrid 的通用 Criteria查询
 	 * @param request
@@ -70,11 +70,9 @@ public class Datagrid {
 		util_Json.jsonForEasyUI(list, total , response);
 	}
 
-	public static void list(Class cla){
-
+	public static void list(Class cla,HttpServletResponse response){
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-
-		HttpServletResponse response = ((ServletWebRequest)RequestContextHolder.getRequestAttributes()).getResponse();
+		//HttpServletResponse response = //((ServletWebRequest)RequestContextHolder.getRequestAttributes()).getResponse(); spring 4.0 支持，这里是 3.0
 		//解决 filter 中注入  systemService 失败
 		ServletContext sc = request.getSession().getServletContext();
 		XmlWebApplicationContext cxt = (XmlWebApplicationContext) WebApplicationContextUtils.getWebApplicationContext(sc);

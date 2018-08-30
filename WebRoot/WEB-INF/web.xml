@@ -14,11 +14,13 @@
     <servlet-name>uploadServlet</servlet-name>
     <url-pattern>/uploadServlet</url-pattern>
   </servlet-mapping>
-  
-  
-  
-  
 
+
+
+	<!--  快捷获取 request 和 response 属性  -->
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
   
   
   

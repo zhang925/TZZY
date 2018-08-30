@@ -40,8 +40,6 @@ public class AreaController{
 	private UserService userService;
 	@Autowired
 	private AreaService areaService;
-	@Autowired
-	private UtilService utilService;
 	
 	/**
 	 * 查看Area列表
@@ -50,7 +48,7 @@ public class AreaController{
 	@RequestMapping(value="list.do")
 	public void list(HttpServletRequest request,HttpServletResponse response){
 		//调用DataGrid通用查询方法[需要查询条件-->在类Serach中写查询条件即可]
-		Datagrid.list(request,response,Area.class,utilService);
+		Datagrid.list(Area.class,response);
 	}
 	 
 	

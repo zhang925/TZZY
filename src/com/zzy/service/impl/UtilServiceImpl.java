@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.zzy.dao.BaseDao;
 import org.hibernate.*;
 import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import com.zzy.dao.BaseDao;
-import com.zzy.model.BornInfo;
 import com.zzy.model.SysConfigure;
 import com.zzy.model.User;
 import com.zzy.model.district.City;
@@ -21,10 +20,9 @@ import com.zzy.util.util_Empty;
 
 @Transactional
 @Service()
-public class UtilServiceImpl implements UtilService {
+public class UtilServiceImpl  implements UtilService {
 
-	@Autowired
-	private BaseDao<BornInfo> basedao;
+
 
 	@Autowired
 	private SessionFactory sessionFactory;

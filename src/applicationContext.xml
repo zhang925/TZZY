@@ -159,7 +159,10 @@
 	<bean id="basedao" class="com.zzy.dao.impl.BaseDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	
+
+	<bean id="utilService" class="com.zzy.service.impl.UtilServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
 
 
 
