@@ -1,0 +1,33 @@
+	var initExpertid = "$!{initExpertid}";//后台传过来的 userid
+
+			var m = 0;
+            $("[data-field='userId']").children().each(function(){//格式化 类型
+                var thisid = $(this).text();
+
+                if(initExpertid){
+                    var initArr = initExpertid.split(",");
+                    for(var k=0;k<initArr.length;k++){
+						var initid = initArr[k];
+                        if(thisid == initid ){
+                            res.data[m-1]["LAY_CHECKED"]='true'; //这里才是真正的有效勾选
+                            var index= res.data[m]['LAY_TABLE_INDEX'];//找到对应数据改变勾选样式，呈现出选中效果
+                            var thischeck = document.getElementsByName("layTableCheckbox")[index];
+                            if(thischeck){
+                                thischeck.checked = true;
+                                thischeck.setAttribute("checked","checked");
+                                thischeck.nextElementSibling.setAttribute("class","layui-unselect layui-form-checkbox layui-form-checked");
+                            }
+                        }
+                    }
+                }
+
+				m = m +1 ;
+
+                //设置全选checkbox的选中状态，只有改变LAY_CHECKED的值， table.checkStatus才能抓取到选中的状态
+                var checkStatus = table.checkStatus('myTable');
+                if(checkStatus.isAll){
+                    $('.layui-table-header th[data-field="0"] input[type="checkbox"]').prop('checked', true);
+                    $('.layui-table-header th[data-field="0"] input[type="checkbox"]').next().addClass('layui-form-checked');
+                }
+
+            });
