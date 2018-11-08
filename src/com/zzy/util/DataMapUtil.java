@@ -7,8 +7,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.poi.ss.usermodel.DateUtil;
-
 import com.zzy.model.tempModel;
 public class DataMapUtil {
     
@@ -39,7 +37,7 @@ public class DataMapUtil {
                         	SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
                     		dataMap.put(key, dataMap.put(key, sdf.format((Date)value)));
                         }else if("java.sql.Clob".equals(value.getClass().getName())){
-                        	dataMap.put(key, util_StrChange.ClobToString((Clob)value));
+                        	dataMap.put(key, Util_StrToClob.ClobToString((Clob)value));
                         }else{
                         	 dataMap.put(key, value);
                         }//其他数据类型再说[clob]
