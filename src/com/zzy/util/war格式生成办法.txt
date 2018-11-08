@@ -1,0 +1,2 @@
+dos进到目录
+jar -cvf bestsunny.war *.*
