@@ -1,2 +1,0 @@
-Object ss = BinaryCodec.class.getProtectionDomain().getCodeSource().getLocation();
-        System.out.println(ss);

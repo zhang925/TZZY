@@ -26,6 +26,6 @@
     <orderEntry type="library" name="java-jwt-3.1.0" level="project" />
     <orderEntry type="library" name="jackson-annotations-2.8.2" level="project" />
     <orderEntry type="library" name="activation-1.1" level="project" />
-    <orderEntry type="library" name="httpclient-4.1.1" level="project" />
+    <orderEntry type="library" name="httpclient-4.5.6" level="project" />
   </component>
 </module>

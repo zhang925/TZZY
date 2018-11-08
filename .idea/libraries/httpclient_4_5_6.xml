@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="httpclient-4.5.6">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/httppclient/httpclient-4.5.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/httppclient/httpcore-4.4.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
