@@ -32,7 +32,7 @@
 				<td>1</td>
 				<td><a href="schedule_rmbjh.jsp">第五套人民币风景</a></td>
 				<td>(2010年--20??年)</td>
-				<td> 【<span style="color: blue;">3</span>/<span style="color: red;">6</span>】</td>
+				<td> 【<span style="color: blue;">4</span>/<span style="color: red;">6</span>】</td>
 			</tr>
 			<tr>
 				<td>2</td>
@@ -70,7 +70,12 @@
 				<td>(计划2018年8月)</td>
 				<td>【2018年8月26日早】</td>
 			</tr>
-
+			<tr>
+				<td>8</td>
+				<td><a href="schedule_taishan.jsp">泰山</a></td>
+				<td>(计划2018年10月)</td>
+				<td>【2018年8月10日02早上】</td>
+			</tr>
 
 
 			<tr>

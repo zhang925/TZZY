@@ -43,7 +43,7 @@
 				<img alt="10元风景" title="10元风景" src="../../images/image/rmbfj/10yuanfj.jpg" width="300" height="200"><br/>
 			</td>
 			<td>
-				<span>五元：泰山</span>
+				<span>五元：泰山<i style="color: blue;">[2018年10月3日]</i></span>
 				<img alt="5元风景" title="50元风景" src="../../images/image/rmbfj/5yuanfj.jpg" width="300" height="200"><br/>
 			</td>
 			<td>
