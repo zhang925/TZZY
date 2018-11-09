@@ -74,7 +74,7 @@
 				<td>8</td>
 				<td><a href="schedule_taishan.jsp">泰山</a></td>
 				<td>(计划2018年10月)</td>
-				<td>【2018年8月10日02早上】</td>
+				<td>【2018年10月2日早】</td>
 			</tr>
 
 
