@@ -154,6 +154,7 @@ public class util_Json {
 		response.setCharacterEncoding("utf-8");//指定为utf-8
 		try {
 			response.getWriter().write(obj.toString());//转化为JSOn格式
+			response.getWriter().close();
 		} catch (IOException e) {
 			System.out.println("异常！");
 			e.printStackTrace();
