@@ -12,7 +12,7 @@
 	<title>用户信息修改</title>
 	<base href="<%=basePath%>">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<%-- 引入easuui  --%>
+	<%-- 引入layui  --%>
 	<link rel="stylesheet" href="<%=basePath%>plugins_sunny/layerui/layui-2.1.5/src/css/layui.css">
 	<script src="<%=basePath%>plugins_sunny/jquery/jquery-1.9.1.min.js"></script>
 	<script src="<%=basePath%>plugins_sunny/layerui/layui-2.1.5/src/layui.js"></script>
