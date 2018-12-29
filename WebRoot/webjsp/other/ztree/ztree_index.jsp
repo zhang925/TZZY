@@ -16,6 +16,8 @@
    <div style="margin: 20px;">
 
        <a href="ztree_jbsl.jsp" target="_blank">基本示例</a> &nbsp;&nbsp;&nbsp;
+       <a href="ztree_fxk.jsp" target="_blank">复选框测试</a> &nbsp;&nbsp;&nbsp;
+
        <a href="ztree_sjk.jsp" target="_blank">读取数据库信息</a> &nbsp;&nbsp;&nbsp;
 
        <a href="ztree_menu_index.jsp" target="_blank">菜单</a> &nbsp;&nbsp;&nbsp;

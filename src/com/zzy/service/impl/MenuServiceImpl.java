@@ -167,7 +167,13 @@ public class MenuServiceImpl implements MenuService {
             vo.setId(root.getId());
             vo.setName(root.getMenuname());
             vo.setUrl(root.getUrl());
-            vo.setChildNodes(getTree(root.getId()));
+            vo.setChildren(getTree(root.getId()));
+            vo.setNocheck(false);//是否不让选择
+            vo.setChecked(false);//节点的 checkBox / radio 的 勾选状态。
+            vo.setOpen(false);//是否展开
+            //chkDisabled;//1、设置节点的 checkbox / radio 是否禁用
+            //isParent;//记录 treeNode 节点是否为父节点。
+            //target;//设置点击节点后在何处打开 url。
             vos.add(vo);
         }
         return vos;
