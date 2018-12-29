@@ -6,13 +6,31 @@
 %>
 <html>
 <head>
-    <title>zTree读取数据库信息</title>
+    <title>zTree_menu_index</title>
     <link rel="stylesheet" href="<%=basePath%>plugins_sunny/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
     <script type="text/javascript" src="<%=basePath%>plugins_sunny/ztree/js/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="<%=basePath%>plugins_sunny/ztree/js/jquery.ztree.core-3.5.js"></script>
     <script type="text/javascript" src="<%=basePath%>plugins_sunny/ztree/js/jquery.ztree.excheck-3.5.min.js"></script>
     <script type="text/javascript" src="<%=basePath%>plugins_sunny/ztree/js/jquery.ztree.exedit-3.5.min.js"></script>
     <script type="text/javascript" src="<%=basePath%>plugins_sunny/ztree/js/jquery.ztree.exhide-3.5.min.js"></script>
+
+    <style>
+
+        #editor{
+            margin: 0;
+            padding: 0;
+            width: 0;
+            height: 0;
+            border-left: 10px solid green;
+            border-right: 10px solid red;
+            border-top: 10px solid yellow;
+            border-bottom: 10px solid blue;
+            border-radius: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
 
 
 
@@ -35,11 +53,33 @@
             console.log("- - - - - - - - - - - - - - - - - - - - - - - - - - -  - --")
         }
         function zTreeOnRightClick(event, treeId, treeNode) {
-            console.log("zTreeOnRightClick:")
-            console.log(treeNode.id + ", " + treeNode.name + "," + treeNode.checked)
-            console.log("- - - - - - - - - - - - - - - - - - - - - - - - - - -  - --")
+            if(treeNode){//防止点击空白报错
+                console.log("zTreeOnRightClick:")
+                console.log(treeNode.id + ", " + treeNode.name + "," + treeNode.checked)
+                console.log("- - - - - - - - - - - - - - - - - - - - - - - - - - -  - --")
+                editor(treeNode.id);
+
+            }
+
         }
 
+        function getMousePos(event) {
+            var e = event || window.event;
+            var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+            var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+            var x = e.pageX || e.clientX + scrollX;
+            var y = e.pageY || e.clientY + scrollY;
+            //alert('x: ' + x + '\ny: ' + y);
+            return { 'x': x, 'y': y };
+        }
+
+        function editor(id,e) {
+            var div=document.getElementById("editor");
+            var point = getMousePos();
+            div.style.left=point.x+"px";
+            div.style.top=point.y+"px";
+            $("#editor").show();
+        }
 
 
 
@@ -75,7 +115,8 @@
 
                 onDblClick : zTreeOnDblClick,// zTree 上鼠标双击之后的事件回调函数
 
-                onRightClick : zTreeOnRightClick// zTree 上鼠标右键点击之后的事件回调函数
+                onRightClick : zTreeOnRightClick,// zTree 上鼠标右键点击之后的事件回调函数
+
             }
 
         };
@@ -83,8 +124,19 @@
         var zNodes =  loadTreeData();
         $(document).ready(function(){
             zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+
+           /* //给 tree 绑定一个 mouseleave 事件
+            $("#treeDemo").bind("mouseleave",function () {// span
+                $("#editor").hide();
+            });*/
+
         });
 
+        function onclickBody() {//防止，子级别和父级别传播，不做处理
+            $("#editor").hide();
+        }
+        //e = e||event;
+        //e.stopPropagation();
     </script>
 
 
@@ -142,20 +194,30 @@
         for(var i=0;i<nodes.length;i++) {
             v = nodes[i].id + ":" + nodes[i].name + "\n" + v;
         }
-        console.log(v);
     }
 
 
 
 </script>
 </head>
-    <body>
+    <body onclick="onclickBody()">
+
+        <div id="editor" style="display: none;z-index: 9999;">
+            <div>
+                <a class="layui-btn layui-btn-normal" onclick="alert('详情')" >详情</a><br/>
+                <a class="layui-btn" onclick="alert('添加')">添加</a> <br/>
+                <a class="layui-btn layui-btn-warm" onclick="alert('修改')">修改</a><br/>
+                <a class="layui-btn layui-btn-danger" onclick="alert('删除')" >删除</a>
+            </div>
+        </div>
+
+
        <div style="margin:50px;border: 1px solid red;width: 200px; ">
            <div><button id="addMenu" >添加一级菜单</button></div>
 
 
            <div>
-               <ul id="treeDemo" class="ztree"></ul>
+               <ul id="treeDemo" class="ztree" onmouseleave="onmouseleaves()"></ul>
            </div>
 
            <button onclick="xz()">获取选中信息</button>
