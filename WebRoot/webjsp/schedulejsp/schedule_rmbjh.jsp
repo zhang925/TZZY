@@ -44,7 +44,7 @@
 			</td>
 			<td>
 				<span>五元：泰山<i style="color: blue;">[2018年10月3日]</i></span>
-				<img alt="5元风景" title="50元风景" src="../../images/image/rmbfj/5yuanfj.jpg" width="300" height="200"><br/>
+				<img alt="5元风景" title="5元风景" src="../../images/image/rmbfj/5yuanfj.jpg" width="300" height="200"><br/>
 			</td>
 			<td>
 				<span>一元：西湖(三潭印月)<i style="color: blue;">[2016年8月6日]</i></span>

@@ -63,7 +63,7 @@
         </tr>
 
         <tr>
-            <td>echarts</td>
+            <td><a target="_blank" href="webjsp/other/echarts/echarts_index.jsp">echarts教程[ 4.2.0 ]</a></td>
             <td>2017年</td>
         </tr>
 
