@@ -38,16 +38,25 @@
     <script>
         //点击树
         function zTreeOnCheck(event, treeId, treeNode) {//这个不好，父级元素跟着checked了，最好别用，重复调用了。
+            if(!treeNode){
+                return;
+            }
             console.log("zTreeOnCheck:")
             console.log(treeNode.id + ", " + treeNode.name + "," + treeNode.checked)
             console.log("- - - - - - - - - - - - - - - - - - - - - - - - - - -  - --")
         }
         function zTreeOnClick(event, treeId, treeNode) {
+            if(!treeNode){
+                return;
+            }
             console.log("zTreeOnClick:")
             console.log(treeNode.id + ", " + treeNode.name + "," + treeNode.checked)
             console.log("- - - - - - - - - - - - - - - - - - - - - - - - - - -  - --")
         }
         function zTreeOnDblClick(event, treeId, treeNode) {
+            if(!treeNode){
+                return;
+            }
             console.log("zTreeOnDblClick:")
             console.log(treeNode.id + ", " + treeNode.name + "," + treeNode.checked)
             console.log("- - - - - - - - - - - - - - - - - - - - - - - - - - -  - --")
@@ -194,6 +203,7 @@
         for(var i=0;i<nodes.length;i++) {
             v = nodes[i].id + ":" + nodes[i].name + "\n" + v;
         }
+        console.log(v)
     }
 
 
@@ -217,7 +227,7 @@
 
 
            <div>
-               <ul id="treeDemo" class="ztree" onmouseleave="onmouseleaves()"></ul>
+               <ul id="treeDemo" class="ztree" ></ul>
            </div>
 
            <button onclick="xz()">获取选中信息</button>
